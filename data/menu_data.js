@@ -209,7 +209,7 @@ window.MENU_DATA = {
       "price": 540,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-1.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -219,7 +219,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
