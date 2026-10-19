@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Deli Napolitan — Menü Yönetim Paneli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --color-forest: #31543e;
+      --color-forest-dark: #223b2c;
+      --color-forest-light: #416d52;
+      --color-cream: #fbfaf7;
+      --color-cream-dark: #f0ede4;
+      --color-cream-border: #e6e2d8;
+      --color-dark: #1b241e;
+      --color-muted: #64748b;
+      --color-white: #ffffff;
+      --color-accent: #c5a059;
+      --color-danger: #ef4444;
+      --color-danger-light: #fef2f2;
+      --color-success: #10b981;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 6px 20px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--color-cream);
+      color: var(--color-dark);
+      line-height: 1.5;
+      padding-bottom: 90px;
+    }
+
+    /* TOP HEADER */
+    .admin-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(251, 250, 247, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-cream-border);
+      padding: 12px 18px;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--color-forest);
+      border: 1px solid var(--color-cream-border);
+    }
+
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-forest);
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--color-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn-outline {
+      background: var(--color-white);
+      color: var(--color-dark);
+      border: 1px solid var(--color-cream-border);
+    }
+
+    .btn-outline:hover {
+      background: var(--color-cream-dark);
+    }
+
+    .btn-primary {
+      background: var(--color-forest);
+      color: var(--color-cream);
+      box-shadow: 0 4px 12px rgba(49, 84, 62, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-forest-dark);
+    }
+
+    .btn-publish {
+      background: #15803d;
+      color: #ffffff;
+      padding: 8px 16px;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(21, 128, 61, 0.3);
+    }
+
+    .btn-publish:hover {
+      background: #166534;
+    }
+
+    .unsaved-badge {
+      background: #ef4444;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 10px;
+      margin-left: 2px;
+      display: none;
+    }
+
+    /* MAIN CONTAINER */
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    /* STATUS BANNER */
+    .status-banner {
+      background: var(--color-white);
+      border: 1px solid var(--color-cream-border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.85rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--color-success);
+    }
+
+    .status-dot.warning {
+      background: #f59e0b;
+    }
+
+    /* CATEGORY & CONTROLS TOOLBAR */
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .cat-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .cat-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-tab-btn {
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--color-white);
+      border: 1px solid var(--color-cream-border);
+      color: var(--color-dark);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .cat-tab-btn.active {
+      background: var(--color-forest);
+      color: var(--color-cream);
+      border-color: var(--color-forest);
+      box-shadow: 0 2px 8px rgba(49, 84, 62, 0.2);
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      max-width: 340px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 8px 14px 8px 34px;
+      font-size: 0.85rem;
+      border-radius: 20px;
+      border: 1px solid var(--color-cream-border);
+      background: var(--color-white);
+      outline: none;
+      font-family: inherit;
+    }
+
+    .search-input:focus {
+      border-color: var(--color-forest);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-muted);
+      pointer-events: none;
+    }
+
+    /* PRODUCTS GRID */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .product-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-cream-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .product-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #d1cbbd;
+    }
+
+    .card-top {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .card-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      background: var(--color-cream-dark);
+      flex-shrink: 0;
+      border: 1px solid var(--color-cream-border);
+    }
+
+    .card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-cat-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-forest);
+      background: rgba(49, 84, 62, 0.08);
+      padding: 2px 7px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .card-title-tr {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-title-en {
+      font-size: 0.8rem;
+      color: var(--color-muted);
+      font-style: italic;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 4px;
+    }
+
+    .card-price-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-price {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-forest);
+    }
+
+    .card-spicy {
+      font-size: 0.8rem;
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: #4b5563;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-allergens {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .allergen-tag {
+      font-size: 0.7rem;
+      background: #f3f4f6;
+      color: #374151;
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--color-cream-border);
+      margin-top: auto;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .btn-edit-item {
+      flex: 1;
+      background: var(--color-forest);
+      color: var(--color-cream);
+    }
+
+    .btn-del-item {
+      background: var(--color-danger-light);
+      color: var(--color-danger);
+      padding: 8px 12px;
+    }
+
+    /* MODAL (FULL SCREEN ON MOBILE, DIALOG ON DESKTOP) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(27, 36, 30, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--color-white);
+      width: 100%;
+      max-width: 860px;
+      max-height: 94vh;
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalSlideUp {
+      from {
+        transform: translateY(20px) scale(0.98);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--color-cream-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-cream);
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-forest);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-close-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--color-white);
+      border: 1px solid var(--color-cream-border);
+      color: var(--color-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      background: var(--color-cream-dark);
+    }
+
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--color-cream-border);
+      background: var(--color-cream);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* FORM ELEMENTS & DUAL-COLUMN */
+    .form-section-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-forest);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--color-cream-border);
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 680px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lang-flag {
+      font-size: 0.95rem;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      border: 1px solid var(--color-cream-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-white);
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--color-forest);
+      box-shadow: 0 0 0 3px rgba(49, 84, 62, 0.1);
+    }
+
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+      line-height: 1.4;
+    }
+
+    /* PHOTO UPLOAD BOX */
+    .photo-upload-box {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      background: var(--color-cream);
+      padding: 14px;
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--color-cream-border);
+    }
+
+    @media (max-width: 550px) {
+      .photo-upload-box {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+    }
+
+    .photo-preview {
+      width: 110px;
+      height: 110px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      background: #e2e8f0;
+      border: 1px solid var(--color-cream-border);
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+      margin: 0 auto;
+    }
+
+    .photo-controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .photo-hint {
+      font-size: 0.78rem;
+      color: var(--color-muted);
+      line-height: 1.35;
+    }
+
+    /* ALLERGEN SELECTOR PILLS */
+    .allergens-box {
+      background: #fbfaf7;
+      border: 1px solid var(--color-cream-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .allergens-intro {
+      font-size: 0.8rem;
+      color: var(--color-muted);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .allergens-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 500px) {
+      .allergens-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .allergen-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      background: var(--color-white);
+      border: 1px solid var(--color-cream-border);
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #374151;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .allergen-pill:hover {
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .allergen-pill.selected {
+      background: var(--color-forest);
+      color: var(--color-cream);
+      border-color: var(--color-forest);
+      box-shadow: 0 2px 6px rgba(49, 84, 62, 0.2);
+    }
+
+    .allergen-check {
+      margin-left: auto;
+      font-size: 0.75rem;
+      display: none;
+    }
+
+    .allergen-pill.selected .allergen-check {
+      display: inline-block;
+    }
+
+    .allergen-auto-preview {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: var(--color-white);
+      border: 1px solid #d1fae5;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      color: #065f46;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .auto-preview-title {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* SEGMENTED SPICY SELECTOR */
+    .spicy-selector {
+      display: flex;
+      gap: 6px;
+    }
+
+    .spicy-btn {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-cream-border);
+      background: var(--color-white);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+
+    .spicy-btn.active {
+      background: #fef2f2;
+      border-color: #f87171;
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
+    /* GITHUB SETTINGS MODAL */
+    .github-token-input {
+      font-family: monospace;
+      letter-spacing: 0.05em;
+    }
+
+    .token-guide {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      font-size: 0.8rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    .token-guide ol {
+      padding-left: 20px;
+      margin-top: 6px;
+    }
+
+    /* FLOATING BOTTOM BAR (MOBILE QUICK ACTIONS) */
+    .mobile-bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--color-cream-border);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 90;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+    }
+
+    .bar-info {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-muted);
+    }
+
+    /* PROGRESS SPINNER */
+    .loading-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(27, 36, 30, 0.8);
+      z-index: 300;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      gap: 16px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .loading-overlay.open {
+      display: flex;
+    }
+
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border: 4px solid rgba(255,255,255,0.2);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header class="admin-header">
+    <div class="header-inner">
+      <div class="brand-area">
+        <img src="assets/logo.png" alt="Deli Napolitan" class="brand-logo" onerror="this.style.display='none'">
+        <div>
+          <h1 class="brand-title">DELI NAPOLITAN</h1>
+          <div class="brand-subtitle">Menü Yönetim Paneli</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-outline" onclick="openGithubSettingsModal()">
+          <span>🔑</span>
+          <span>GitHub</span>
+        </button>
+        <a href="index.html" target="_blank" class="btn btn-outline">
+          <span>↗</span>
+          <span>Menü</span>
+        </a>
+        <button class="btn btn-publish" onclick="handlePublishChanges()">
+          <span>💾</span>
+          <span>Yayınla</span>
+          <span class="unsaved-badge" id="header-unsaved-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="admin-container">
+
+    <!-- STATUS BANNER -->
+    <div class="status-banner">
+      <div class="status-item">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">Menü Hazır: 31 Ürün</span>
+      </div>
+      <div class="status-item" style="gap: 10px;">
+        <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem;" onclick="exportJSONFile()">
+          <span>⬇</span> JSON İndir (Yedek)
+        </button>
+        <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem;" onclick="document.getElementById('json-import-input').click()">
+          <span>⬆</span> JSON Yükle
+        </button>
+        <input type="file" id="json-import-input" accept=".json" style="display:none;" onchange="importJSONFile(event)">
+      </div>
+    </div>
+
+    <!-- TOOLBAR (CATEGORIES, SEARCH, ADD BUTTON) -->
+    <div class="controls-bar">
+      <div class="cat-tabs" id="cat-tabs">
+        <button class="cat-tab-btn active" onclick="filterByCategory('all')">Tümü (31)</button>
+        <button class="cat-tab-btn" onclick="filterByCategory('ortaya')">Ortaya</button>
+        <button class="cat-tab-btn" onclick="filterByCategory('corba')">Çorba</button>
+        <button class="cat-tab-btn" onclick="filterByCategory('pizza')">Pizza</button>
+        <button class="cat-tab-btn" onclick="filterByCategory('tatli')">Tatlı</button>
+        <button class="cat-tab-btn" onclick="filterByCategory('icecek')">İçecek</button>
+      </div>
+
+      <div style="display: flex; gap: 8px; width: 100%; max-width: 440px;">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" id="search-input" placeholder="Ürün ara (TR / EN)..." oninput="handleSearch(this.value)">
+        </div>
+        <button class="btn btn-primary" onclick="openNewItemModal()">
+          <span>+</span>
+          <span>Yeni Ürün</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PRODUCTS GRID -->
+    <div class="products-grid" id="products-grid">
+      <!-- Generated via JS -->
+    </div>
+
+  </main>
+
+  <!-- FLOATING BOTTOM BAR (MOBILE QUICK SAVE) -->
+  <div class="mobile-bottom-bar">
+    <div class="bar-info" id="mobile-bar-info">
+      <span>0 değişiklik bekliyor</span>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <button class="btn btn-outline" style="padding: 7px 12px; font-size: 0.8rem;" onclick="openNewItemModal()">
+        <span>+ Yeni Ürün</span>
+      </button>
+      <button class="btn btn-publish" onclick="handlePublishChanges()">
+        <span>💾 Canlıya Al</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- PRODUCT EDIT MODAL -->
+  <div class="modal-overlay" id="edit-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-item-title">
+          <span>✏️</span> Ürün Düzenle
+        </div>
+        <button class="modal-close-btn" onclick="closeEditModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- 1. FOTOĞRAF ALANI (1 ADET FOTOĞRAF) -->
+        <div>
+          <div class="form-section-title">
+            <span>📷</span> 1 Adet Ürün Fotoğrafı
+          </div>
+          <div class="photo-upload-box">
+            <img src="assets/product_placeholder.jpg" alt="Ürün Fotoğrafı" class="photo-preview" id="edit-photo-preview">
+            <div class="photo-controls">
+              <input type="file" id="edit-photo-file" accept="image/*" style="display: none;" onchange="handlePhotoSelected(event)">
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button type="button" class="btn btn-primary" onclick="document.getElementById('edit-photo-file').click()">
+                  <span>📁</span> Fotoğraf Seç / Değiştir
+                </button>
+                <button type="button" class="btn btn-outline" onclick="resetProductPhoto()">
+                  <span>✕</span> Sıfırla
+                </button>
+              </div>
+              <div class="photo-hint" id="photo-status-hint">
+                Kare (1:1) veya yatay formatta net bir yemek fotoğrafı seçin. Otomatik optimize edilir.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. TEMEL BİLGİLER (FİYAT, KATEGORİ, ACILIK) -->
+        <div>
+          <div class="form-section-title">
+            <span>🏷️</span> Temel Bilgiler
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Fiyat (₺)</label>
+              <input type="number" class="form-input" id="edit-price" placeholder="Örn: 390" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Kategori</label>
+              <select class="form-select" id="edit-category">
+                <option value="ortaya">Ortaya</option>
+                <option value="corba">Çorba</option>
+                <option value="pizza">Pizza</option>
+                <option value="tatli">Tatlı</option>
+                <option value="icecek">İçecek</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2" style="margin-top: 12px;">
+            <div class="form-group">
+              <label class="form-label">Acılık Derecesi</label>
+              <div class="spicy-selector" id="spicy-selector">
+                <button type="button" class="spicy-btn active" data-spicy="0" onclick="setSpicyLevel(0)">Acısız</button>
+                <button type="button" class="spicy-btn" data-spicy="1" onclick="setSpicyLevel(1)">🌶️ Az</button>
+                <button type="button" class="spicy-btn" data-spicy="2" onclick="setSpicyLevel(2)">🌶️🌶️ Orta</button>
+                <button type="button" class="spicy-btn" data-spicy="3" onclick="setSpicyLevel(3)">🌶️🌶️🌶️ Çok</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Özel Rozet (Opsiyonel)</label>
+              <input type="text" class="form-input" id="edit-badge" placeholder="Örn: Şefin İmzası / Yeni">
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. AYNI EKRANDA HEM TÜRKÇE HEM İNGİLİZCE BİLGİLER -->
+        <div>
+          <div class="form-section-title">
+            <span>🌐</span> İki Dilde İsim ve Açıklama (TR & EN)
+          </div>
+          
+          <div class="form-grid-2">
+            <!-- TÜRKÇE İSİM -->
+            <div class="form-group">
+              <label class="form-label"><span class="lang-flag">🇹🇷</span> Ürün Adı (Türkçe)</label>
+              <input type="text" class="form-input" id="edit-name-tr" placeholder="Örn: taze peynirli zeytin salatası" required>
+            </div>
+            <!-- İNGİLİZCE İSİM -->
+            <div class="form-group">
+              <label class="form-label"><span class="lang-flag">🇬🇧</span> Product Name (English)</label>
+              <input type="text" class="form-input" id="edit-name-en" placeholder="e.g: fresh cheese & olive salad" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2" style="margin-top: 12px;">
+            <!-- TÜRKÇE AÇIKLAMA -->
+            <div class="form-group">
+              <label class="form-label"><span class="lang-flag">🇹🇷</span> Açıklama & İçerik (Türkçe)</label>
+              <textarea class="form-textarea" id="edit-desc-tr" placeholder="İçindekiler, malzemeler, sunum detayı..."></textarea>
+            </div>
+            <!-- İNGİLİZCE AÇIKLAMA -->
+            <div class="form-group">
+              <label class="form-label"><span class="lang-flag">🇬🇧</span> Description & Ingredients (English)</label>
+              <textarea class="form-textarea" id="edit-desc-en" placeholder="Ingredients, recipe notes, preparation..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. ALERJEN SEÇİMİ (TÜRKÇE SEÇİLİNCE OTOMATİK İNGİLİZCE) -->
+        <div>
+          <div class="form-section-title">
+            <span>⚠️</span> Alerjenler (Türkçe Seçim ➔ Otomatik İngilizce Eşleşme)
+          </div>
+          <div class="allergens-box">
+            <div class="allergens-intro">
+              Ürünün içerdiği alerjenleri Türkçe butonlara dokunarak işaretleyin. İngilizce karşılığı menüye <strong>otomatik olarak</strong> eklenecektir.
+            </div>
+            
+            <div class="allergens-grid" id="allergens-grid">
+              <!-- Dynamically populated from ALLERGEN_MASTER -->
+            </div>
+
+            <div class="allergen-auto-preview">
+              <div class="auto-preview-title">
+                <span>🇬🇧</span>
+                <span>İngilizce Menüde Otomatik Gözükecek Alerjenler:</span>
+              </div>
+              <div id="allergen-en-preview" style="font-style: italic; color: #047857;">
+                Seçim yapılmadı (Alerjen yok)
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeEditModal()">İptal</button>
+        <button type="button" class="btn btn-primary" onclick="saveItemFromModal()">
+          <span>✓</span>
+          <span>Değişiklikleri Kaydet</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GITHUB SETTINGS MODAL -->
+  <div class="modal-overlay" id="github-modal">
+    <div class="modal-box" style="max-width: 580px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🔑</span> GitHub Canlı Yayın Ayarları
+        </div>
+        <button class="modal-close-btn" onclick="closeGithubSettingsModal()">✕</button>
+      </div>
+      <div class="modal-body" style="gap: 16px;">
+        <p style="font-size: 0.85rem; color: #475569;">
+          "Yayınla" butonuna bastığınızda menüdeki değişikliklerin ve fotoğrafların doğrudan GitHub'a aktarılması ve Vercel üzerinden anında canlıya geçmesi için GitHub Token gereklidir.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label">GitHub Kişisel Erişim Anahtarı (Personal Access Token)</label>
+          <input type="password" class="form-input github-token-input" id="github-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+          <small style="color: var(--color-muted); font-size: 0.75rem;">Bu anahtar sadece kendi tarayıcınızda (localStorage) güvenle saklanır.</small>
+        </div>
+
+        <div class="token-guide">
+          <strong>30 Saniyede Nasıl Alınır?</strong>
+          <ol>
+            <li>GitHub hesabınıza giriş yapın: <a href="https://github.com/settings/tokens" target="_blank" style="color: var(--color-forest); font-weight:700;">github.com/settings/tokens</a></li>
+            <li><strong>"Generate new token (classic)"</strong> butonuna tıklayın.</li>
+            <li>Note kısmına <code>Deli Napolitan Admin</code> yazın ve <strong>repo</strong> kutucuğunu işaretleyin.</li>
+            <li>En alttan <strong>"Generate token"</strong>a basıp çıkan kodu buraya yapıştırın.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeGithubSettingsModal()">Kapat</button>
+        <button class="btn btn-primary" onclick="saveGithubToken()">
+          <span>✓</span> Kaydet
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOADING OVERLAY -->
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="spinner"></div>
+    <div id="loading-msg" style="font-weight: 600; font-size: 1.05rem;">Menü güncelleniyor...</div>
+    <div style="font-size: 0.8rem; opacity: 0.8;" id="loading-submsg">Lütfen bekleyin...</div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="data/menu_data.js"></script>
+  <script>
+    // ==========================================
+    // 1. MASTER ALLERGEN DICTIONARY
+    // TR -> EN AUTOMATIC MAPPING
+    // ==========================================
+    const ALLERGEN_MASTER = [
+      { code: "gluten", icon: "🌾", tr: "Gluten", en: "Gluten" },
+      { code: "milk", icon: "🥛", tr: "Laktoz / Süt", en: "Dairy / Lactose" },
+      { code: "egg", icon: "🥚", tr: "Yumurta", en: "Eggs" },
+      { code: "nuts", icon: "🥜", tr: "Kuruyemiş / Fındık / Fıstık", en: "Tree Nuts / Peanuts" },
+      { code: "sesame", icon: "🌱", tr: "Susam / Tahin", en: "Sesame" },
+      { code: "mustard", icon: "🟡", tr: "Hardal", en: "Mustard" },
+      { code: "fish", icon: "🐟", tr: "Balık", en: "Fish" },
+      { code: "crustaceans", icon: "🦐", tr: "Kabuklu Deniz Ürünleri", en: "Crustaceans" },
+      { code: "soy", icon: "🫘", tr: "Soya", en: "Soybeans" },
+      { code: "celery", icon: "🥬", tr: "Kereviz", en: "Celery" },
+      { code: "sulphites", icon: "🍷", tr: "Kükürt Dioksit / Sülfit", en: "Sulphites" },
+      { code: "molluscs", icon: "🦪", tr: "Yumuşakçalar", en: "Molluscs" },
+      { code: "lupin", icon: "🌾", tr: "Acı Bakla", en: "Lupin" }
+    ];
+
+    // ==========================================
+    // 2. STATE MANAGEMENT
+    // ==========================================
+    let menuData = null;
+    let currentCategoryFilter = 'all';
+    let currentSearchQuery = '';
+    let editingItemId = null;
+    let selectedAllergenCodes = new Set();
+    let currentSpicyLevel = 0;
+    let pendingNewImageBase64 = null; // if photo was replaced in modal
+    let unsavedChangesCount = 0;
+
+    const GITHUB_REPO_OWNER = "osmanersoy-ops";
+    const GITHUB_REPO_NAME = "deli-napolitan-menu";
+    const GITHUB_BRANCH = "main";
+
+    // ==========================================
+    // 3. INITIALIZATION
+    // ==========================================
+    window.addEventListener('DOMContentLoaded', async () => {
+      await loadMenuData();
+      renderAllergensPillGrid();
+      renderProductsList();
+      checkGithubTokenStatus();
+    });
+
+    async function loadMenuData() {
+      try {
+        const resp = await fetch('data/menu_data.json?t=' + Date.now());
+        if (resp.ok) {
+          menuData = await resp.json();
+        } else {
+          throw new Error('JSON fetch failed');
+        }
+      } catch (e) {
+        if (window.MENU_DATA) {
+          menuData = JSON.parse(JSON.stringify(window.MENU_DATA));
+        } else {
+          alert('Menü verisi yüklenemedi!');
+        }
+      }
+      updateStatusBanner();
+    }
+
+    function updateStatusBanner() {
+      if (!menuData) return;
+      const total = menuData.items ? menuData.items.length : 0;
+      document.getElementById('status-text').textContent = `Menü Hazır: ${total} Ürün Yüklendi`;
+    }
+
+    // ==========================================
+    // 4. RENDERING PRODUCTS
+    // ==========================================
+    function renderProductsList() {
+      const container = document.getElementById('products-grid');
+      container.innerHTML = '';
+
+      if (!menuData || !menuData.items) return;
+
+      const filtered = menuData.items.filter(item => {
+        // Category filter
+        if (currentCategoryFilter !== 'all' && item.categoryId !== currentCategoryFilter) {
+          return false;
+        }
+        // Search filter
+        if (currentSearchQuery) {
+          const q = currentSearchQuery.toLowerCase();
+          const trName = (item.name?.tr || '').toLowerCase();
+          const enName = (item.name?.en || '').toLowerCase();
+          const trDesc = (item.description?.tr || '').toLowerCase();
+          const enDesc = (item.description?.en || '').toLowerCase();
+          if (!trName.includes(q) && !enName.includes(q) && !trDesc.includes(q) && !enDesc.includes(q)) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: white; border-radius: 14px; border: 1px dashed #e2e8f0;">
+            <p style="color: var(--color-muted); font-size: 0.95rem;">Bu kategoride veya aramada ürün bulunamadı.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+
+        // Spicy indicator
+        let spicyStr = '';
+        if (item.spicy === 1) spicyStr = '🌶️';
+        else if (item.spicy === 2) spicyStr = '🌶️🌶️';
+        else if (item.spicy >= 3) spicyStr = '🌶️🌶️🌶️';
+
+        // Allergens tags
+        let allergensHtml = '';
+        if (item.allergens && item.allergens.length > 0) {
+          item.allergens.forEach(a => {
+            const master = ALLERGEN_MASTER.find(m => m.code === a.code);
+            const icon = master ? master.icon : '⚠️';
+            allergensHtml += `<span class="allergen-tag">${icon} ${a.tr}</span>`;
+          });
+        }
+
+        const catName = getCategoryName(item.categoryId);
+        const imgSrc = item.image || 'assets/product_placeholder.jpg';
+
+        card.innerHTML = `
+          <div class="card-top">
+            <img src="${imgSrc}" class="card-thumb" alt="${item.name?.tr}" onerror="this.src='assets/product_placeholder.jpg'">
+            <div class="card-info">
+              <span class="card-cat-badge">${catName}</span>
+              <div class="card-title-tr">${item.name?.tr || 'İsimsiz'}</div>
+              <div class="card-title-en">${item.name?.en || ''}</div>
+              <div class="card-price-row">
+                <span class="card-price">${item.price} ₺</span>
+                ${spicyStr ? `<span class="card-spicy">${spicyStr}</span>` : ''}
+              </div>
+            </div>
+          </div>
+
+          <div class="card-desc">${item.description?.tr || ''}</div>
+
+          ${allergensHtml ? `<div class="card-allergens">${allergensHtml}</div>` : ''}
+
+          <div class="card-footer">
+            <div class="card-actions">
+              <button class="btn btn-edit-item" onclick="openEditModal('${item.id}')">
+                <span>✏️</span> Düzenle
+              </button>
+              <button class="btn btn-del-item" onclick="deleteItem('${item.id}')" title="Ürünü Sil">
+                <span>🗑️</span>
+              </button>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function getCategoryName(catId) {
+      const map = {
+        ortaya: 'Ortaya',
+        corba: 'Çorba',
+        pizza: 'Pizza',
+        tatli: 'Tatlı',
+        icecek: 'İçecek'
+      };
+      return map[catId] || catId;
+    }
+
+    // ==========================================
+    // 5. CATEGORY & SEARCH FILTERS
+    // ==========================================
+    function filterByCategory(cat) {
+      currentCategoryFilter = cat;
+      document.querySelectorAll('.cat-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      renderProductsList();
+    }
+
+    function handleSearch(q) {
+      currentSearchQuery = q;
+      renderProductsList();
+    }
+
+    // ==========================================
+    // 6. ALLERGENS PILL SELECTOR (TR -> AUTO EN)
+    // ==========================================
+    function renderAllergensPillGrid() {
+      const grid = document.getElementById('allergens-grid');
+      grid.innerHTML = '';
+
+      ALLERGEN_MASTER.forEach(allg => {
+        const pill = document.createElement('div');
+        pill.className = 'allergen-pill';
+        pill.dataset.code = allg.code;
+        pill.onclick = () => toggleAllergen(allg.code);
+
+        pill.innerHTML = `
+          <span>${allg.icon}</span>
+          <span>${allg.tr}</span>
+          <span class="allergen-check">✓</span>
+        `;
+        grid.appendChild(pill);
+      });
+    }
+
+    function toggleAllergen(code) {
+      if (selectedAllergenCodes.has(code)) {
+        selectedAllergenCodes.delete(code);
+      } else {
+        selectedAllergenCodes.add(code);
+      }
+      updateAllergenPillsUI();
+    }
+
+    function updateAllergenPillsUI() {
+      document.querySelectorAll('.allergen-pill').forEach(pill => {
+        const code = pill.dataset.code;
+        if (selectedAllergenCodes.has(code)) {
+          pill.classList.add('selected');
+        } else {
+          pill.classList.remove('selected');
+        }
+      });
+
+      // Update automatic English preview
+      const enPreviewEl = document.getElementById('allergen-en-preview');
+      if (selectedAllergenCodes.size === 0) {
+        enPreviewEl.textContent = 'Seçim yapılmadı (Alerjen yok)';
+        enPreviewEl.style.color = '#94a3b8';
+      } else {
+        const enList = [];
+        selectedAllergenCodes.forEach(code => {
+          const found = ALLERGEN_MASTER.find(m => m.code === code);
+          if (found) enList.push(found.en);
+        });
+        enPreviewEl.textContent = enList.join(', ');
+        enPreviewEl.style.color = '#047857';
+      }
+    }
+
+    // ==========================================
+    // 7. SPICY LEVEL SELECTOR
+    // ==========================================
+    function setSpicyLevel(lvl) {
+      currentSpicyLevel = lvl;
+      document.querySelectorAll('.spicy-btn').forEach(btn => {
+        if (parseInt(btn.dataset.spicy) === lvl) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    // ==========================================
+    // 8. PHOTO UPLOAD & COMPRESSION
+    // ==========================================
+    function handlePhotoSelected(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          // Resize client-side to max 1000x1000 to keep it lightweight
+          const maxDim = 1000;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Convert to JPEG with 0.85 quality
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+          pendingNewImageBase64 = compressedDataUrl;
+
+          // Update preview immediately
+          document.getElementById('edit-photo-preview').src = compressedDataUrl;
+          document.getElementById('photo-status-hint').innerHTML = `
+            <span style="color:#059669; font-weight:700;">✓ Yeni fotoğraf seçildi (${Math.round(compressedDataUrl.length/1024)} KB).</span>
+            Kaydettiğinizde yüklenecektir.
+          `;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function resetProductPhoto() {
+      pendingNewImageBase64 = 'assets/product_placeholder.jpg';
+      document.getElementById('edit-photo-preview').src = 'assets/product_placeholder.jpg';
+      document.getElementById('photo-status-hint').textContent = 'Varsayılan fotoğraf ayarlandı.';
+    }
+
+    // ==========================================
+    // 9. OPEN / EDIT MODAL
+    // ==========================================
+    function openEditModal(itemId) {
+      editingItemId = itemId;
+      const item = menuData.items.find(i => i.id === itemId);
+      if (!item) return;
+
+      document.getElementById('modal-item-title').innerHTML = `<span>✏️</span> Düzenle: ${item.name?.tr}`;
+
+      // 1. Photo
+      pendingNewImageBase64 = null;
+      document.getElementById('edit-photo-preview').src = item.image || 'assets/product_placeholder.jpg';
+      document.getElementById('photo-status-hint').textContent = 'Kare (1:1) veya yatay formatta net bir yemek fotoğrafı seçin.';
+
+      // 2. Basics
+      document.getElementById('edit-price').value = item.price || 0;
+      document.getElementById('edit-category').value = item.categoryId || 'ortaya';
+      setSpicyLevel(item.spicy || 0);
+      document.getElementById('edit-badge').value = (typeof item.badge === 'object' && item.badge !== null) ? (item.badge.tr || '') : (item.badge || '');
+
+      // 3. Bilingual Texts
+      document.getElementById('edit-name-tr').value = item.name?.tr || '';
+      document.getElementById('edit-name-en').value = item.name?.en || '';
+      document.getElementById('edit-desc-tr').value = item.description?.tr || '';
+      document.getElementById('edit-desc-en').value = item.description?.en || '';
+
+      // 4. Allergens
+      selectedAllergenCodes.clear();
+      if (item.allergens && Array.isArray(item.allergens)) {
+        item.allergens.forEach(a => selectedAllergenCodes.add(a.code));
+      }
+      updateAllergenPillsUI();
+
+      // Show Modal
+      document.getElementById('edit-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openNewItemModal() {
+      editingItemId = 'new-' + Date.now();
+
+      document.getElementById('modal-item-title').innerHTML = `<span>✨</span> Yeni Ürün Ekle`;
+
+      // 1. Photo
+      pendingNewImageBase64 = null;
+      document.getElementById('edit-photo-preview').src = 'assets/product_placeholder.jpg';
+      document.getElementById('photo-status-hint').textContent = 'Ürün için bir fotoğraf seçin.';
+
+      // 2. Basics
+      document.getElementById('edit-price').value = '';
+      document.getElementById('edit-category').value = currentCategoryFilter !== 'all' ? currentCategoryFilter : 'ortaya';
+      setSpicyLevel(0);
+      document.getElementById('edit-badge').value = '';
+
+      // 3. Bilingual Texts
+      document.getElementById('edit-name-tr').value = '';
+      document.getElementById('edit-name-en').value = '';
+      document.getElementById('edit-desc-tr').value = '';
+      document.getElementById('edit-desc-en').value = '';
+
+      // 4. Allergens
+      selectedAllergenCodes.clear();
+      updateAllergenPillsUI();
+
+      // Show Modal
+      document.getElementById('edit-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeEditModal() {
+      document.getElementById('edit-modal').classList.remove('open');
+      document.body.style.overflow = '';
+      editingItemId = null;
+    }
+
+    function saveItemFromModal() {
+      const nameTr = document.getElementById('edit-name-tr').value.trim();
+      const nameEn = document.getElementById('edit-name-en').value.trim();
+      const price = parseFloat(document.getElementById('edit-price').value);
+
+      if (!nameTr) {
+        alert('Lütfen Türkçe ürün adını giriniz.');
+        return;
+      }
+      if (isNaN(price) || price < 0) {
+        alert('Lütfen geçerli bir fiyat giriniz.');
+        return;
+      }
+
+      // Build allergen list with automatic bilingual matching
+      const allergensList = [];
+      selectedAllergenCodes.forEach(code => {
+        const found = ALLERGEN_MASTER.find(m => m.code === code);
+        if (found) {
+          allergensList.push({
+            code: found.code,
+            tr: found.tr,
+            en: found.en
+          });
+        }
+      });
+
+      const badgeVal = document.getElementById('edit-badge').value.trim();
+      let badgeObj = null;
+      if (badgeVal) {
+        badgeObj = { tr: badgeVal, en: badgeVal };
+      }
+
+      let existingIndex = menuData.items.findIndex(i => i.id === editingItemId);
+
+      let imagePath = 'assets/product_placeholder.jpg';
+      if (existingIndex >= 0) {
+        imagePath = menuData.items[existingIndex].image;
+      }
+
+      if (pendingNewImageBase64) {
+        imagePath = pendingNewImageBase64; // Will be committed or saved
+      }
+
+      const updatedItem = {
+        id: editingItemId.startsWith('new-') ? ('item-' + Date.now()) : editingItemId,
+        categoryId: document.getElementById('edit-category').value,
+        name: {
+          tr: nameTr,
+          en: nameEn || nameTr
+        },
+        description: {
+          tr: document.getElementById('edit-desc-tr').value.trim(),
+          en: document.getElementById('edit-desc-en').value.trim()
+        },
+        price: price,
+        spicy: currentSpicyLevel,
+        badge: badgeObj,
+        image: imagePath,
+        allergens: allergensList
+      };
+
+      if (existingIndex >= 0) {
+        menuData.items[existingIndex] = updatedItem;
+      } else {
+        menuData.items.push(updatedItem);
+      }
+
+      incrementUnsavedChanges();
+      closeEditModal();
+      renderProductsList();
+      updateStatusBanner();
+    }
+
+    function deleteItem(itemId) {
+      const item = menuData.items.find(i => i.id === itemId);
+      if (!item) return;
+
+      if (confirm(`"${item.name?.tr}" ürününü silmek istediğinize emin misiniz?`)) {
+        menuData.items = menuData.items.filter(i => i.id !== itemId);
+        incrementUnsavedChanges();
+        renderProductsList();
+        updateStatusBanner();
+      }
+    }
+
+    function incrementUnsavedChanges() {
+      unsavedChangesCount++;
+      const badge = document.getElementById('header-unsaved-badge');
+      badge.textContent = unsavedChangesCount;
+      badge.style.display = 'inline-block';
+
+      document.getElementById('mobile-bar-info').innerHTML = `
+        <span style="color:#ef4444; font-weight:700;">● ${unsavedChangesCount} değişiklik hazır</span>
+      `;
+      document.getElementById('status-dot').className = 'status-dot warning';
+    }
+
+    // ==========================================
+    // 10. GITHUB API DIRECT PUBLISHING
+    // ==========================================
+    function checkGithubTokenStatus() {
+      const token = localStorage.getItem('deli_github_token');
+      if (token) {
+        document.getElementById('github-token-input').value = token;
+      }
+    }
+
+    function openGithubSettingsModal() {
+      document.getElementById('github-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGithubSettingsModal() {
+      document.getElementById('github-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function saveGithubToken() {
+      const token = document.getElementById('github-token-input').value.trim();
+      if (!token) {
+        alert('Lütfen bir token girin.');
+        return;
+      }
+      localStorage.setItem('deli_github_token', token);
+      alert('GitHub token tarayıcınıza kaydedildi!');
+      closeGithubSettingsModal();
+    }
+
+    async function handlePublishChanges() {
+      const token = localStorage.getItem('deli_github_token');
+      if (!token) {
+        alert('Canlıya aktarım için lütfen önce GitHub Token anahtarınızı kaydedin.');
+        openGithubSettingsModal();
+        return;
+      }
+
+      showLoading('GitHub deposuna bağlanılıyor...', 'Lütfen bekleyin...');
+
+      try {
+        // Step 1: If any items have base64 images, commit each image to assets/products/<id>.jpg
+        for (let i = 0; i < menuData.items.length; i++) {
+          const item = menuData.items[i];
+          if (item.image && item.image.startsWith('data:image')) {
+            showLoading(`Fotoğraf yükleniyor: ${item.name.tr}`, 'GitHub assets güncelleniyor...');
+            const imagePath = `assets/products/${item.id}.jpg`;
+            const base64Pure = item.image.split(',')[1];
+            await commitFileToGithub(imagePath, base64Pure, `Fotoğraf eklendi: ${item.name.tr}`, token, true);
+            item.image = imagePath;
+          }
+        }
+
+        // Step 2: Commit data/menu_data.json
+        showLoading('Menü verisi (JSON) kaydediliyor...', 'GitHub main dalına işleniyor...');
+        menuData.restaurant.lastUpdated = new Date().toISOString().split('T')[0];
+        const jsonContent = JSON.stringify(menuData, null, 2);
+        const jsonBase64 = btoa(unescape(encodeURIComponent(jsonContent)));
+        await commitFileToGithub('data/menu_data.json', jsonBase64, 'Menü güncellendi (Admin Panel)', token, false);
+
+        // Step 3: Commit data/menu_data.js
+        showLoading('Menü scripti (JS) kaydediliyor...', 'Vercel için derleniyor...');
+        const jsContent = `// Deli Napolitan Menu Data\nwindow.MENU_DATA = ${jsonContent};\n`;
+        const jsBase64 = btoa(unescape(encodeURIComponent(jsContent)));
+        await commitFileToGithub('data/menu_data.js', jsBase64, 'Menü JS yedeği güncellendi (Admin Panel)', token, false);
+
+        hideLoading();
+
+        unsavedChangesCount = 0;
+        document.getElementById('header-unsaved-badge').style.display = 'none';
+        document.getElementById('mobile-bar-info').innerHTML = `<span>Tüm değişiklikler yayında ✓</span>`;
+        document.getElementById('status-dot').className = 'status-dot';
+
+        alert('🎉 TEBRİKLER! Menü başarıyla GitHub\'a aktarıldı.\nVercel yaklaşık 15-20 saniye içinde canlı menüyü güncelleyecektir.');
+
+      } catch (err) {
+        hideLoading();
+        console.error('Publish error:', err);
+        alert('HATA: Yayınlama sırasında bir sorun oluştu.\n' + err.message + '\n\nToken izninizin "repo" olduğundan emin olun.');
+      }
+    }
+
+    async function commitFileToGithub(path, base64Content, commitMessage, token, isBinary = false) {
+      const url = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${path}`;
+      
+      // Get current SHA if file exists
+      let sha = null;
+      try {
+        const getResp = await fetch(url + `?ref=${GITHUB_BRANCH}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+        if (getResp.ok) {
+          const fileData = await getResp.json();
+          sha = fileData.sha;
+        }
+      } catch (e) {
+        // file might not exist yet
+      }
+
+      const bodyData = {
+        message: commitMessage,
+        content: base64Content,
+        branch: GITHUB_BRANCH
+      };
+      if (sha) {
+        bodyData.sha = sha;
+      }
+
+      const putResp = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bodyData)
+      });
+
+      if (!putResp.ok) {
+        const errJson = await putResp.json();
+        throw new Error(`GitHub API hatası (${path}): ` + (errJson.message || putResp.statusText));
+      }
+      return await putResp.json();
+    }
+
+    // ==========================================
+    // 11. EXPORT / IMPORT OFFLINE BACKUPS
+    // ==========================================
+    function exportJSONFile() {
+      if (!menuData) return;
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(menuData, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `menu_data_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function importJSONFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (imported.categories && imported.items) {
+            menuData = imported;
+            incrementUnsavedChanges();
+            renderProductsList();
+            updateStatusBanner();
+            alert('Menü JSON dosyası başarıyla yüklendi!');
+          } else {
+            alert('Geçersiz menü dosyası yapısı.');
+          }
+        } catch (err) {
+          alert('JSON dosyası okunamadı: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // ==========================================
+    // 12. LOADING SPINNER
+    // ==========================================
+    function showLoading(msg, submsg) {
+      document.getElementById('loading-msg').textContent = msg;
+      document.getElementById('loading-submsg').textContent = submsg || '';
+      document.getElementById('loading-overlay').classList.add('open');
+    }
+
+    function hideLoading() {
+      document.getElementById('loading-overlay').classList.remove('open');
+    }
+  </script>
+</body>
+</html>
