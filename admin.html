@@ -1196,14 +1196,14 @@
       <h2 class="login-title">DELI NAPOLITAN</h2>
       <p class="login-subtitle">Yönetici Girişi</p>
 
-      <form class="login-form" onsubmit="handleLoginSubmit(event)">
+      <div class="login-form">
         <div class="password-input-wrap">
-          <input type="password" id="admin-password-input" class="password-input" placeholder="Şifre giriniz..." autocomplete="current-password" autofocus required>
+          <input type="password" id="admin-password-input" class="password-input" placeholder="Şifre giriniz..." autocomplete="current-password" autofocus onkeydown="if(event.key==='Enter'){event.preventDefault();handleLoginSubmit();}">
           <button type="button" class="toggle-pwd-btn" onclick="togglePasswordVisibility()" title="Şifreyi Göster/Gizle">👁️</button>
         </div>
         <div class="login-error" id="login-error">Hatalı şifre. Lütfen tekrar deneyin.</div>
-        <button type="submit" class="login-btn">Giriş Yap</button>
-      </form>
+        <button type="button" class="login-btn" onclick="handleLoginSubmit()">Giriş Yap</button>
+      </div>
     </div>
   </div>
 
@@ -1609,10 +1609,18 @@
     const ADMIN_PASSWORD = "deli2026";
 
     function checkAuth() {
-      const isAuth = sessionStorage.getItem('deli_admin_logged_in') === 'true';
+      let isAuth = false;
+      try {
+        isAuth = sessionStorage.getItem('deli_admin_logged_in') === 'true' ||
+                 localStorage.getItem('deli_admin_logged_in') === 'true';
+      } catch (e) {}
+
       const gate = document.getElementById('login-gate');
       if (isAuth) {
         gate.style.display = 'none';
+        if (window.location.search) {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
       } else {
         gate.style.display = 'flex';
         setTimeout(() => {
@@ -1623,16 +1631,25 @@
     }
 
     function handleLoginSubmit(event) {
-      if (event) event.preventDefault();
+      if (event && event.preventDefault) event.preventDefault();
       const input = document.getElementById('admin-password-input');
       const errEl = document.getElementById('login-error');
       const card = document.getElementById('login-card');
       const entered = input.value.trim();
 
       if (entered === ADMIN_PASSWORD) {
-        sessionStorage.setItem('deli_admin_logged_in', 'true');
+        try {
+          sessionStorage.setItem('deli_admin_logged_in', 'true');
+          localStorage.setItem('deli_admin_logged_in', 'true');
+        } catch (e) {}
+
         errEl.style.display = 'none';
         document.getElementById('login-gate').style.display = 'none';
+
+        // Clean any stray '?' from URL
+        if (window.location.search) {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
       } else {
         errEl.style.display = 'block';
         card.classList.remove('shake');
@@ -1641,6 +1658,7 @@
         input.value = '';
         input.focus();
       }
+      return false;
     }
 
     function togglePasswordVisibility() {
@@ -1654,7 +1672,10 @@
 
     function logoutAdmin() {
       if (confirm('Yönetim panelinden çıkış yapmak istiyor musunuz?')) {
-        sessionStorage.removeItem('deli_admin_logged_in');
+        try {
+          sessionStorage.removeItem('deli_admin_logged_in');
+          localStorage.removeItem('deli_admin_logged_in');
+        } catch (e) {}
         document.getElementById('admin-password-input').value = '';
         document.getElementById('login-error').style.display = 'none';
         document.getElementById('login-gate').style.display = 'flex';
