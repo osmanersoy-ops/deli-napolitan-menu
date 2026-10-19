@@ -13,7 +13,7 @@
   <style>
     :root {
       --brand-green: #31543e;
-      --brand-green-dark: #223a2b;
+      --brand-green-dark: #203628;
       --brand-green-light: #446f53;
       --brand-cream: #f5f5dc;
       --brand-cream-light: #faf9f2;
@@ -30,7 +30,7 @@
       --radius-lg: 20px;
       --shadow-sm: 0 2px 8px rgba(34, 58, 43, 0.05);
       --shadow-md: 0 6px 20px rgba(34, 58, 43, 0.08);
-      --shadow-lg: 0 12px 32px rgba(34, 58, 43, 0.16);
+      --shadow-lg: 0 14px 36px rgba(34, 58, 43, 0.2);
     }
 
     * {
@@ -46,7 +46,7 @@
       color: var(--text-main);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
-      padding-bottom: 80px;
+      padding-bottom: 90px; /* Space for the floating tray bar */
     }
 
     /* ---------------------------------------------------- */
@@ -145,12 +145,12 @@
     }
 
     /* ---------------------------------------------------- */
-    /* 2. TOP BRAND HEADER                                  */
+    /* 2. TOP BRAND HEADER (Clean, Logo + Language Only)    */
     /* ---------------------------------------------------- */
     .brand-header {
       background: linear-gradient(180deg, var(--brand-green) 0%, var(--brand-green-dark) 100%);
       color: var(--brand-cream);
-      padding: 24px 20px 20px;
+      padding: 12px 18px;
       position: relative;
     }
 
@@ -158,50 +158,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
     }
 
     .header-logo-row {
       display: flex;
       align-items: center;
-      gap: 14px;
     }
 
     .header-logo-img {
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       border-radius: 12px;
       object-fit: cover;
-      border: 2px solid rgba(245, 245, 220, 0.25);
+      border: 1.5px solid rgba(245, 245, 220, 0.3);
       background: var(--brand-green);
-    }
-
-    .header-brand-texts {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .header-brand-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--brand-cream);
-      line-height: 1.1;
-      letter-spacing: -0.5px;
-    }
-
-    .header-brand-tagline {
-      font-size: 11px;
-      color: rgba(245, 245, 220, 0.8);
-      font-weight: 500;
-      letter-spacing: 0.2px;
-      margin-top: 2px;
+      display: block;
     }
 
     .lang-switcher-pill {
       display: flex;
       align-items: center;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.25);
       border: 1px solid rgba(245, 245, 220, 0.3);
       border-radius: 20px;
       padding: 4px 6px;
@@ -223,62 +200,8 @@
       color: var(--brand-green-dark);
     }
 
-    /* Search bar */
-    .search-box-container {
-      margin-top: 14px;
-      position: relative;
-    }
-
-    .search-input {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(245, 245, 220, 0.25);
-      border-radius: var(--radius-sm);
-      padding: 11px 14px 11px 40px;
-      color: #ffffff;
-      font-size: 14px;
-      font-family: inherit;
-      outline: none;
-      backdrop-filter: blur(6px);
-      transition: all 0.2s ease;
-    }
-
-    .search-input::placeholder {
-      color: rgba(245, 245, 220, 0.6);
-    }
-
-    .search-input:focus {
-      background: rgba(255, 255, 255, 0.2);
-      border-color: var(--brand-cream);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      fill: rgba(245, 245, 220, 0.6);
-      pointer-events: none;
-    }
-
-    .search-clear-btn {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--brand-cream);
-      font-size: 16px;
-      cursor: pointer;
-      display: none;
-      padding: 4px;
-    }
-
     /* ---------------------------------------------------- */
-    /* 3. STICKY CATEGORY CAROUSEL (FineDine Style)        */
+    /* 3. STICKY CATEGORY NAV (5 Square Cards, Fits Screen) */
     /* ---------------------------------------------------- */
     .category-nav-wrapper {
       position: sticky;
@@ -287,45 +210,38 @@
       background: var(--card-bg);
       border-bottom: 1px solid var(--border-color);
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-      padding: 10px 0;
-      overflow: hidden;
+      padding: 8px 12px 10px;
     }
 
-    .category-carousel {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      padding: 2px 16px;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none; /* Firefox */
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .category-carousel::-webkit-scrollbar {
-      display: none; /* Chrome, Safari */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
     }
 
     .category-card {
-      flex: 0 0 auto;
-      width: 100px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-decoration: none;
       color: var(--text-muted);
       cursor: pointer;
-      scroll-snap-align: start;
+      min-width: 0;
       transition: transform 0.15s ease;
     }
 
     .category-card:active {
-      transform: scale(0.96);
+      transform: scale(0.95);
     }
 
     .cat-img-box {
-      width: 100px;
-      height: 72px;
-      border-radius: var(--radius-sm);
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      height: auto;
+      border-radius: 8px;
       overflow: hidden;
       position: relative;
       background-color: #e5e5dc;
@@ -343,25 +259,26 @@
     }
 
     .cat-name-label {
-      font-size: 13px;
-      font-weight: 600;
-      margin-top: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 4px;
       text-align: center;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       width: 100%;
+      color: var(--text-muted);
       transition: color 0.2s ease;
     }
 
     /* Active Category state */
     .category-card.active .cat-img-box {
       border-color: var(--brand-green);
-      box-shadow: 0 0 0 1px var(--brand-green), 0 4px 12px rgba(49, 84, 62, 0.25);
+      box-shadow: 0 0 0 1px var(--brand-green), 0 3px 8px rgba(49, 84, 62, 0.3);
     }
 
     .category-card.active .cat-img-box img {
-      transform: scale(1.05);
+      transform: scale(1.06);
     }
 
     .category-card.active .cat-name-label {
@@ -375,12 +292,12 @@
     .menu-container {
       max-width: 680px;
       margin: 0 auto;
-      padding: 16px 16px 40px;
+      padding: 16px 14px 40px;
     }
 
     .category-section {
-      margin-bottom: 28px;
-      scroll-margin-top: 130px;
+      margin-bottom: 26px;
+      scroll-margin-top: 100px;
     }
 
     .section-header {
@@ -389,7 +306,7 @@
       justify-content: space-between;
       border-bottom: 2px solid var(--brand-green);
       padding-bottom: 6px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .section-title {
@@ -423,20 +340,15 @@
       flex-direction: column;
       gap: 10px;
       box-shadow: var(--shadow-sm);
-      cursor: pointer;
       position: relative;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
-    }
-
-    .product-card:active {
-      transform: scale(0.99);
-      border-color: var(--brand-green);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .card-top-content {
       display: flex;
       justify-content: space-between;
       gap: 12px;
+      cursor: pointer;
     }
 
     .card-info {
@@ -461,7 +373,6 @@
       letter-spacing: -0.2px;
     }
 
-    /* Spicy & Badge */
     .spicy-badge {
       display: inline-flex;
       align-items: center;
@@ -522,15 +433,18 @@
       justify-content: space-between;
       border-top: 1px dashed var(--border-subtle);
       padding-top: 8px;
-      color: var(--brand-green);
-      font-size: 12px;
-      font-weight: 600;
+      gap: 8px;
     }
 
     .cta-text-icon {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      color: var(--brand-green);
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
     }
 
     .cta-icon-camera {
@@ -540,17 +454,141 @@
     }
 
     .cta-arrow {
-      font-size: 14px;
+      font-size: 13px;
       opacity: 0.8;
-      transition: transform 0.2s ease;
+      margin-left: 2px;
     }
 
-    .product-card:active .cta-arrow {
-      transform: translateX(3px);
+    /* Tepsime Ekle Button */
+    .btn-add-tray {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(49, 84, 62, 0.08);
+      color: var(--brand-green);
+      border: 1.5px solid rgba(49, 84, 62, 0.25);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .btn-add-tray:active {
+      transform: scale(0.93);
+      background: var(--brand-green);
+      color: var(--brand-cream);
+    }
+
+    .btn-add-tray .plus-symbol {
+      font-size: 14px;
+      font-weight: 800;
     }
 
     /* ---------------------------------------------------- */
-    /* 5. MODAL / BOTTOM SHEET FOR DETAILS & ALLERGENS      */
+    /* 5. SLENDER FLOATING TRAY BAR                         */
+    /* ---------------------------------------------------- */
+    .tray-floating-bar {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 24px);
+      max-width: 480px;
+      height: 48px;
+      background: var(--brand-green-dark);
+      color: var(--brand-cream);
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      box-shadow: 0 8px 24px rgba(27, 48, 35, 0.4), 0 2px 6px rgba(0,0,0,0.15);
+      z-index: 900;
+      cursor: pointer;
+      border: 1px solid rgba(245, 245, 220, 0.2);
+      backdrop-filter: blur(10px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .tray-floating-bar:active {
+      transform: translateX(-50%) scale(0.98);
+    }
+
+    .tray-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tray-icon-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tray-svg-icon {
+      width: 22px;
+      height: 22px;
+      fill: var(--brand-cream);
+    }
+
+    .tray-badge {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: var(--spicy-red);
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 800;
+      min-width: 17px;
+      height: 17px;
+      line-height: 17px;
+      border-radius: 10px;
+      text-align: center;
+      padding: 0 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .tray-badge.pulse {
+      transform: scale(1.35);
+    }
+
+    .tray-bar-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: var(--brand-cream);
+    }
+
+    .tray-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tray-bar-total {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--brand-cream);
+    }
+
+    .tray-bar-arrow {
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(245, 245, 220, 0.15);
+      padding: 4px 10px;
+      border-radius: 14px;
+      color: var(--brand-cream);
+    }
+
+    /* ---------------------------------------------------- */
+    /* 6. MODAL (PRODUCT DETAILS)                           */
     /* ---------------------------------------------------- */
     .modal-backdrop {
       position: fixed;
@@ -559,7 +597,7 @@
       backdrop-filter: blur(6px);
       z-index: 1000;
       display: flex;
-      align-items: center; /* Desktop: perfectly centered */
+      align-items: center; /* Desktop centered */
       justify-content: center;
       padding: 24px 20px;
       opacity: 0;
@@ -576,7 +614,7 @@
       background: var(--card-bg);
       width: 100%;
       max-width: 520px;
-      border-radius: 24px; /* Desktop: full rounded card */
+      border-radius: 24px;
       max-height: 85vh;
       display: flex;
       flex-direction: column;
@@ -625,10 +663,11 @@
       object-fit: cover;
     }
 
+    /* Close button on the LEFT as requested */
     .modal-close-btn {
       position: absolute;
       top: 14px;
-      right: 14px;
+      left: 14px; /* On the LEFT! */
       width: 36px;
       height: 36px;
       border-radius: 50%;
@@ -650,7 +689,7 @@
     }
 
     .modal-body {
-      padding: 20px 20px 30px;
+      padding: 20px 20px 24px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
@@ -689,7 +728,7 @@
       font-size: 14px;
       color: var(--text-muted);
       line-height: 1.6;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       background: var(--bg-page);
       padding: 12px 14px;
       border-radius: var(--radius-sm);
@@ -735,12 +774,193 @@
       font-weight: 500;
     }
 
+    /* Modal Add to Tray button */
+    .modal-add-tray-btn {
+      width: 100%;
+      background: var(--brand-green);
+      color: var(--brand-cream);
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(49, 84, 62, 0.3);
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .modal-add-tray-btn:active {
+      transform: scale(0.98);
+      background: var(--brand-green-dark);
+    }
+
     /* ---------------------------------------------------- */
-    /* 6. FOOTER                                            */
+    /* 7. TRAY MODAL (Garsona Göstermelik Liste)            */
+    /* ---------------------------------------------------- */
+    .tray-modal-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tray-modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--brand-green-dark);
+    }
+
+    .tray-modal-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .tray-modal-body {
+      padding: 16px 20px;
+      overflow-y: auto;
+      max-height: 52vh;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tray-empty-message {
+      text-align: center;
+      padding: 36px 16px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .tray-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: var(--bg-page);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      gap: 10px;
+    }
+
+    .tray-item-details {
+      flex: 1;
+    }
+
+    .tray-item-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    .tray-item-price {
+      font-size: 13px;
+      color: var(--brand-green);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .tray-qty-ctrl {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 3px 8px;
+    }
+
+    .tray-qty-btn {
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--brand-green);
+      cursor: pointer;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tray-qty-val {
+      font-size: 14px;
+      font-weight: 800;
+      min-width: 16px;
+      text-align: center;
+    }
+
+    .tray-modal-footer {
+      padding: 16px 20px 20px;
+      border-top: 1px solid var(--border-color);
+      background: #ffffff;
+    }
+
+    .tray-total-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .tray-total-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .tray-total-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--brand-green);
+    }
+
+    .tray-actions-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tray-btn-clear {
+      flex: 1;
+      padding: 12px;
+      background: #f1f2ec;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .tray-btn-done {
+      flex: 2;
+      padding: 12px;
+      background: var(--brand-green);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--brand-cream);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* ---------------------------------------------------- */
+    /* 8. FOOTER                                            */
     /* ---------------------------------------------------- */
     .menu-footer {
       text-align: center;
-      padding: 30px 20px 10px;
+      padding: 30px 20px 20px;
       color: var(--text-muted);
       font-size: 13px;
       border-top: 1px solid var(--border-color);
@@ -764,19 +984,6 @@
       font-size: 18px;
       font-weight: 700;
       color: var(--brand-green);
-    }
-
-    /* No search results state */
-    .no-results {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--text-muted);
-      display: none;
-    }
-
-    .no-results p {
-      font-size: 16px;
-      margin-top: 8px;
     }
   </style>
 </head>
@@ -807,15 +1014,11 @@
     </div>
   </div>
 
-  <!-- 2. BRAND HEADER -->
+  <!-- 2. BRAND HEADER (Clean Logo + Language Toggle Only) -->
   <header class="brand-header">
     <div class="header-top-bar">
       <div class="header-logo-row">
         <img src="assets/logo.png" alt="deli. napolitan" class="header-logo-img">
-        <div class="header-brand-texts">
-          <span class="header-brand-name">deli. napolitan</span>
-          <span class="header-brand-tagline" id="header-tagline">neo-neapolitan recipes with local delicatessen</span>
-        </div>
       </div>
       
       <!-- Quick Language Switcher -->
@@ -824,31 +1027,17 @@
         <span class="lang-opt" id="pill-en" onclick="setLanguage('en')">EN</span>
       </div>
     </div>
-
-    <!-- Live Search Input -->
-    <div class="search-box-container">
-      <svg class="search-icon" viewBox="0 0 24 24">
-        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-      </svg>
-      <input type="text" id="search-input" class="search-input" placeholder="Menüde pizza veya malzeme ara..." oninput="handleSearch(this.value)">
-      <button id="search-clear-btn" class="search-clear-btn" onclick="clearSearch()">✕</button>
-    </div>
   </header>
 
-  <!-- 3. STICKY CATEGORY NAV (FineDine Carousel Style) -->
+  <!-- 3. STICKY CATEGORY NAV (5 Square Cards, Fits on Screen) -->
   <nav class="category-nav-wrapper">
-    <div class="category-carousel" id="category-carousel">
+    <div class="category-grid" id="category-grid">
       <!-- Injected by JavaScript -->
     </div>
   </nav>
 
   <!-- 4. MAIN MENU FEED -->
   <main class="menu-container">
-    <div id="no-results" class="no-results">
-      <div style="font-size:36px;">🔍</div>
-      <p id="no-results-text">Aradığınız kriterde ürün bulunamadı.</p>
-    </div>
-
     <div id="menu-sections">
       <!-- Injected by JavaScript -->
     </div>
@@ -861,11 +1050,29 @@
     </footer>
   </main>
 
-  <!-- 6. MODAL BOTTOM SHEET FOR PRODUCT DETAILS & ALLERGENS -->
+  <!-- 6. SLENDER FLOATING TRAY BAR -->
+  <div class="tray-floating-bar" id="tray-floating-bar" onclick="openTrayModal()">
+    <div class="tray-bar-left">
+      <div class="tray-icon-box">
+        <svg class="tray-svg-icon" viewBox="0 0 24 24">
+          <path d="M12 2a1 1 0 0 1 1 1v1.07A8.001 8.001 0 0 1 20 12v1H4v-1a8.001 8.001 0 0 1 7-7.93V3a1 1 0 0 1 1-1zm8 13H4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1z"/>
+        </svg>
+        <span class="tray-badge" id="tray-badge-count">0</span>
+      </div>
+      <span class="tray-bar-title" id="tray-label-text">Tepsi</span>
+    </div>
+    <div class="tray-bar-right">
+      <span class="tray-bar-total" id="tray-total-price">0 ₺</span>
+      <span class="tray-bar-arrow" id="tray-view-text">Göster ›</span>
+    </div>
+  </div>
+
+  <!-- 7. MODAL (PRODUCT DETAILS & ALLERGENS) -->
   <div class="modal-backdrop" id="product-modal" onclick="closeModalOnBackdrop(event)">
     <div class="modal-sheet">
       <div class="modal-header-img">
         <img id="modal-img" src="" alt="Ürün Fotoğrafı">
+        <!-- Close button on LEFT -->
         <button class="modal-close-btn" onclick="closeModal()">✕</button>
       </div>
       
@@ -887,6 +1094,41 @@
         </h3>
 
         <div class="allergen-chips-list" id="modal-allergens"></div>
+
+        <!-- Add to Tray Button inside Modal -->
+        <button class="modal-add-tray-btn" id="modal-add-tray-btn" onclick="handleAddModalItemToTray()">
+          <span>🍽️</span>
+          <span id="modal-add-tray-text">Tepsime Ekle</span>
+          <span>+</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. TRAY MODAL (Garsona Göstermelik Sipariş Notu) -->
+  <div class="modal-backdrop" id="tray-modal" onclick="closeTrayModalOnBackdrop(event)">
+    <div class="modal-sheet">
+      <div class="tray-modal-header">
+        <div>
+          <h2 class="tray-modal-title">🍽️ <span id="tray-title-text">Tepsimiz</span></h2>
+          <p class="tray-modal-subtitle" id="tray-subtitle-text">Garsona sipariş verirken bu ekranı gösterebilirsiniz</p>
+        </div>
+        <button class="modal-close-btn" style="position:static; width:34px; height:34px; font-size:16px; background:#f0f1ea; color:#333; border:none;" onclick="closeTrayModal()">✕</button>
+      </div>
+
+      <div class="tray-modal-body" id="tray-items-container">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div class="tray-modal-footer">
+        <div class="tray-total-row">
+          <span class="tray-total-label" id="tray-total-label-text">Toplam:</span>
+          <span class="tray-total-val" id="tray-total-amount">0 ₺</span>
+        </div>
+        <div class="tray-actions-row">
+          <button class="tray-btn-clear" onclick="clearTray()" id="tray-clear-btn-text">Tepsiyi Boşalt</button>
+          <button class="tray-btn-done" onclick="closeTrayModal()" id="tray-done-btn-text">Menüye Dön</button>
+        </div>
       </div>
     </div>
   </div>
@@ -894,28 +1136,46 @@
   <!-- SCRIPT -->
   <script src="data/menu_data.js"></script>
   <script>
-    // Current Active Language
+    // State
     let currentLang = 'tr';
     let menuData = null;
     let activeCategoryId = null;
+    let activeModalItem = null;
+    
+    // Tray state: [ { id, name, price, qty } ]
+    let tray = [];
 
     // Translation UI Dictionaries
     const uiTexts = {
       tr: {
-        searchPlaceholder: "Menüde pizza veya malzeme ara...",
-        tapForDetails: "Görseller ve alerjen bilgileri için tıklayın",
+        tapForDetails: "Görseller ve alerjenler",
+        addToTray: "Tepsime Ekle",
+        trayTitle: "Tepsimiz",
+        traySubtitle: "Garsona sipariş verirken bu ekranı gösterebilirsiniz",
+        emptyTray: "Tepsiniz henüz boş. Menüden dilediğiniz lezzetleri ekleyebilirsiniz.",
+        totalLabel: "Toplam Tutar:",
+        clearTray: "Tepsiyi Boşalt",
+        backToMenu: "Menüye Dön",
         allergenTitle: "Alerjen Bilgileri",
         noAllergens: "Belirtilen belirgin bir alerjen bulunmamaktadır.",
-        noResults: "Aradığınız kriterde ürün bulunamadı.",
-        datePrefix: "Fiyat değişim tarihi: "
+        datePrefix: "Fiyat değişim tarihi: ",
+        trayBarLabel: "Tepsi",
+        view: "Göster ›"
       },
       en: {
-        searchPlaceholder: "Search pizzas or ingredients...",
-        tapForDetails: "Tap for photos & allergen info",
+        tapForDetails: "Photos & allergens",
+        addToTray: "Add to Tray",
+        trayTitle: "Our Tray",
+        traySubtitle: "Show this screen to your waiter to place your order",
+        emptyTray: "Your tray is currently empty. Add your favorite items from the menu.",
+        totalLabel: "Total:",
+        clearTray: "Clear Tray",
+        backToMenu: "Back to Menu",
         allergenTitle: "Allergen Information",
         noAllergens: "No major allergens specified for this item.",
-        noResults: "No items found matching your search.",
-        datePrefix: "Price update date: "
+        datePrefix: "Price update date: ",
+        trayBarLabel: "Tray",
+        view: "View ›"
       }
     };
 
@@ -930,7 +1190,7 @@
       default: "⚠️"
     };
 
-    // 1. Check Splash / Saved Language on Load
+    // 1. Language Initialization
     function initLanguage() {
       const savedLang = localStorage.getItem('deli_napolitan_lang');
       const urlParams = new URLSearchParams(window.location.search);
@@ -942,12 +1202,11 @@
       } else if (savedLang && !forceSplash) {
         selectLanguage(savedLang, false);
       } else {
-        // Show splash screen
         document.getElementById('splash-screen').classList.remove('hidden');
       }
     }
 
-    function selectLanguage(lang, smooth = true) {
+    function selectLanguage(lang) {
       currentLang = lang;
       localStorage.setItem('deli_napolitan_lang', lang);
       document.getElementById('splash-screen').classList.add('hidden');
@@ -981,11 +1240,12 @@
       renderApp();
     }
 
-    // 3. Render the full application
+    // 3. Render Application
     function renderApp() {
       if (!menuData) return;
       renderCategories();
       renderProducts();
+      updateTrayUI();
       updateUI();
       setupScrollSpy();
     }
@@ -994,24 +1254,31 @@
       updateLanguageToggle();
       const t = uiTexts[currentLang];
       
-      // Update placeholders and headers
-      document.getElementById('search-input').placeholder = t.searchPlaceholder;
-      document.getElementById('no-results-text').textContent = t.noResults;
-      
       if (menuData) {
-        document.getElementById('header-tagline').textContent = menuData.restaurant.tagline[currentLang] || menuData.restaurant.tagline.tr;
         document.getElementById('footer-note').textContent = menuData.restaurant.note[currentLang] || menuData.restaurant.note.tr;
         document.getElementById('footer-date').textContent = t.datePrefix + menuData.restaurant.date;
         
         renderCategories();
         renderProducts();
       }
+
+      // Tray UI labels
+      document.getElementById('tray-label-text').textContent = t.trayBarLabel;
+      document.getElementById('tray-view-text').textContent = t.view;
+      document.getElementById('tray-title-text').textContent = t.trayTitle;
+      document.getElementById('tray-subtitle-text').textContent = t.traySubtitle;
+      document.getElementById('tray-total-label-text').textContent = t.totalLabel;
+      document.getElementById('tray-clear-btn-text').textContent = t.clearTray;
+      document.getElementById('tray-done-btn-text').textContent = t.backToMenu;
+      document.getElementById('modal-add-tray-text').textContent = t.addToTray;
+
+      updateTrayUI();
     }
 
-    // 4. Render Category Carousel (FineDine Mobile Style)
+    // 4. Render Categories (5 Square Cards, 100% Fit)
     function renderCategories() {
-      const carousel = document.getElementById('category-carousel');
-      carousel.innerHTML = '';
+      const grid = document.getElementById('category-grid');
+      grid.innerHTML = '';
 
       menuData.categories.forEach((cat, index) => {
         const isCurrentActive = activeCategoryId === cat.id || (!activeCategoryId && index === 0);
@@ -1033,7 +1300,7 @@
           <span class="cat-name-label">${catName}</span>
         `;
 
-        carousel.appendChild(card);
+        grid.appendChild(card);
       });
     }
 
@@ -1052,7 +1319,6 @@
       const activeCard = document.getElementById(`nav-cat-${catId}`);
       if (activeCard) {
         activeCard.classList.add('active');
-        activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
       }
     }
 
@@ -1094,9 +1360,6 @@
     function createProductCard(item, t) {
       const card = document.createElement('div');
       card.className = 'product-card';
-      card.setAttribute('data-name', (item.name.tr + ' ' + item.name.en).toLowerCase());
-      card.setAttribute('data-desc', (item.description.tr + ' ' + item.description.en).toLowerCase());
-      card.onclick = () => openProductModal(item);
 
       const name = item.name[currentLang] || item.name.tr;
       const desc = item.description[currentLang] || item.description.tr;
@@ -1116,7 +1379,7 @@
       }
 
       card.innerHTML = `
-        <div class="card-top-content">
+        <div class="card-top-content" onclick="openProductModalById('${item.id}')">
           <div class="card-info">
             <div class="card-title-row">
               <span class="product-name">${name}</span>
@@ -1131,22 +1394,32 @@
           </div>
         </div>
         <div class="card-cta-bar">
-          <span class="cta-text-icon">
+          <span class="cta-text-icon" onclick="openProductModalById('${item.id}')">
             <svg class="cta-icon-camera" viewBox="0 0 24 24">
               <path d="M12 12m-3.2 0a3.2 3.2 0 1 0 6.4 0 3.2 3.2 0 1 0 -6.4 0"/>
               <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
             </svg>
             <span>${t.tapForDetails}</span>
+            <span class="cta-arrow">›</span>
           </span>
-          <span class="cta-arrow">›</span>
+          
+          <!-- Tepsime Ekle Button -->
+          <button class="btn-add-tray" onclick="addToTray('${item.id}', event)">
+            <span>${t.addToTray}</span>
+            <span class="plus-symbol">+</span>
+          </button>
         </div>
       `;
 
       return card;
     }
 
-    // 6. Modal Bottom Sheet for Details & Allergens
-    function openProductModal(item) {
+    // 6. Modal Bottom Sheet for Product Details & Allergens
+    function openProductModalById(itemId) {
+      const item = menuData.items.find(i => i.id === itemId);
+      if (!item) return;
+      activeModalItem = item;
+
       const modal = document.getElementById('product-modal');
       const t = uiTexts[currentLang];
 
@@ -1158,6 +1431,7 @@
       document.getElementById('modal-price').textContent = `${item.price} ₺`;
       document.getElementById('modal-desc').textContent = desc;
       document.getElementById('modal-allergen-heading').querySelector('span').textContent = t.allergenTitle;
+      document.getElementById('modal-add-tray-text').textContent = `${t.addToTray} (${item.price} ₺)`;
 
       // Badges
       const badgesContainer = document.getElementById('modal-badges');
@@ -1203,6 +1477,7 @@
       const modal = document.getElementById('product-modal');
       modal.classList.remove('open');
       document.body.style.overflow = '';
+      activeModalItem = null;
     }
 
     function closeModalOnBackdrop(e) {
@@ -1211,41 +1486,117 @@
       }
     }
 
-    // 7. Live Search
-    function handleSearch(query) {
-      const clearBtn = document.getElementById('search-clear-btn');
-      clearBtn.style.display = query.length > 0 ? 'block' : 'none';
+    // 7. Tray System (Tepsi Yönetimi)
+    function addToTray(itemId, event) {
+      if (event) event.stopPropagation();
 
-      const q = query.trim().toLowerCase();
-      let hasAnyMatch = false;
+      const item = menuData.items.find(i => i.id === itemId);
+      if (!item) return;
 
-      document.querySelectorAll('.category-section').forEach(sec => {
-        let secHasMatch = false;
-        sec.querySelectorAll('.product-card').forEach(card => {
-          const name = card.getAttribute('data-name');
-          const desc = card.getAttribute('data-desc');
-          if (!q || name.includes(q) || desc.includes(q)) {
-            card.style.display = 'flex';
-            secHasMatch = true;
-            hasAnyMatch = true;
-          } else {
-            card.style.display = 'none';
-          }
+      const existing = tray.find(t => t.id === itemId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        tray.push({
+          id: item.id,
+          nameTr: item.name.tr,
+          nameEn: item.name.en,
+          price: item.price,
+          qty: 1
         });
-        sec.style.display = secHasMatch ? 'block' : 'none';
+      }
+
+      // Trigger Badge pulse animation
+      const badge = document.getElementById('tray-badge-count');
+      badge.classList.remove('pulse');
+      void badge.offsetWidth; // reflow
+      badge.classList.add('pulse');
+
+      updateTrayUI();
+    }
+
+    function handleAddModalItemToTray() {
+      if (activeModalItem) {
+        addToTray(activeModalItem.id);
+        closeModal();
+      }
+    }
+
+    function updateTrayQty(itemId, delta) {
+      const item = tray.find(t => t.id === itemId);
+      if (!item) return;
+
+      item.qty += delta;
+      if (item.qty <= 0) {
+        tray = tray.filter(t => t.id !== itemId);
+      }
+      updateTrayUI();
+      renderTrayModalItems();
+    }
+
+    function clearTray() {
+      tray = [];
+      updateTrayUI();
+      renderTrayModalItems();
+    }
+
+    function updateTrayUI() {
+      const totalQty = tray.reduce((sum, i) => sum + i.qty, 0);
+      const totalPrice = tray.reduce((sum, i) => sum + (i.price * i.qty), 0);
+
+      document.getElementById('tray-badge-count').textContent = totalQty;
+      document.getElementById('tray-total-price').textContent = `${totalPrice} ₺`;
+      document.getElementById('tray-total-amount').textContent = `${totalPrice} ₺`;
+    }
+
+    // Tray Modal
+    function openTrayModal() {
+      renderTrayModalItems();
+      document.getElementById('tray-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeTrayModal() {
+      document.getElementById('tray-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function closeTrayModalOnBackdrop(e) {
+      if (e.target.id === 'tray-modal') {
+        closeTrayModal();
+      }
+    }
+
+    function renderTrayModalItems() {
+      const container = document.getElementById('tray-items-container');
+      container.innerHTML = '';
+      const t = uiTexts[currentLang];
+
+      if (tray.length === 0) {
+        container.innerHTML = `<div class="tray-empty-message">${t.emptyTray}</div>`;
+        return;
+      }
+
+      tray.forEach(item => {
+        const name = currentLang === 'en' ? item.nameEn : item.nameTr;
+        const row = document.createElement('div');
+        row.className = 'tray-item-row';
+        row.innerHTML = `
+          <div class="tray-item-details">
+            <div class="tray-item-name">${name}</div>
+            <div class="tray-item-price">${item.price} ₺</div>
+          </div>
+          <div class="tray-qty-ctrl">
+            <button class="tray-qty-btn" onclick="updateTrayQty('${item.id}', -1)">-</button>
+            <span class="tray-qty-val">${item.qty}</span>
+            <button class="tray-qty-btn" onclick="updateTrayQty('${item.id}', 1)">+</button>
+          </div>
+        `;
+        container.appendChild(row);
       });
-
-      document.getElementById('no-results').style.display = hasAnyMatch ? 'none' : 'block';
     }
 
-    function clearSearch() {
-      const input = document.getElementById('search-input');
-      input.value = '';
-      handleSearch('');
-      input.focus();
-    }
-
-    // 8. ScrollSpy for Sticky Carousel Active State
+    // 8. ScrollSpy for Category Navigation
     function setupScrollSpy() {
       const sections = document.querySelectorAll('.category-section');
       
@@ -1259,7 +1610,7 @@
         });
       }, {
         root: null,
-        rootMargin: '-30% 0px -60% 0px',
+        rootMargin: '-20% 0px -70% 0px',
         threshold: 0
       });
 
