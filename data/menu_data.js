@@ -857,8 +857,8 @@ window.MENU_DATA = {
         "en": "natural spring water"
       },
       "description": {
-        "tr": "330ml cam şişe",
-        "en": "330ml glass bottle"
+        "tr": "500ml",
+        "en": "500ml"
       },
       "price": 30,
       "spicy": 0,
