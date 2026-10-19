@@ -762,8 +762,8 @@ window.MENU_DATA = {
       "id": "icecek-1",
       "categoryId": "icecek",
       "name": {
-        "tr": "coca cola",
-        "en": "coca cola"
+        "tr": "coca cola - zero",
+        "en": "coca cola - zero"
       },
       "description": {
         "tr": "330ml kutu",
@@ -772,7 +772,7 @@ window.MENU_DATA = {
       "price": 114,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/icecek-1.jpg",
       "allergens": []
     },
     {
