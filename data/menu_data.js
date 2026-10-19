@@ -814,21 +814,21 @@ window.MENU_DATA = {
       "categoryId": "icecek",
       "name": {
         "tr": "özerhisar ayran",
-        "en": "özerhisar artisanal ayran"
+        "en": "özerhisar ayran"
       },
       "description": {
-        "tr": "geleneksel yayık meşhur özerhisar ayranı",
-        "en": "traditional churned premium özerhisar ayran"
+        "tr": "özerhisar ayranı",
+        "en": "özerhisar ayran"
       },
       "price": 114,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/icecek-4.jpg",
       "allergens": [
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
