@@ -215,7 +215,7 @@
 
     .category-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(var(--cat-cols, 5), 1fr);
       gap: 6px;
       width: 100%;
       max-width: 680px;
@@ -1320,10 +1320,17 @@
       updateTrayUI();
     }
 
-    // 4. Render Categories (5 Square Cards, 100% Fit)
+    // 4. Render Categories (Square Cards, 100% Fit)
     function renderCategories() {
       const grid = document.getElementById('category-grid');
       grid.innerHTML = '';
+
+      const catCount = (menuData.categories && menuData.categories.length) || 5;
+      if (catCount <= 6) {
+        grid.style.setProperty('--cat-cols', catCount);
+      } else {
+        grid.style.setProperty('--cat-cols', Math.ceil(catCount / 2));
+      }
 
       menuData.categories.forEach((cat, index) => {
         const isCurrentActive = activeCategoryId === cat.id || (!activeCategoryId && index === 0);
