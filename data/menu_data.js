@@ -164,9 +164,9 @@ window.MENU_DATA = {
       "spicy": 0,
       "badge": {
         "tr": "hafta içi",
-        "en": "weekdays"
+        "en": "hafta içi"
       },
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/corba-1.jpg",
       "allergens": []
     },
     {
