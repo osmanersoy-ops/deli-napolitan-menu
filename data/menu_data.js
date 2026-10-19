@@ -265,7 +265,7 @@ window.MENU_DATA = {
       "price": 510,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-3.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -288,7 +288,7 @@ window.MENU_DATA = {
       "price": 620,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-4.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -298,7 +298,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -520,7 +520,7 @@ window.MENU_DATA = {
       "price": 790,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-12.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -530,7 +530,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -632,7 +632,7 @@ window.MENU_DATA = {
       "price": 790,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-16.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -642,12 +642,12 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         },
         {
           "code": "nuts",
-          "tr": "Kuruyemiş / Fıstık",
-          "en": "Tree Nuts / Pistachio"
+          "tr": "Kuruyemiş / Fındık / Fıstık",
+          "en": "Tree Nuts / Peanuts"
         }
       ]
     },
