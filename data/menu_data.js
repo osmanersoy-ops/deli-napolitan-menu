@@ -26,7 +26,7 @@ window.MENU_DATA = {
       },
       "image": "assets/cat_ortaya.jpg",
       "description": {
-        "tr": "Sofranın ortasına paylaşımlık mezeler ve salatalar",
+        "tr": "paylaşımlık mezeler ve salatalar",
         "en": "Artisanal appetizers & salads to share"
       }
     },
@@ -46,7 +46,7 @@ window.MENU_DATA = {
       "id": "pizza",
       "name": {
         "tr": "Pizza",
-        "en": "Neapolitan Pizza"
+        "en": "Pizza"
       },
       "image": "assets/cat_pizza.jpg",
       "description": {
