@@ -579,12 +579,15 @@
     }
 
     .tray-bar-arrow {
-      font-size: 12px;
-      font-weight: 700;
-      background: rgba(245, 245, 220, 0.15);
-      padding: 4px 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      background: rgba(245, 245, 220, 0.16);
+      border: 1px solid rgba(245, 245, 220, 0.25);
+      padding: 5px 12px;
       border-radius: 14px;
       color: var(--brand-cream);
+      text-transform: uppercase;
     }
 
     /* ---------------------------------------------------- */
@@ -1053,16 +1056,16 @@
   <!-- 6. SLENDER FLOATING TRAY BAR -->
   <div class="tray-floating-bar" id="tray-floating-bar" onclick="openTrayModal()">
     <div class="tray-bar-left">
+      <span class="tray-bar-arrow" id="tray-view-text">GÖSTER</span>
+    </div>
+    <div class="tray-bar-right">
+      <span class="tray-bar-title" id="tray-label-text">Tepsi</span>
       <div class="tray-icon-box">
         <svg class="tray-svg-icon" viewBox="0 0 24 24">
           <path d="M12 2a1 1 0 0 1 1 1v1.07A8.001 8.001 0 0 1 20 12v1H4v-1a8.001 8.001 0 0 1 7-7.93V3a1 1 0 0 1 1-1zm8 13H4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1z"/>
         </svg>
         <span class="tray-badge" id="tray-badge-count">0</span>
       </div>
-      <span class="tray-bar-title" id="tray-label-text">Tepsi</span>
-    </div>
-    <div class="tray-bar-right">
-      <span class="tray-bar-arrow" id="tray-view-text">Göster ›</span>
     </div>
   </div>
 
@@ -1155,7 +1158,7 @@
         noAllergens: "Belirtilen belirgin bir alerjen bulunmamaktadır.",
         datePrefix: "Fiyat değişim tarihi: ",
         trayBarLabel: "Tepsi",
-        view: "Göster ›"
+        view: "GÖSTER"
       },
       en: {
         tapForDetails: "Photos & allergens",
@@ -1163,14 +1166,13 @@
         trayTitle: "Our Tray",
         traySubtitle: "Show this screen to your waiter to place your order",
         emptyTray: "Your tray is currently empty. Add your favorite items from the menu.",
-        totalLabel: "Total:",
         clearTray: "Clear Tray",
         backToMenu: "Back to Menu",
         allergenTitle: "Allergen Information",
         noAllergens: "No major allergens specified for this item.",
         datePrefix: "Price update date: ",
         trayBarLabel: "Tray",
-        view: "View ›"
+        view: "VIEW"
       }
     };
 
