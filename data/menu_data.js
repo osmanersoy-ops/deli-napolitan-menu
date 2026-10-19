@@ -314,7 +314,7 @@ window.MENU_DATA = {
         "en": "san marzano tomato sauce, fior di latte mozzarella, spicy butcher's sucuk, grated parmesan"
       },
       "price": 760,
-      "spicy": 2,
+      "spicy": 1,
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
@@ -326,7 +326,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -663,7 +663,7 @@ window.MENU_DATA = {
         "en": "tabasco spicy tomato cream base, fior di latte mozzarella, spanish beef salami, tender potato slices, jalapeno slices, aged mihaliç cheese"
       },
       "price": 790,
-      "spicy": 1,
+      "spicy": 2,
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
@@ -675,7 +675,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
