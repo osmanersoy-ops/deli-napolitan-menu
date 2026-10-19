@@ -1,4 +1,5 @@
-window.DELI_MENU_DATA = {
+// Deli Napolitan Menu Data
+window.MENU_DATA = {
   "restaurant": {
     "name": "deli. napolitan",
     "tagline": {
@@ -13,7 +14,8 @@ window.DELI_MENU_DATA = {
     "logo": "assets/logo.png",
     "primaryColor": "#31543e",
     "accentColor": "#f5f5dc",
-    "defaultProductImage": "assets/product_placeholder.jpg"
+    "defaultProductImage": "assets/product_placeholder.jpg",
+    "lastUpdated": "2026-10-19"
   },
   "categories": [
     {
@@ -94,7 +96,11 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -113,7 +119,11 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "sesame", "tr": "Susam / Tahin", "en": "Sesame" }
+        {
+          "code": "sesame",
+          "tr": "Susam / Tahin",
+          "en": "Sesame"
+        }
       ]
     },
     {
@@ -132,7 +142,11 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -174,7 +188,11 @@ window.DELI_MENU_DATA = {
       },
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -193,8 +211,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -213,8 +239,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -233,7 +267,11 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        }
       ]
     },
     {
@@ -252,8 +290,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -272,8 +318,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -292,8 +346,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -312,8 +374,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -332,8 +402,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -352,8 +430,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -372,9 +458,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" },
-        { "code": "mustard", "tr": "Hardal", "en": "Mustard" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy / Lactose"
+        }
       ]
     },
     {
@@ -396,8 +489,16 @@ window.DELI_MENU_DATA = {
       },
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -416,8 +517,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -436,8 +545,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -456,8 +573,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -476,8 +601,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -496,9 +629,21 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" },
-        { "code": "nuts", "tr": "Kuruyemiş / Fıstık", "en": "Tree Nuts / Pistachio" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        },
+        {
+          "code": "nuts",
+          "tr": "Kuruyemiş / Fıstık",
+          "en": "Tree Nuts / Pistachio"
+        }
       ]
     },
     {
@@ -517,8 +662,16 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -537,7 +690,11 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -556,7 +713,11 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -575,9 +736,21 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" },
-        { "code": "nuts", "tr": "Kuruyemiş / Fındık / Fıstık", "en": "Tree Nuts / Hazelnut" }
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        },
+        {
+          "code": "nuts",
+          "tr": "Kuruyemiş / Fındık / Fıstık",
+          "en": "Tree Nuts / Hazelnut"
+        }
       ]
     },
     {
@@ -647,7 +820,11 @@ window.DELI_MENU_DATA = {
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
-        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy"
+        }
       ]
     },
     {
@@ -685,5 +862,4 @@ window.DELI_MENU_DATA = {
       "allergens": []
     }
   ]
-}
-;
+};
