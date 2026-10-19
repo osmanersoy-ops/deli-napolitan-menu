@@ -1062,7 +1062,6 @@
       <span class="tray-bar-title" id="tray-label-text">Tepsi</span>
     </div>
     <div class="tray-bar-right">
-      <span class="tray-bar-total" id="tray-total-price">0 ₺</span>
       <span class="tray-bar-arrow" id="tray-view-text">Göster ›</span>
     </div>
   </div>
@@ -1121,10 +1120,6 @@
       </div>
 
       <div class="tray-modal-footer">
-        <div class="tray-total-row">
-          <span class="tray-total-label" id="tray-total-label-text">Toplam:</span>
-          <span class="tray-total-val" id="tray-total-amount">0 ₺</span>
-        </div>
         <div class="tray-actions-row">
           <button class="tray-btn-clear" onclick="clearTray()" id="tray-clear-btn-text">Tepsiyi Boşalt</button>
           <button class="tray-btn-done" onclick="closeTrayModal()" id="tray-done-btn-text">Menüye Dön</button>
@@ -1267,7 +1262,6 @@
       document.getElementById('tray-view-text').textContent = t.view;
       document.getElementById('tray-title-text').textContent = t.trayTitle;
       document.getElementById('tray-subtitle-text').textContent = t.traySubtitle;
-      document.getElementById('tray-total-label-text').textContent = t.totalLabel;
       document.getElementById('tray-clear-btn-text').textContent = t.clearTray;
       document.getElementById('tray-done-btn-text').textContent = t.backToMenu;
       document.getElementById('modal-add-tray-text').textContent = t.addToTray;
@@ -1431,7 +1425,7 @@
       document.getElementById('modal-price').textContent = `${item.price} ₺`;
       document.getElementById('modal-desc').textContent = desc;
       document.getElementById('modal-allergen-heading').querySelector('span').textContent = t.allergenTitle;
-      document.getElementById('modal-add-tray-text').textContent = `${t.addToTray} (${item.price} ₺)`;
+      document.getElementById('modal-add-tray-text').textContent = t.addToTray;
 
       // Badges
       const badgesContainer = document.getElementById('modal-badges');
@@ -1542,11 +1536,7 @@
 
     function updateTrayUI() {
       const totalQty = tray.reduce((sum, i) => sum + i.qty, 0);
-      const totalPrice = tray.reduce((sum, i) => sum + (i.price * i.qty), 0);
-
       document.getElementById('tray-badge-count').textContent = totalQty;
-      document.getElementById('tray-total-price').textContent = `${totalPrice} ₺`;
-      document.getElementById('tray-total-amount').textContent = `${totalPrice} ₺`;
     }
 
     // Tray Modal
@@ -1584,7 +1574,6 @@
         row.innerHTML = `
           <div class="tray-item-details">
             <div class="tray-item-name">${name}</div>
-            <div class="tray-item-price">${item.price} ₺</div>
           </div>
           <div class="tray-qty-ctrl">
             <button class="tray-qty-btn" onclick="updateTrayQty('${item.id}', -1)">-</button>
