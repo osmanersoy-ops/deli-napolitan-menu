@@ -468,24 +468,47 @@
       color: var(--brand-green);
       border: 1.5px solid rgba(49, 84, 62, 0.25);
       border-radius: 20px;
-      padding: 5px 12px;
+      padding: 6px 13px;
       font-size: 12px;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.15s ease;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .btn-add-tray:active {
-      transform: scale(0.93);
+    /* Mobile press effect */
+    .btn-add-tray:active, .btn-add-tray.btn-pressed {
+      transform: scale(0.86);
+      background: var(--brand-green-dark) !important;
+      color: var(--brand-cream) !important;
+      border-color: var(--brand-green-dark) !important;
+    }
+
+    /* Koyu (Dark) state when item is in the tray */
+    .btn-add-tray.in-tray {
       background: var(--brand-green);
       color: var(--brand-cream);
+      border-color: var(--brand-green);
+      box-shadow: 0 3px 10px rgba(49, 84, 62, 0.35);
+    }
+
+    .btn-add-tray.in-tray:active, .btn-add-tray.in-tray.btn-pressed {
+      background: var(--brand-green-dark) !important;
+      transform: scale(0.86);
     }
 
     .btn-add-tray .plus-symbol {
       font-size: 14px;
       font-weight: 800;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-add-tray:active .plus-symbol {
+      transform: rotate(90deg);
     }
 
     /* ---------------------------------------------------- */
@@ -511,11 +534,15 @@
       cursor: pointer;
       border: 1px solid rgba(245, 245, 220, 0.2);
       backdrop-filter: blur(10px);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      transition: transform 0.12s ease, box-shadow 0.15s ease;
     }
 
-    .tray-floating-bar:active {
-      transform: translateX(-50%) scale(0.98);
+    .tray-floating-bar:active, .tray-floating-bar.bar-pressed {
+      transform: translateX(-50%) scale(0.95);
+      box-shadow: 0 4px 12px rgba(27, 48, 35, 0.5);
     }
 
     .tray-bar-left {
@@ -584,10 +611,20 @@
       letter-spacing: 0.8px;
       background: rgba(245, 245, 220, 0.16);
       border: 1px solid rgba(245, 245, 220, 0.25);
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 14px;
       color: var(--brand-cream);
       text-transform: uppercase;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .tray-bar-arrow:active, .tray-bar-arrow.btn-pressed, .tray-floating-bar:active .tray-bar-arrow {
+      transform: scale(0.88);
+      background: rgba(245, 245, 220, 0.38) !important;
+      border-color: var(--brand-cream) !important;
     }
 
     /* ---------------------------------------------------- */
@@ -780,9 +817,9 @@
     /* Modal Add to Tray button */
     .modal-add-tray-btn {
       width: 100%;
-      background: var(--brand-green);
-      color: var(--brand-cream);
-      border: none;
+      background: rgba(49, 84, 62, 0.08);
+      color: var(--brand-green);
+      border: 1.5px solid rgba(49, 84, 62, 0.3);
       border-radius: var(--radius-md);
       padding: 14px 18px;
       font-size: 15px;
@@ -793,13 +830,24 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 4px 12px rgba(49, 84, 62, 0.3);
-      transition: background 0.15s ease, transform 0.1s ease;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease;
     }
 
-    .modal-add-tray-btn:active {
-      transform: scale(0.98);
-      background: var(--brand-green-dark);
+    .modal-add-tray-btn:active, .modal-add-tray-btn.btn-pressed {
+      transform: scale(0.94);
+      background: var(--brand-green-dark) !important;
+      color: var(--brand-cream) !important;
+    }
+
+    /* Koyu (Dark) state inside modal */
+    .modal-add-tray-btn.in-tray {
+      background: var(--brand-green);
+      color: var(--brand-cream);
+      border-color: var(--brand-green);
+      box-shadow: 0 4px 14px rgba(49, 84, 62, 0.35);
     }
 
     /* ---------------------------------------------------- */
@@ -1148,10 +1196,10 @@
       tr: {
         tapForDetails: "Görseller ve alerjenler",
         addToTray: "Tepsime Ekle",
+        inTray: "Tepside",
         trayTitle: "Tepsimiz",
         traySubtitle: "Garsona sipariş verirken bu ekranı gösterebilirsiniz",
         emptyTray: "Tepsiniz henüz boş. Menüden dilediğiniz lezzetleri ekleyebilirsiniz.",
-        totalLabel: "Toplam Tutar:",
         clearTray: "Tepsiyi Boşalt",
         backToMenu: "Menüye Dön",
         allergenTitle: "Alerjen Bilgileri",
@@ -1163,6 +1211,7 @@
       en: {
         tapForDetails: "Photos & allergens",
         addToTray: "Add to Tray",
+        inTray: "In Tray",
         trayTitle: "Our Tray",
         traySubtitle: "Show this screen to your waiter to place your order",
         emptyTray: "Your tray is currently empty. Add your favorite items from the menu.",
@@ -1361,6 +1410,12 @@
       const desc = item.description[currentLang] || item.description.tr;
       const priceFormatted = `${item.price} ₺`;
 
+      // Check if already in tray
+      const existingInTray = tray.find(x => x.id === item.id);
+      const isAdded = existingInTray && existingInTray.qty > 0;
+      const inTrayClass = isAdded ? 'in-tray' : '';
+      const btnText = isAdded ? `${t.inTray} (${existingInTray.qty})` : t.addToTray;
+
       // Spicy Icon (🌶️ or 🌶️🌶️)
       let spicyHtml = '';
       if (item.spicy && item.spicy > 0) {
@@ -1400,8 +1455,8 @@
           </span>
           
           <!-- Tepsime Ekle Button -->
-          <button class="btn-add-tray" onclick="addToTray('${item.id}', event)">
-            <span>${t.addToTray}</span>
+          <button class="btn-add-tray ${inTrayClass}" id="btn-tray-${item.id}" data-item-id="${item.id}" onclick="addToTray('${item.id}', event)">
+            <span>${btnText}</span>
             <span class="plus-symbol">+</span>
           </button>
         </div>
@@ -1427,7 +1482,18 @@
       document.getElementById('modal-price').textContent = `${item.price} ₺`;
       document.getElementById('modal-desc').textContent = desc;
       document.getElementById('modal-allergen-heading').querySelector('span').textContent = t.allergenTitle;
-      document.getElementById('modal-add-tray-text').textContent = t.addToTray;
+
+      // Update modal add to tray button
+      const existingInTray = tray.find(x => x.id === item.id);
+      const isAdded = existingInTray && existingInTray.qty > 0;
+      const modalBtn = document.getElementById('modal-add-tray-btn');
+      if (isAdded) {
+        modalBtn.classList.add('in-tray');
+        document.getElementById('modal-add-tray-text').textContent = `${t.inTray} (${existingInTray.qty})`;
+      } else {
+        modalBtn.classList.remove('in-tray');
+        document.getElementById('modal-add-tray-text').textContent = t.addToTray;
+      }
 
       // Badges
       const badgesContainer = document.getElementById('modal-badges');
@@ -1508,13 +1574,25 @@
       void badge.offsetWidth; // reflow
       badge.classList.add('pulse');
 
+      // Visual tactile bounce on clicked button
+      const clickedBtn = document.getElementById(`btn-tray-${itemId}`);
+      if (clickedBtn) {
+        clickedBtn.classList.add('btn-pressed');
+        setTimeout(() => clickedBtn.classList.remove('btn-pressed'), 180);
+      }
+
       updateTrayUI();
     }
 
     function handleAddModalItemToTray() {
       if (activeModalItem) {
-        addToTray(activeModalItem.id);
-        closeModal();
+        const modalBtn = document.getElementById('modal-add-tray-btn');
+        modalBtn.classList.add('btn-pressed');
+        setTimeout(() => {
+          modalBtn.classList.remove('btn-pressed');
+          addToTray(activeModalItem.id);
+          closeModal();
+        }, 120);
       }
     }
 
@@ -1539,10 +1617,41 @@
     function updateTrayUI() {
       const totalQty = tray.reduce((sum, i) => sum + i.qty, 0);
       document.getElementById('tray-badge-count').textContent = totalQty;
+      const t = uiTexts[currentLang];
+
+      // Update all "Tepsime Ekle" buttons on the cards
+      document.querySelectorAll('.btn-add-tray').forEach(btn => {
+        const itemId = btn.getAttribute('data-item-id');
+        const trayItem = tray.find(x => x.id === itemId);
+        if (trayItem && trayItem.qty > 0) {
+          btn.classList.add('in-tray');
+          btn.innerHTML = `<span>${t.inTray} (${trayItem.qty})</span> <span class="plus-symbol">+</span>`;
+        } else {
+          btn.classList.remove('in-tray');
+          btn.innerHTML = `<span>${t.addToTray}</span> <span class="plus-symbol">+</span>`;
+        }
+      });
+
+      // Update modal add to tray button if open
+      if (activeModalItem) {
+        const trayItem = tray.find(x => x.id === activeModalItem.id);
+        const modalBtn = document.getElementById('modal-add-tray-btn');
+        if (trayItem && trayItem.qty > 0) {
+          modalBtn.classList.add('in-tray');
+          document.getElementById('modal-add-tray-text').textContent = `${t.inTray} (${trayItem.qty})`;
+        } else {
+          modalBtn.classList.remove('in-tray');
+          document.getElementById('modal-add-tray-text').textContent = t.addToTray;
+        }
+      }
     }
 
     // Tray Modal
     function openTrayModal() {
+      const bar = document.getElementById('tray-floating-bar');
+      bar.classList.add('bar-pressed');
+      setTimeout(() => bar.classList.remove('bar-pressed'), 180);
+
       renderTrayModalItems();
       document.getElementById('tray-modal').classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -1610,6 +1719,8 @@
 
     // Initialize
     window.addEventListener('DOMContentLoaded', () => {
+      // Enable iOS Safari active states immediately on tap
+      document.addEventListener("touchstart", function(){}, { passive: true });
       initLanguage();
       loadMenuData();
     });
