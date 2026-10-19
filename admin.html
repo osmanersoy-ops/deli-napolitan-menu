@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
   <title>Deli Napolitan — Menü Yönetim Paneli</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -840,9 +842,168 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
+    /* LOGIN GATE (PASSWORD PROTECTION) */
+    .login-gate {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--color-cream);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-cream-border);
+      border-radius: var(--radius-lg);
+      padding: 38px 28px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .login-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 6px;
+      object-fit: cover;
+      background: var(--color-forest);
+      border: 2px solid var(--color-cream-border);
+    }
+
+    .login-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-forest);
+      letter-spacing: 0.05em;
+    }
+
+    .login-subtitle {
+      font-size: 0.85rem;
+      color: var(--color-muted);
+      margin-top: -8px;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .password-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .password-input {
+      width: 100%;
+      padding: 12px 42px 12px 14px;
+      font-size: 1rem;
+      border: 1.5px solid var(--color-cream-border);
+      border-radius: var(--radius-sm);
+      outline: none;
+      font-family: inherit;
+      background: var(--color-cream);
+      letter-spacing: 0.1em;
+      transition: all 0.2s ease;
+    }
+
+    .password-input:focus {
+      border-color: var(--color-forest);
+      background: var(--color-white);
+      box-shadow: 0 0 0 3px rgba(49, 84, 62, 0.12);
+    }
+
+    .toggle-pwd-btn {
+      position: absolute;
+      right: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--color-muted);
+      padding: 4px;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--color-forest);
+      color: var(--color-cream);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(49, 84, 62, 0.25);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .login-btn:hover {
+      background: var(--color-forest-dark);
+    }
+
+    .login-btn:active {
+      transform: scale(0.98);
+    }
+
+    .login-error {
+      color: #dc2626;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: none;
+      background: #fef2f2;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #fee2e2;
+    }
+
+    @keyframes cardShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    .login-card.shake {
+      animation: cardShake 0.4s ease-in-out;
+    }
   </style>
 </head>
 <body>
+
+  <!-- PASSWORD LOGIN GATE -->
+  <div class="login-gate" id="login-gate">
+    <div class="login-card" id="login-card">
+      <img src="assets/logo.png" alt="Deli Napolitan" class="login-logo" onerror="this.style.display='none'">
+      <h2 class="login-title">DELI NAPOLITAN</h2>
+      <p class="login-subtitle">Yönetici Girişi</p>
+
+      <form class="login-form" onsubmit="handleLoginSubmit(event)">
+        <div class="password-input-wrap">
+          <input type="password" id="admin-password-input" class="password-input" placeholder="Şifre giriniz..." autocomplete="current-password" autofocus required>
+          <button type="button" class="toggle-pwd-btn" onclick="togglePasswordVisibility()" title="Şifreyi Göster/Gizle">👁️</button>
+        </div>
+        <div class="login-error" id="login-error">Hatalı şifre. Lütfen tekrar deneyin.</div>
+        <button type="submit" class="login-btn">Giriş Yap</button>
+      </form>
+    </div>
+  </div>
 
   <!-- TOP HEADER -->
   <header class="admin-header">
@@ -867,6 +1028,10 @@
           <span>💾</span>
           <span>Yayınla</span>
           <span class="unsaved-badge" id="header-unsaved-badge">0</span>
+        </button>
+        <button class="btn btn-outline" onclick="logoutAdmin()" title="Güvenli Çıkış">
+          <span>🔒</span>
+          <span>Çıkış</span>
         </button>
       </div>
     </div>
@@ -1133,6 +1298,67 @@
   <script src="data/menu_data.js"></script>
   <script>
     // ==========================================
+    // 0. AUTHENTICATION & LOGIN GATE
+    // ==========================================
+    const ADMIN_PASSWORD = "deli2026";
+
+    function checkAuth() {
+      const isAuth = sessionStorage.getItem('deli_admin_logged_in') === 'true';
+      const gate = document.getElementById('login-gate');
+      if (isAuth) {
+        gate.style.display = 'none';
+      } else {
+        gate.style.display = 'flex';
+        setTimeout(() => {
+          const input = document.getElementById('admin-password-input');
+          if (input) input.focus();
+        }, 150);
+      }
+    }
+
+    function handleLoginSubmit(event) {
+      if (event) event.preventDefault();
+      const input = document.getElementById('admin-password-input');
+      const errEl = document.getElementById('login-error');
+      const card = document.getElementById('login-card');
+      const entered = input.value.trim();
+
+      if (entered === ADMIN_PASSWORD) {
+        sessionStorage.setItem('deli_admin_logged_in', 'true');
+        errEl.style.display = 'none';
+        document.getElementById('login-gate').style.display = 'none';
+      } else {
+        errEl.style.display = 'block';
+        card.classList.remove('shake');
+        void card.offsetWidth; // trigger CSS reflow for restart animation
+        card.classList.add('shake');
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('admin-password-input');
+      if (input.type === 'password') {
+        input.type = 'text';
+      } else {
+        input.type = 'password';
+      }
+    }
+
+    function logoutAdmin() {
+      if (confirm('Yönetim panelinden çıkış yapmak istiyor musunuz?')) {
+        sessionStorage.removeItem('deli_admin_logged_in');
+        document.getElementById('admin-password-input').value = '';
+        document.getElementById('login-error').style.display = 'none';
+        document.getElementById('login-gate').style.display = 'flex';
+        setTimeout(() => {
+          document.getElementById('admin-password-input').focus();
+        }, 100);
+      }
+    }
+
+    // ==========================================
     // 1. MASTER ALLERGEN DICTIONARY
     // TR -> EN AUTOMATIC MAPPING
     // ==========================================
@@ -1172,6 +1398,7 @@
     // 3. INITIALIZATION
     // ==========================================
     window.addEventListener('DOMContentLoaded', async () => {
+      checkAuth();
       await loadMenuData();
       renderAllergensPillGrid();
       renderProductsList();
