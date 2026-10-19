@@ -1637,7 +1637,7 @@
       const card = document.getElementById('login-card');
       const entered = input.value.trim();
 
-      if (entered === ADMIN_PASSWORD) {
+      if (entered.toLowerCase() === ADMIN_PASSWORD.toLowerCase()) {
         try {
           sessionStorage.setItem('deli_admin_logged_in', 'true');
           localStorage.setItem('deli_admin_logged_in', 'true');
@@ -2530,6 +2530,7 @@
 
       showLoading('GitHub deposuna bağlanılıyor...', 'Lütfen bekleyin...');
 
+      try {
         // Step 1a: If any categories have base64 images, commit each image to assets/cat_<id>.jpg
         for (let i = 0; i < menuData.categories.length; i++) {
           const cat = menuData.categories[i];
