@@ -467,6 +467,11 @@ window.MENU_DATA = {
           "code": "milk",
           "tr": "Laktoz / Süt",
           "en": "Dairy / Lactose"
+        },
+        {
+          "code": "mustard",
+          "tr": "Hardal",
+          "en": "Mustard"
         }
       ]
     },
