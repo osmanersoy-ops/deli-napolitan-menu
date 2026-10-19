@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>deli. napolitan | QR Menü</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --brand-green: #31543e;
+      --brand-green-dark: #223a2b;
+      --brand-green-light: #446f53;
+      --brand-cream: #f5f5dc;
+      --brand-cream-light: #faf9f2;
+      --bg-page: #f6f5ef;
+      --card-bg: #ffffff;
+      --text-main: #1d2b21;
+      --text-muted: #647167;
+      --text-light: #8e9a91;
+      --border-color: #e5e5da;
+      --border-subtle: #eeeee5;
+      --spicy-red: #d93829;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 2px 8px rgba(34, 58, 43, 0.05);
+      --shadow-md: 0 6px 20px rgba(34, 58, 43, 0.08);
+      --shadow-lg: 0 12px 32px rgba(34, 58, 43, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    /* ---------------------------------------------------- */
+    /* 1. SPLASH / LANGUAGE SELECTOR OVERLAY                 */
+    /* ---------------------------------------------------- */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(165deg, var(--brand-green-dark) 0%, var(--brand-green) 100%);
+      color: var(--brand-cream);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 24px;
+      text-align: center;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    #splash-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-logo {
+      width: 140px;
+      height: 140px;
+      border-radius: 28px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+      border: 3px solid rgba(245, 245, 220, 0.2);
+      margin-bottom: 24px;
+      object-fit: cover;
+      background-color: var(--brand-green);
+    }
+
+    .splash-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      color: var(--brand-cream);
+    }
+
+    .splash-tagline {
+      font-size: 14px;
+      color: rgba(245, 245, 220, 0.85);
+      font-weight: 400;
+      max-width: 280px;
+      margin-bottom: 36px;
+      line-height: 1.4;
+    }
+
+    .splash-lang-box {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .splash-lang-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(245, 245, 220, 0.3);
+      border-radius: var(--radius-md);
+      color: var(--brand-cream);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
+    }
+
+    .splash-lang-btn:active {
+      transform: scale(0.98);
+      background: rgba(255, 255, 255, 0.16);
+      border-color: var(--brand-cream);
+    }
+
+    .splash-lang-btn .flag {
+      font-size: 22px;
+      margin-right: 12px;
+    }
+
+    .splash-lang-btn .arrow {
+      font-size: 18px;
+      opacity: 0.7;
+    }
+
+    /* ---------------------------------------------------- */
+    /* 2. TOP BRAND HEADER                                  */
+    /* ---------------------------------------------------- */
+    .brand-header {
+      background: linear-gradient(180deg, var(--brand-green) 0%, var(--brand-green-dark) 100%);
+      color: var(--brand-cream);
+      padding: 24px 20px 20px;
+      position: relative;
+    }
+
+    .header-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .header-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .header-logo-img {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid rgba(245, 245, 220, 0.25);
+      background: var(--brand-green);
+    }
+
+    .header-brand-texts {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--brand-cream);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+
+    .header-brand-tagline {
+      font-size: 11px;
+      color: rgba(245, 245, 220, 0.8);
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      margin-top: 2px;
+    }
+
+    .lang-switcher-pill {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(245, 245, 220, 0.3);
+      border-radius: 20px;
+      padding: 4px 6px;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .lang-opt {
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 14px;
+      color: rgba(245, 245, 220, 0.7);
+      transition: all 0.2s ease;
+    }
+
+    .lang-opt.active {
+      background: var(--brand-cream);
+      color: var(--brand-green-dark);
+    }
+
+    /* Search bar */
+    .search-box-container {
+      margin-top: 14px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(245, 245, 220, 0.25);
+      border-radius: var(--radius-sm);
+      padding: 11px 14px 11px 40px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      backdrop-filter: blur(6px);
+      transition: all 0.2s ease;
+    }
+
+    .search-input::placeholder {
+      color: rgba(245, 245, 220, 0.6);
+    }
+
+    .search-input:focus {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--brand-cream);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      fill: rgba(245, 245, 220, 0.6);
+      pointer-events: none;
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--brand-cream);
+      font-size: 16px;
+      cursor: pointer;
+      display: none;
+      padding: 4px;
+    }
+
+    /* ---------------------------------------------------- */
+    /* 3. STICKY CATEGORY CAROUSEL (FineDine Style)        */
+    /* ---------------------------------------------------- */
+    .category-nav-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      padding: 10px 0;
+      overflow: hidden;
+    }
+
+    .category-carousel {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 2px 16px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none; /* Firefox */
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .category-carousel::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
+    }
+
+    .category-card {
+      flex: 0 0 auto;
+      width: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      scroll-snap-align: start;
+      transition: transform 0.15s ease;
+    }
+
+    .category-card:active {
+      transform: scale(0.96);
+    }
+
+    .cat-img-box {
+      width: 100px;
+      height: 72px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      position: relative;
+      background-color: #e5e5dc;
+      border: 2px solid transparent;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .cat-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .cat-name-label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 6px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      transition: color 0.2s ease;
+    }
+
+    /* Active Category state */
+    .category-card.active .cat-img-box {
+      border-color: var(--brand-green);
+      box-shadow: 0 0 0 1px var(--brand-green), 0 4px 12px rgba(49, 84, 62, 0.25);
+    }
+
+    .category-card.active .cat-img-box img {
+      transform: scale(1.05);
+    }
+
+    .category-card.active .cat-name-label {
+      color: var(--brand-green);
+      font-weight: 800;
+    }
+
+    /* ---------------------------------------------------- */
+    /* 4. MAIN CONTENT FEED & PRODUCTS                      */
+    /* ---------------------------------------------------- */
+    .menu-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 16px 16px 40px;
+    }
+
+    .category-section {
+      margin-bottom: 28px;
+      scroll-margin-top: 130px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--brand-green);
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--brand-green-dark);
+      letter-spacing: -0.3px;
+      text-transform: lowercase;
+    }
+
+    .section-count {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Product Card */
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    }
+
+    .product-card:active {
+      transform: scale(0.99);
+      border-color: var(--brand-green);
+    }
+
+    .card-top-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .product-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+      letter-spacing: -0.2px;
+    }
+
+    /* Spicy & Badge */
+    .spicy-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 13px;
+      vertical-align: middle;
+    }
+
+    .custom-badge {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background-color: rgba(49, 84, 62, 0.08);
+      color: var(--brand-green);
+      border: 1px solid rgba(49, 84, 62, 0.2);
+    }
+
+    .product-description {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-top: 3px;
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--brand-green);
+      margin-top: auto;
+    }
+
+    /* Right image thumbnail */
+    .card-image-box {
+      flex: 0 0 96px;
+      width: 96px;
+      height: 96px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background-color: #ebebe0;
+      position: relative;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    .card-image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Card CTA footer */
+    .card-cta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px dashed var(--border-subtle);
+      padding-top: 8px;
+      color: var(--brand-green);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .cta-text-icon {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cta-icon-camera {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .cta-arrow {
+      font-size: 14px;
+      opacity: 0.8;
+      transition: transform 0.2s ease;
+    }
+
+    .product-card:active .cta-arrow {
+      transform: translateX(3px);
+    }
+
+    /* ---------------------------------------------------- */
+    /* 5. MODAL / BOTTOM SHEET FOR DETAILS & ALLERGENS      */
+    /* ---------------------------------------------------- */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 30, 22, 0.65);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: flex;
+      align-items: center; /* Desktop: perfectly centered */
+      justify-content: center;
+      padding: 24px 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-sheet {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 520px;
+      border-radius: 24px; /* Desktop: full rounded card */
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.92);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.28);
+    }
+
+    .modal-backdrop.open .modal-sheet {
+      transform: scale(1);
+    }
+
+    /* Mobile: Native Bottom Sheet style */
+    @media (max-width: 640px) {
+      .modal-backdrop {
+        align-items: flex-end;
+        padding: 0;
+      }
+
+      .modal-sheet {
+        max-width: 100%;
+        border-radius: 24px 24px 0 0;
+        max-height: 86vh;
+        transform: translateY(100%);
+        padding-bottom: env(safe-area-inset-bottom, 16px);
+      }
+
+      .modal-backdrop.open .modal-sheet {
+        transform: translateY(0);
+      }
+    }
+
+    .modal-header-img {
+      width: 100%;
+      height: 240px;
+      position: relative;
+      background: #333;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .modal-header-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s ease;
+      z-index: 10;
+    }
+
+    .modal-close-btn:active {
+      background: rgba(0, 0, 0, 0.85);
+    }
+
+    .modal-body {
+      padding: 20px 20px 30px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .modal-product-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .modal-product-price {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--brand-green);
+      white-space: nowrap;
+    }
+
+    .modal-badges-container {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .modal-description {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      background: var(--bg-page);
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--brand-green);
+    }
+
+    .modal-section-subtitle {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--brand-green);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .allergen-chips-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .allergen-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: rgba(49, 84, 62, 0.08);
+      border: 1px solid rgba(49, 84, 62, 0.2);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brand-green-dark);
+    }
+
+    .allergen-chip.empty {
+      background: #f1f2ec;
+      border-color: #dcded2;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ---------------------------------------------------- */
+    /* 6. FOOTER                                            */
+    /* ---------------------------------------------------- */
+    .menu-footer {
+      text-align: center;
+      padding: 30px 20px 10px;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border-color);
+      margin-top: 20px;
+    }
+
+    .footer-note {
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .footer-date {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--brand-green);
+    }
+
+    /* No search results state */
+    .no-results {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    .no-results p {
+      font-size: 16px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. SPLASH / LANGUAGE SELECTOR OVERLAY -->
+  <div id="splash-screen">
+    <img src="assets/logo.png" alt="deli. napolitan logo" class="splash-logo">
+    <h1 class="splash-title">deli. napolitan</h1>
+    <p class="splash-tagline">neo-neapolitan recipes with local delicatessen</p>
+    
+    <div class="splash-lang-box">
+      <button class="splash-lang-btn" onclick="selectLanguage('tr')">
+        <span style="display:flex; align-items:center;">
+          <span class="flag">🇹🇷</span>
+          <span>Türkçe Menü</span>
+        </span>
+        <span class="arrow">›</span>
+      </button>
+      
+      <button class="splash-lang-btn" onclick="selectLanguage('en')">
+        <span style="display:flex; align-items:center;">
+          <span class="flag">🇬🇧</span>
+          <span>English Menu</span>
+        </span>
+        <span class="arrow">›</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 2. BRAND HEADER -->
+  <header class="brand-header">
+    <div class="header-top-bar">
+      <div class="header-logo-row">
+        <img src="assets/logo.png" alt="deli. napolitan" class="header-logo-img">
+        <div class="header-brand-texts">
+          <span class="header-brand-name">deli. napolitan</span>
+          <span class="header-brand-tagline" id="header-tagline">neo-neapolitan recipes with local delicatessen</span>
+        </div>
+      </div>
+      
+      <!-- Quick Language Switcher -->
+      <div class="lang-switcher-pill" title="Dil Değiştir / Switch Language">
+        <span class="lang-opt active" id="pill-tr" onclick="setLanguage('tr')">TR</span>
+        <span class="lang-opt" id="pill-en" onclick="setLanguage('en')">EN</span>
+      </div>
+    </div>
+
+    <!-- Live Search Input -->
+    <div class="search-box-container">
+      <svg class="search-icon" viewBox="0 0 24 24">
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+      <input type="text" id="search-input" class="search-input" placeholder="Menüde pizza veya malzeme ara..." oninput="handleSearch(this.value)">
+      <button id="search-clear-btn" class="search-clear-btn" onclick="clearSearch()">✕</button>
+    </div>
+  </header>
+
+  <!-- 3. STICKY CATEGORY NAV (FineDine Carousel Style) -->
+  <nav class="category-nav-wrapper">
+    <div class="category-carousel" id="category-carousel">
+      <!-- Injected by JavaScript -->
+    </div>
+  </nav>
+
+  <!-- 4. MAIN MENU FEED -->
+  <main class="menu-container">
+    <div id="no-results" class="no-results">
+      <div style="font-size:36px;">🔍</div>
+      <p id="no-results-text">Aradığınız kriterde ürün bulunamadı.</p>
+    </div>
+
+    <div id="menu-sections">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <!-- 5. FOOTER -->
+    <footer class="menu-footer">
+      <p class="footer-note" id="footer-note">Fiyatlarımız TL ve KDV dahildir.</p>
+      <p class="footer-date" id="footer-date">Fiyat değişim tarihi: 14.06.2026</p>
+      <p class="footer-brand">deli. napolitan</p>
+    </footer>
+  </main>
+
+  <!-- 6. MODAL BOTTOM SHEET FOR PRODUCT DETAILS & ALLERGENS -->
+  <div class="modal-backdrop" id="product-modal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-sheet">
+      <div class="modal-header-img">
+        <img id="modal-img" src="" alt="Ürün Fotoğrafı">
+        <button class="modal-close-btn" onclick="closeModal()">✕</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="modal-title-row">
+          <h2 class="modal-product-title" id="modal-title">Ürün Başlığı</h2>
+          <span class="modal-product-price" id="modal-price">0 ₺</span>
+        </div>
+
+        <div class="modal-badges-container" id="modal-badges"></div>
+
+        <p class="modal-description" id="modal-desc"></p>
+
+        <h3 class="modal-section-subtitle" id="modal-allergen-heading">
+          <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+          <span>Alerjen Bilgileri</span>
+        </h3>
+
+        <div class="allergen-chips-list" id="modal-allergens"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="data/menu_data.js"></script>
+  <script>
+    // Current Active Language
+    let currentLang = 'tr';
+    let menuData = null;
+    let activeCategoryId = null;
+
+    // Translation UI Dictionaries
+    const uiTexts = {
+      tr: {
+        searchPlaceholder: "Menüde pizza veya malzeme ara...",
+        tapForDetails: "Görseller ve alerjen bilgileri için tıklayın",
+        allergenTitle: "Alerjen Bilgileri",
+        noAllergens: "Belirtilen belirgin bir alerjen bulunmamaktadır.",
+        noResults: "Aradığınız kriterde ürün bulunamadı.",
+        datePrefix: "Fiyat değişim tarihi: "
+      },
+      en: {
+        searchPlaceholder: "Search pizzas or ingredients...",
+        tapForDetails: "Tap for photos & allergen info",
+        allergenTitle: "Allergen Information",
+        noAllergens: "No major allergens specified for this item.",
+        noResults: "No items found matching your search.",
+        datePrefix: "Price update date: "
+      }
+    };
+
+    // Allergen Icons
+    const allergenIcons = {
+      milk: "🥛",
+      gluten: "🌾",
+      nuts: "🥜",
+      mustard: "🟡",
+      sesame: "🌱",
+      egg: "🥚",
+      default: "⚠️"
+    };
+
+    // 1. Check Splash / Saved Language on Load
+    function initLanguage() {
+      const savedLang = localStorage.getItem('deli_napolitan_lang');
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlLang = urlParams.get('lang');
+      const forceSplash = urlParams.get('splash') === '1';
+
+      if (urlLang === 'tr' || urlLang === 'en') {
+        selectLanguage(urlLang, false);
+      } else if (savedLang && !forceSplash) {
+        selectLanguage(savedLang, false);
+      } else {
+        // Show splash screen
+        document.getElementById('splash-screen').classList.remove('hidden');
+      }
+    }
+
+    function selectLanguage(lang, smooth = true) {
+      currentLang = lang;
+      localStorage.setItem('deli_napolitan_lang', lang);
+      document.getElementById('splash-screen').classList.add('hidden');
+      updateUI();
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('deli_napolitan_lang', lang);
+      updateUI();
+    }
+
+    function updateLanguageToggle() {
+      document.getElementById('pill-tr').classList.toggle('active', currentLang === 'tr');
+      document.getElementById('pill-en').classList.toggle('active', currentLang === 'en');
+    }
+
+    // 2. Fetch or load embedded menu data
+    async function loadMenuData() {
+      if (window.DELI_MENU_DATA) {
+        menuData = window.DELI_MENU_DATA;
+      }
+      try {
+        const response = await fetch('data/menu_data.json');
+        if (response.ok) {
+          menuData = await response.json();
+        }
+      } catch (e) {
+        console.warn('Using preloaded menu_data.js data');
+      }
+      renderApp();
+    }
+
+    // 3. Render the full application
+    function renderApp() {
+      if (!menuData) return;
+      renderCategories();
+      renderProducts();
+      updateUI();
+      setupScrollSpy();
+    }
+
+    function updateUI() {
+      updateLanguageToggle();
+      const t = uiTexts[currentLang];
+      
+      // Update placeholders and headers
+      document.getElementById('search-input').placeholder = t.searchPlaceholder;
+      document.getElementById('no-results-text').textContent = t.noResults;
+      
+      if (menuData) {
+        document.getElementById('header-tagline').textContent = menuData.restaurant.tagline[currentLang] || menuData.restaurant.tagline.tr;
+        document.getElementById('footer-note').textContent = menuData.restaurant.note[currentLang] || menuData.restaurant.note.tr;
+        document.getElementById('footer-date').textContent = t.datePrefix + menuData.restaurant.date;
+        
+        renderCategories();
+        renderProducts();
+      }
+    }
+
+    // 4. Render Category Carousel (FineDine Mobile Style)
+    function renderCategories() {
+      const carousel = document.getElementById('category-carousel');
+      carousel.innerHTML = '';
+
+      menuData.categories.forEach((cat, index) => {
+        const isCurrentActive = activeCategoryId === cat.id || (!activeCategoryId && index === 0);
+        const card = document.createElement('a');
+        card.className = `category-card ${isCurrentActive ? 'active' : ''}`;
+        card.id = `nav-cat-${cat.id}`;
+        card.href = `#sec-${cat.id}`;
+        card.onclick = (e) => {
+          e.preventDefault();
+          scrollToCategory(cat.id);
+        };
+
+        const catName = cat.name[currentLang] || cat.name.tr;
+
+        card.innerHTML = `
+          <div class="cat-img-box">
+            <img src="${cat.image}" alt="${catName}" loading="lazy">
+          </div>
+          <span class="cat-name-label">${catName}</span>
+        `;
+
+        carousel.appendChild(card);
+      });
+    }
+
+    function scrollToCategory(catId) {
+      activeCategoryId = catId;
+      updateActiveCategoryNav(catId);
+      
+      const targetSec = document.getElementById(`sec-${catId}`);
+      if (targetSec) {
+        targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function updateActiveCategoryNav(catId) {
+      document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+      const activeCard = document.getElementById(`nav-cat-${catId}`);
+      if (activeCard) {
+        activeCard.classList.add('active');
+        activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+
+    // 5. Render Products
+    function renderProducts() {
+      const container = document.getElementById('menu-sections');
+      container.innerHTML = '';
+      const t = uiTexts[currentLang];
+
+      menuData.categories.forEach(cat => {
+        const catItems = menuData.items.filter(item => item.categoryId === cat.id);
+        if (catItems.length === 0) return;
+
+        const sec = document.createElement('section');
+        sec.className = 'category-section';
+        sec.id = `sec-${cat.id}`;
+
+        const catName = cat.name[currentLang] || cat.name.tr;
+
+        sec.innerHTML = `
+          <div class="section-header">
+            <h2 class="section-title">${catName}</h2>
+            <span class="section-count">${catItems.length}</span>
+          </div>
+          <div class="product-list" id="list-${cat.id}"></div>
+        `;
+
+        const listContainer = sec.querySelector(`#list-${cat.id}`);
+
+        catItems.forEach(item => {
+          const itemCard = createProductCard(item, t);
+          listContainer.appendChild(itemCard);
+        });
+
+        container.appendChild(sec);
+      });
+    }
+
+    function createProductCard(item, t) {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.setAttribute('data-name', (item.name.tr + ' ' + item.name.en).toLowerCase());
+      card.setAttribute('data-desc', (item.description.tr + ' ' + item.description.en).toLowerCase());
+      card.onclick = () => openProductModal(item);
+
+      const name = item.name[currentLang] || item.name.tr;
+      const desc = item.description[currentLang] || item.description.tr;
+      const priceFormatted = `${item.price} ₺`;
+
+      // Spicy Icon (🌶️ or 🌶️🌶️)
+      let spicyHtml = '';
+      if (item.spicy && item.spicy > 0) {
+        spicyHtml = `<span class="spicy-badge" title="${item.spicy === 1 ? 'Hafif Acı' : 'Orta Acı'}">${'🌶️'.repeat(item.spicy)}</span>`;
+      }
+
+      // Special Badges (hafta içi / hafta sonu / günlük sınırlı üretim)
+      let badgeHtml = '';
+      if (item.badge) {
+        const badgeText = item.badge[currentLang] || item.badge.tr;
+        badgeHtml = `<span class="custom-badge">${badgeText}</span>`;
+      }
+
+      card.innerHTML = `
+        <div class="card-top-content">
+          <div class="card-info">
+            <div class="card-title-row">
+              <span class="product-name">${name}</span>
+              ${spicyHtml}
+              ${badgeHtml}
+            </div>
+            <p class="product-description">${desc}</p>
+            <div class="product-price">${priceFormatted}</div>
+          </div>
+          <div class="card-image-box">
+            <img src="${item.image}" alt="${name}" loading="lazy">
+          </div>
+        </div>
+        <div class="card-cta-bar">
+          <span class="cta-text-icon">
+            <svg class="cta-icon-camera" viewBox="0 0 24 24">
+              <path d="M12 12m-3.2 0a3.2 3.2 0 1 0 6.4 0 3.2 3.2 0 1 0 -6.4 0"/>
+              <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+            </svg>
+            <span>${t.tapForDetails}</span>
+          </span>
+          <span class="cta-arrow">›</span>
+        </div>
+      `;
+
+      return card;
+    }
+
+    // 6. Modal Bottom Sheet for Details & Allergens
+    function openProductModal(item) {
+      const modal = document.getElementById('product-modal');
+      const t = uiTexts[currentLang];
+
+      const name = item.name[currentLang] || item.name.tr;
+      const desc = item.description[currentLang] || item.description.tr;
+
+      document.getElementById('modal-img').src = item.image;
+      document.getElementById('modal-title').textContent = name;
+      document.getElementById('modal-price').textContent = `${item.price} ₺`;
+      document.getElementById('modal-desc').textContent = desc;
+      document.getElementById('modal-allergen-heading').querySelector('span').textContent = t.allergenTitle;
+
+      // Badges
+      const badgesContainer = document.getElementById('modal-badges');
+      badgesContainer.innerHTML = '';
+      if (item.spicy && item.spicy > 0) {
+        const span = document.createElement('span');
+        span.className = 'spicy-badge';
+        span.innerHTML = `${'🌶️'.repeat(item.spicy)} <small style="font-size:12px;color:var(--spicy-red);font-weight:700;margin-left:4px;">${currentLang === 'tr' ? 'Acılı' : 'Spicy'}</small>`;
+        badgesContainer.appendChild(span);
+      }
+      if (item.badge) {
+        const b = document.createElement('span');
+        b.className = 'custom-badge';
+        b.textContent = item.badge[currentLang] || item.badge.tr;
+        badgesContainer.appendChild(b);
+      }
+
+      // Allergens list
+      const allergensContainer = document.getElementById('modal-allergens');
+      allergensContainer.innerHTML = '';
+
+      if (item.allergens && item.allergens.length > 0) {
+        item.allergens.forEach(allg => {
+          const chip = document.createElement('span');
+          chip.className = 'allergen-chip';
+          const icon = allergenIcons[allg.code] || allergenIcons.default;
+          const label = allg[currentLang] || allg.tr;
+          chip.innerHTML = `<span>${icon}</span> <span>${label}</span>`;
+          allergensContainer.appendChild(chip);
+        });
+      } else {
+        const emptyChip = document.createElement('span');
+        emptyChip.className = 'allergen-chip empty';
+        emptyChip.textContent = t.noAllergens;
+        allergensContainer.appendChild(emptyChip);
+      }
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('product-modal');
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOnBackdrop(e) {
+      if (e.target.id === 'product-modal') {
+        closeModal();
+      }
+    }
+
+    // 7. Live Search
+    function handleSearch(query) {
+      const clearBtn = document.getElementById('search-clear-btn');
+      clearBtn.style.display = query.length > 0 ? 'block' : 'none';
+
+      const q = query.trim().toLowerCase();
+      let hasAnyMatch = false;
+
+      document.querySelectorAll('.category-section').forEach(sec => {
+        let secHasMatch = false;
+        sec.querySelectorAll('.product-card').forEach(card => {
+          const name = card.getAttribute('data-name');
+          const desc = card.getAttribute('data-desc');
+          if (!q || name.includes(q) || desc.includes(q)) {
+            card.style.display = 'flex';
+            secHasMatch = true;
+            hasAnyMatch = true;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        sec.style.display = secHasMatch ? 'block' : 'none';
+      });
+
+      document.getElementById('no-results').style.display = hasAnyMatch ? 'none' : 'block';
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('search-input');
+      input.value = '';
+      handleSearch('');
+      input.focus();
+    }
+
+    // 8. ScrollSpy for Sticky Carousel Active State
+    function setupScrollSpy() {
+      const sections = document.querySelectorAll('.category-section');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const catId = entry.target.id.replace('sec-', '');
+            activeCategoryId = catId;
+            updateActiveCategoryNav(catId);
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '-30% 0px -60% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(sec => observer.observe(sec));
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      initLanguage();
+      loadMenuData();
+    });
+  </script>
+</body>
+</html>

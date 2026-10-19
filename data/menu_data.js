@@ -1,0 +1,689 @@
+window.DELI_MENU_DATA = {
+  "restaurant": {
+    "name": "deli. napolitan",
+    "tagline": {
+      "tr": "neo-neapolitan recipes with local delicatessen",
+      "en": "neo-neapolitan recipes with local delicatessen"
+    },
+    "note": {
+      "tr": "Fiyatlarımız TL ve KDV dahildir.",
+      "en": "All prices are in TL and include VAT."
+    },
+    "date": "14.06.2026",
+    "logo": "assets/logo.png",
+    "primaryColor": "#31543e",
+    "accentColor": "#f5f5dc",
+    "defaultProductImage": "assets/product_placeholder.jpg"
+  },
+  "categories": [
+    {
+      "id": "ortaya",
+      "name": {
+        "tr": "Ortaya",
+        "en": "To Share"
+      },
+      "image": "assets/cat_ortaya.jpg",
+      "description": {
+        "tr": "Sofranın ortasına paylaşımlık mezeler ve salatalar",
+        "en": "Artisanal appetizers & salads to share"
+      }
+    },
+    {
+      "id": "corba",
+      "name": {
+        "tr": "Çorba",
+        "en": "Soups"
+      },
+      "image": "assets/cat_corba.jpg",
+      "description": {
+        "tr": "Taze günlük çorbalar",
+        "en": "Freshly prepared daily soups"
+      }
+    },
+    {
+      "id": "pizza",
+      "name": {
+        "tr": "Pizza",
+        "en": "Neapolitan Pizza"
+      },
+      "image": "assets/cat_pizza.jpg",
+      "description": {
+        "tr": "Taş fırında pişen neo-napolitan pizzalar",
+        "en": "Stone oven baked neo-neapolitan pizzas"
+      }
+    },
+    {
+      "id": "tatli",
+      "name": {
+        "tr": "Tatlı",
+        "en": "Desserts"
+      },
+      "image": "assets/cat_tatli.jpg",
+      "description": {
+        "tr": "Geleneksel İtalyan tatlıları",
+        "en": "Traditional Italian dolce"
+      }
+    },
+    {
+      "id": "icecek",
+      "name": {
+        "tr": "İçecek",
+        "en": "Beverages"
+      },
+      "image": "assets/cat_icecek.jpg",
+      "description": {
+        "tr": "Soğuk meşrubatlar ve yerel lezzetler",
+        "en": "Cold refreshments & local drinks"
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "ortaya-1",
+      "categoryId": "ortaya",
+      "name": {
+        "tr": "taze peynirli zeytin salatası",
+        "en": "fresh cheese & marinated olive salad"
+      },
+      "description": {
+        "tr": "mihaliç taze kaymak peyniri, hatay kırma zeytin, pancar suyunda bekletilmiş kalamata zeytin, ızgara zeytin, zahter, balzamik sirke, zeytinyağı",
+        "en": "fresh mihaliç cream cheese, hatay crushed green olives, kalamata olives in beetroot reduction, grilled olives, wild zahter, balsamic vinegar, extra virgin olive oil"
+      },
+      "price": 390,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "ortaya-2",
+      "categoryId": "ortaya",
+      "name": {
+        "tr": "humus",
+        "en": "traditional hummus"
+      },
+      "description": {
+        "tr": "ankara çubuk turşu ile servis edilir",
+        "en": "served with artisanal ankara çubuk pickles"
+      },
+      "price": 280,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "sesame", "tr": "Susam / Tahin", "en": "Sesame" }
+      ]
+    },
+    {
+      "id": "ortaya-3",
+      "categoryId": "ortaya",
+      "name": {
+        "tr": "tulum peynirli armutlu roka salatası",
+        "en": "tulum cheese, pear & arugula salad"
+      },
+      "description": {
+        "tr": "yaban mersinli erzincan tulum, armut, roka, balzemik sirke, zeytinyağı",
+        "en": "erzincan tulum cheese with blueberries, sliced pear, fresh arugula, balsamic glaze, extra virgin olive oil"
+      },
+      "price": 320,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "corba-1",
+      "categoryId": "corba",
+      "name": {
+        "tr": "kemik suyuna mercimek",
+        "en": "bone broth red lentil soup"
+      },
+      "description": {
+        "tr": "kemik suyu ile ağır ateşte demlenmiş geleneksel kırmızı mercimek çorbası",
+        "en": "slow-simmered bone broth traditional red lentil soup"
+      },
+      "price": 180,
+      "spicy": 0,
+      "badge": {
+        "tr": "hafta içi",
+        "en": "weekdays"
+      },
+      "image": "assets/product_placeholder.jpg",
+      "allergens": []
+    },
+    {
+      "id": "corba-2",
+      "categoryId": "corba",
+      "name": {
+        "tr": "kremalı mantar",
+        "en": "creamy wild mushroom soup"
+      },
+      "description": {
+        "tr": "tereyağında sotelenmiş kestane ve kültür mantarları, taze krema ve frenk maydanozu ile",
+        "en": "sautéed chestnut & button mushrooms in butter, fresh cream, fresh herbs"
+      },
+      "price": 220,
+      "spicy": 0,
+      "badge": {
+        "tr": "hafta sonu",
+        "en": "weekends"
+      },
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-1",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "margherita",
+        "en": "margherita"
+      },
+      "description": {
+        "tr": "domates sos, fior di latte mozarella, fesleğen",
+        "en": "san marzano tomato sauce, fior di latte mozzarella, fresh basil, extra virgin olive oil"
+      },
+      "price": 540,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-2",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "margherita v2",
+        "en": "margherita v2"
+      },
+      "description": {
+        "tr": "domates sos, scarmorza isli italyan peyniri, fesleğen",
+        "en": "san marzano tomato sauce, smoked italian scamorza cheese, fresh basil"
+      },
+      "price": 690,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-3",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "marinara",
+        "en": "marinara"
+      },
+      "description": {
+        "tr": "domates sos, traş sarımsak, yarı kurutulmuş çeri domates, fesleğen",
+        "en": "san marzano tomato sauce, shaved garlic, semi-dried cherry tomatoes, fresh basil, oregano"
+      },
+      "price": 510,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" }
+      ]
+    },
+    {
+      "id": "pizza-4",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "marinara v2",
+        "en": "marinara v2"
+      },
+      "description": {
+        "tr": "domates sos, traş sarımsak, yarı kurutulmuş çeri domates, stracciatella italyan peyniri, fesleğen",
+        "en": "san marzano tomato sauce, shaved garlic, semi-dried cherry tomatoes, italian stracciatella cheese, fresh basil"
+      },
+      "price": 620,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-5",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "diavola",
+        "en": "diavola"
+      },
+      "description": {
+        "tr": "domates sos, fior di latte mozarella, acılı kasap sucuk, rende parmesan",
+        "en": "san marzano tomato sauce, fior di latte mozzarella, spicy butcher's sucuk, grated parmesan"
+      },
+      "price": 760,
+      "spicy": 2,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-6",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "üç peynirli",
+        "en": "three cheese (tre formaggi)"
+      },
+      "description": {
+        "tr": "domates sos, fior di latte mozarella, danish blue küflü peynir, rende parmesan, yarı kurutulmuş çeri domates",
+        "en": "tomato sauce, fior di latte mozzarella, danish blue cheese, grated parmesan, semi-dried cherry tomatoes"
+      },
+      "price": 710,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-7",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "kremalı isli üç peynirli",
+        "en": "creamy smoked three cheese"
+      },
+      "description": {
+        "tr": "krema taban, scarmorza isli italyan peyniri, erzurum isli peynir, rende parmesan",
+        "en": "cream base, smoked italian scamorza, smoked erzurum cheese, grated parmesan"
+      },
+      "price": 740,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-8",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "ıspanak kremalı kuşkonmaz",
+        "en": "spinach cream & asparagus"
+      },
+      "description": {
+        "tr": "ıspanaklı krema taban, fior di latte mozarella, tereyağında sotelenmiş kuşkonmaz, rende olgun mihaliç peyniri, balzemik glaze sos",
+        "en": "spinach cream base, fior di latte mozzarella, butter-sautéed tender asparagus, aged mihaliç cheese, balsamic glaze"
+      },
+      "price": 720,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-9",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "trüf krema mantar",
+        "en": "truffle cream & mushroom"
+      },
+      "description": {
+        "tr": "siyah sarımsak & trüf mantarlı krema sos, fior di latte mozarella, defne yaprağı ile tereyağında sotelenmiş kestane mantarı, kültür mantarı, roka, rende olgun mihaliç peyniri",
+        "en": "black garlic & truffle cream sauce, fior di latte mozzarella, chestnut & button mushrooms sautéed in butter with bay leaves, fresh arugula, aged mihaliç cheese"
+      },
+      "price": 720,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-10",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "tütsülenmiş hindi sosis",
+        "en": "smoked turkey sausage"
+      },
+      "description": {
+        "tr": "domates sos, fior di latte mozarella, tütsülenmiş hindi sosis, hardallı eritilmiş çedar peynir sos, mor soğan turşusu, küp doğranmış çubuk turşu",
+        "en": "tomato sauce, fior di latte mozzarella, smoked turkey sausage, melted mustard cheddar sauce, pickled red onions, diced çubuk pickles"
+      },
+      "price": 690,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" },
+        { "code": "mustard", "tr": "Hardal", "en": "Mustard" }
+      ]
+    },
+    {
+      "id": "pizza-11",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "bolonez",
+        "en": "beef bolognese"
+      },
+      "description": {
+        "tr": "muskat & karabiberli krema taban, fior di latte mozarella, dana kıymadan bolonez, yarı kurutulmuş çeri domates, fesleğen",
+        "en": "nutmeg & black pepper cream base, fior di latte mozzarella, slow-cooked beef bolognese, semi-dried cherry tomatoes, fresh basil"
+      },
+      "price": 720,
+      "spicy": 0,
+      "badge": {
+        "tr": "günlük sınırlı üretim lütfen sorunuz",
+        "en": "limited daily production, please ask"
+      },
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-12",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "biftek stroganoff",
+        "en": "beef ribeye stroganoff"
+      },
+      "description": {
+        "tr": "domatesli krema sos, fior di latte mozarella, kültür mantarı, marine edilmiş jülyen kesim antrikot, stroganoff sos",
+        "en": "tomato cream sauce, fior di latte mozzarella, button mushrooms, marinated julienne beef ribeye, stroganoff sauce"
+      },
+      "price": 790,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-13",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "kasap sucuk",
+        "en": "butcher's sucuk"
+      },
+      "description": {
+        "tr": "domates sos, fior di latte mozarella, kasap sucuk, kırmızı soğan, yarı kurutulmuş çeri domates, rende mihaliç peynir",
+        "en": "tomato sauce, fior di latte mozzarella, artisanal butcher's sucuk, red onion, semi-dried cherry tomatoes, grated mihaliç cheese"
+      },
+      "price": 760,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-14",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "çemensiz pastırma",
+        "en": "cured beef pastirma (fenugreek-free)"
+      },
+      "description": {
+        "tr": "domates sos, mihaliç taze peynir, çemensiz pastırma, rende isli peynir",
+        "en": "tomato sauce, fresh mihaliç cheese, fenugreek-free cured beef pastirma, grated smoked cheese"
+      },
+      "price": 880,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-15",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "dana füme kaburga roka pesto",
+        "en": "smoked beef ribs & arugula pesto"
+      },
+      "description": {
+        "tr": "domates sos, fior di latte mozarella, dana füme kaburga, roka pesto, rende olgun mihaliç peyniri",
+        "en": "tomato sauce, fior di latte mozzarella, slow-smoked beef ribs, fresh arugula pesto, aged mihaliç cheese"
+      },
+      "price": 860,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "pizza-16",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "antep fıstıklı pesto dana mortadella",
+        "en": "beef mortadella & pistachio pesto"
+      },
+      "description": {
+        "tr": "krema taban, fior di latte mozarella, dana mortadella salam, italyan ricotto peynir, antep fıstıklı pesto, file antep fıstık",
+        "en": "cream base, fior di latte mozzarella, beef mortadella, italian ricotta cheese, pistachio pesto, toasted sliced pistachios"
+      },
+      "price": 790,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" },
+        { "code": "nuts", "tr": "Kuruyemiş / Fıstık", "en": "Tree Nuts / Pistachio" }
+      ]
+    },
+    {
+      "id": "pizza-17",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "acı kremalı ispanyol salam",
+        "en": "spicy cream spanish beef salami"
+      },
+      "description": {
+        "tr": "tabasco acı sos ile hazırlanmış krema domates taban, fior di latte mozarella, dana ispanyol salamı, haşlanmış patates, jalepeno dilimleri, rende olgun mihaliç peyniri",
+        "en": "tabasco spicy tomato cream base, fior di latte mozzarella, spanish beef salami, tender potato slices, jalapeno slices, aged mihaliç cheese"
+      },
+      "price": 790,
+      "spicy": 1,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "tatli-1",
+      "categoryId": "tatli",
+      "name": {
+        "tr": "çilekli panna cotta",
+        "en": "strawberry panna cotta"
+      },
+      "description": {
+        "tr": "italyan muhallebisi, taze çilek püresi ve vanilya ile",
+        "en": "traditional italian panna cotta, fresh strawberry coulis, madagascar vanilla"
+      },
+      "price": 320,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "tatli-2",
+      "categoryId": "tatli",
+      "name": {
+        "tr": "yaban mersinli panna cotta",
+        "en": "blueberry panna cotta"
+      },
+      "description": {
+        "tr": "italyan muhallebisi, orman yaban mersini sosu ile",
+        "en": "traditional italian panna cotta with wild blueberry compote"
+      },
+      "price": 320,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "tatli-3",
+      "categoryId": "tatli",
+      "name": {
+        "tr": "pizza waffle",
+        "en": "pizza waffle"
+      },
+      "description": {
+        "tr": "nutella, çilek, muz, antep fıstık",
+        "en": "stone oven waffle base, nutella, fresh strawberries, banana, crushed pistachios"
+      },
+      "price": 320,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "gluten", "tr": "Gluten", "en": "Gluten" },
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" },
+        { "code": "nuts", "tr": "Kuruyemiş / Fındık / Fıstık", "en": "Tree Nuts / Hazelnut" }
+      ]
+    },
+    {
+      "id": "icecek-1",
+      "categoryId": "icecek",
+      "name": {
+        "tr": "coca cola",
+        "en": "coca cola"
+      },
+      "description": {
+        "tr": "330ml kutu",
+        "en": "330ml can"
+      },
+      "price": 114,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": []
+    },
+    {
+      "id": "icecek-2",
+      "categoryId": "icecek",
+      "name": {
+        "tr": "cola zero",
+        "en": "cola zero"
+      },
+      "description": {
+        "tr": "330ml kutu",
+        "en": "330ml can"
+      },
+      "price": 114,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": []
+    },
+    {
+      "id": "icecek-3",
+      "categoryId": "icecek",
+      "name": {
+        "tr": "limonata",
+        "en": "homemade lemonade"
+      },
+      "description": {
+        "tr": "taze sıkım nane ve limonlu ev yapımı limonata",
+        "en": "freshly squeezed homemade lemonade with fresh mint"
+      },
+      "price": 94,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": []
+    },
+    {
+      "id": "icecek-4",
+      "categoryId": "icecek",
+      "name": {
+        "tr": "özerhisar ayran",
+        "en": "özerhisar artisanal ayran"
+      },
+      "description": {
+        "tr": "geleneksel yayık meşhur özerhisar ayranı",
+        "en": "traditional churned premium özerhisar ayran"
+      },
+      "price": 114,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        { "code": "milk", "tr": "Laktoz / Süt", "en": "Dairy" }
+      ]
+    },
+    {
+      "id": "icecek-5",
+      "categoryId": "icecek",
+      "name": {
+        "tr": "maden suyu",
+        "en": "mineral water"
+      },
+      "description": {
+        "tr": "200ml cam şişe doğal maden suyu",
+        "en": "200ml glass bottle natural mineral water"
+      },
+      "price": 60,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": []
+    },
+    {
+      "id": "icecek-6",
+      "categoryId": "icecek",
+      "name": {
+        "tr": "su",
+        "en": "natural spring water"
+      },
+      "description": {
+        "tr": "330ml cam şişe",
+        "en": "330ml glass bottle"
+      },
+      "price": 30,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": []
+    }
+  ]
+}
+;
