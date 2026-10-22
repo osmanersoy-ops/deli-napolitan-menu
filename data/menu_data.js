@@ -184,14 +184,14 @@ window.MENU_DATA = {
       "spicy": 0,
       "badge": {
         "tr": "hafta sonu",
-        "en": "weekends"
+        "en": "hafta sonu"
       },
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/corba-2.jpg",
       "allergens": [
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
