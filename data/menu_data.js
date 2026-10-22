@@ -15,7 +15,7 @@ window.MENU_DATA = {
     "primaryColor": "#31543e",
     "accentColor": "#f5f5dc",
     "defaultProductImage": "assets/product_placeholder.jpg",
-    "lastUpdated": "2026-10-20"
+    "lastUpdated": "2026-10-22"
   },
   "categories": [
     {
@@ -94,12 +94,12 @@ window.MENU_DATA = {
       "price": 390,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/ortaya-1.jpg",
       "allergens": [
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -117,7 +117,7 @@ window.MENU_DATA = {
       "price": 280,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/ortaya-2.jpg",
       "allergens": [
         {
           "code": "sesame",
@@ -140,12 +140,12 @@ window.MENU_DATA = {
       "price": 320,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/ortaya-3.jpg",
       "allergens": [
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
