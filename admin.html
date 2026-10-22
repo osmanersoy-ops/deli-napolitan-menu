@@ -415,15 +415,63 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
       padding-top: 10px;
       border-top: 1px solid var(--color-cream-border);
       margin-top: auto;
     }
 
+    .card-order-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--color-cream);
+      padding: 3px 6px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-cream-border);
+      flex-shrink: 0;
+    }
+
+    .btn-item-order {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--color-cream-border);
+      background: var(--color-white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      transition: all 0.15s ease;
+    }
+
+    .btn-item-order:hover:not(:disabled) {
+      background: var(--color-forest);
+      color: white;
+      border-color: var(--color-forest);
+    }
+
+    .btn-item-order:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    .card-order-num {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--color-forest);
+      min-width: 24px;
+      text-align: center;
+    }
+
     .card-actions {
       display: flex;
       gap: 6px;
-      width: 100%;
+      flex: 1;
+      justify-content: flex-end;
     }
 
     .btn-edit-item {
@@ -1291,6 +1339,12 @@
         </div>
       </div>
 
+      <!-- REORDER HINT -->
+      <div style="font-size: 0.8rem; color: var(--color-muted); margin-top: -10px; margin-bottom: 14px; display: flex; align-items: center; gap: 6px;">
+        <span>💡</span>
+        <span>Her ürün kartının altındaki <strong>⬆</strong> ve <strong>⬇</strong> butonlarıyla ürünlerin menüdeki sırasını değiştirebilirsiniz.</span>
+      </div>
+
       <!-- PRODUCTS GRID -->
       <div class="products-grid" id="products-grid">
         <!-- Generated via JS -->
@@ -1833,6 +1887,13 @@
         const card = document.createElement('div');
         card.className = 'product-card';
 
+        // Calculate order index within its category
+        const catItems = menuData.items.filter(i => i.categoryId === item.categoryId);
+        const indexInCat = catItems.findIndex(i => i.id === item.id);
+        const orderNum = indexInCat >= 0 ? (indexInCat + 1) : 1;
+        const isFirst = indexInCat === 0;
+        const isLast = indexInCat === catItems.length - 1;
+
         // Spicy indicator
         let spicyStr = '';
         if (item.spicy === 1) spicyStr = '🌶️';
@@ -1871,6 +1932,11 @@
           ${allergensHtml ? `<div class="card-allergens">${allergensHtml}</div>` : ''}
 
           <div class="card-footer">
+            <div class="card-order-controls" title="Kategori İçi Sıra">
+              <button class="btn-item-order" title="Yukarı Taşı" onclick="moveItem('${item.id}', -1)" ${isFirst ? 'disabled' : ''}>⬆</button>
+              <span class="card-order-num" title="Kategori İçi Sıra">#${orderNum}</span>
+              <button class="btn-item-order" title="Aşağı Taşı" onclick="moveItem('${item.id}', 1)" ${isLast ? 'disabled' : ''}>⬇</button>
+            </div>
             <div class="card-actions">
               <button class="btn btn-edit-item" onclick="openEditModal('${item.id}')">
                 <span>✏️</span> Düzenle
@@ -1884,6 +1950,29 @@
 
         container.appendChild(card);
       });
+    }
+
+    function moveItem(itemId, direction) {
+      const item = menuData.items.find(i => i.id === itemId);
+      if (!item) return;
+
+      const catItems = menuData.items.filter(i => i.categoryId === item.categoryId);
+      const catIdx = catItems.findIndex(i => i.id === itemId);
+      const targetCatIdx = catIdx + direction;
+      if (targetCatIdx < 0 || targetCatIdx >= catItems.length) return;
+
+      const targetItem = catItems[targetCatIdx];
+
+      // Swap in menuData.items
+      const idxA = menuData.items.findIndex(i => i.id === itemId);
+      const idxB = menuData.items.findIndex(i => i.id === targetItem.id);
+
+      const temp = menuData.items[idxA];
+      menuData.items[idxA] = menuData.items[idxB];
+      menuData.items[idxB] = temp;
+
+      incrementUnsavedChanges();
+      renderProductsList();
     }
 
     function getCategoryName(catId) {
