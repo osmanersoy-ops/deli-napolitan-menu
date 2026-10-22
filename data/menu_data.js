@@ -806,7 +806,7 @@ window.MENU_DATA = {
       "price": 94,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/icecek-3.jpg",
       "allergens": []
     },
     {
@@ -846,7 +846,7 @@ window.MENU_DATA = {
       "price": 60,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/icecek-5.jpg",
       "allergens": []
     },
     {
@@ -863,7 +863,7 @@ window.MENU_DATA = {
       "price": 30,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/icecek-6.jpg",
       "allergens": []
     }
   ]
