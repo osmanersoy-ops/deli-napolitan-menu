@@ -693,12 +693,12 @@ window.MENU_DATA = {
       "price": 320,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/tatli-1.jpg",
       "allergens": [
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -716,12 +716,12 @@ window.MENU_DATA = {
       "price": 320,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/tatli-2.jpg",
       "allergens": [
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -739,7 +739,7 @@ window.MENU_DATA = {
       "price": 320,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/tatli-3.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -749,12 +749,12 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         },
         {
           "code": "nuts",
           "tr": "Kuruyemiş / Fındık / Fıstık",
-          "en": "Tree Nuts / Hazelnut"
+          "en": "Tree Nuts / Peanuts"
         }
       ]
     },
