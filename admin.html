@@ -2052,7 +2052,7 @@
 
           <div class="form-group" style="grid-column: span 2;">
             <label class="form-label" style="font-size: 0.78rem; font-weight: 700; color: var(--color-forest);">1 Beze Hedef Gramajı (gr)</label>
-            <input type="number" class="form-input" id="dw-ball-weight" value="280" oninput="recalcDoughWizard()" style="font-weight: 700;">
+            <input type="number" class="form-input" id="dw-ball-weight" value="260" oninput="recalcDoughWizard()" style="font-weight: 700;">
           </div>
         </div>
 
@@ -2061,9 +2061,9 @@
           <div style="font-size: 0.8rem; font-weight: 700; color: #92400e; text-transform: uppercase; margin-bottom: 8px;">📊 Hesaplama Sonucu</div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem;">
             <div>Toplam Hamur Ağırlığı: <strong id="dw-res-total-weight">1682 gr</strong></div>
-            <div>Çıkan Beze Sayısı: <strong id="dw-res-ball-count">6.0 adet</strong></div>
+            <div>Çıkan Beze Sayısı: <strong id="dw-res-ball-count">6.5 adet</strong></div>
             <div>Toplam Parti Maliyeti: <strong id="dw-res-total-cost">38.45 ₺</strong></div>
-            <div style="font-size: 1.05rem; color: #78350f;">1 Beze Maliyeti: <strong id="dw-res-ball-cost" style="font-size: 1.2rem; color: #b45309;">6.40 ₺</strong></div>
+            <div style="font-size: 1.05rem; color: #78350f;"><span id="dw-res-ball-label">1 Beze (260g) Maliyeti:</span> <strong id="dw-res-ball-cost" style="font-size: 1.2rem; color: #b45309;">5.94 ₺</strong></div>
           </div>
         </div>
 
@@ -3403,7 +3403,7 @@
               yeastKgPrice: 350.0,
               saltGram: 30.0,
               saltKgPrice: 25.0,
-              doughBallWeightGram: 280
+              doughBallWeightGram: 260
             }
           },
           rawIngredients: [],
@@ -4129,7 +4129,7 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
     function openDoughWizardModal() {
       const dw = costData.settings?.doughWizard || {
         flourGram: 1000, flourKgPrice: 35, waterGram: 650, waterCost: 2,
-        yeastGram: 2, yeastKgPrice: 350, saltGram: 30, saltKgPrice: 25, doughBallWeightGram: 280
+        yeastGram: 2, yeastKgPrice: 350, saltGram: 30, saltKgPrice: 25, doughBallWeightGram: 260
       };
 
       document.getElementById('dw-flour-gram').value = dw.flourGram ?? 1000;
@@ -4140,7 +4140,7 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       document.getElementById('dw-yeast-price').value = dw.yeastKgPrice ?? 350;
       document.getElementById('dw-salt-gram').value = dw.saltGram ?? 30;
       document.getElementById('dw-salt-price').value = dw.saltKgPrice ?? 25;
-      document.getElementById('dw-ball-weight').value = dw.doughBallWeightGram ?? 280;
+      document.getElementById('dw-ball-weight').value = dw.doughBallWeightGram ?? 260;
 
       recalcDoughWizard();
       document.getElementById('dough-wizard-modal').classList.add('open');
@@ -4159,7 +4159,7 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       const yeastPrice = parseFloat(document.getElementById('dw-yeast-price').value) || 0;
       const saltGram = parseFloat(document.getElementById('dw-salt-gram').value) || 0;
       const saltPrice = parseFloat(document.getElementById('dw-salt-price').value) || 0;
-      const ballWeight = parseFloat(document.getElementById('dw-ball-weight').value) || 280;
+      const ballWeight = parseFloat(document.getElementById('dw-ball-weight').value) || 260;
 
       const totalWeight = flourGram + waterGram + yeastGram + saltGram;
       const ballCount = ballWeight > 0 ? (totalWeight / ballWeight) : 0;
@@ -4175,6 +4175,8 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       document.getElementById('dw-res-ball-count').textContent = `${ballCount.toFixed(1)} adet`;
       document.getElementById('dw-res-total-cost').textContent = `${totalCost.toFixed(2)} ₺`;
       document.getElementById('dw-res-ball-cost').textContent = `${costPerBall.toFixed(2)} ₺`;
+      const ballLabel = document.getElementById('dw-res-ball-label');
+      if (ballLabel) ballLabel.textContent = `1 Beze (${ballWeight}g) Maliyeti:`;
 
       return { totalWeight, ballCount, totalCost, costPerBall, ballWeight };
     }
@@ -4201,6 +4203,7 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       const roundedBallCost = Math.round(res.costPerBall * 100) / 100;
       if (doughIng) {
         doughIng.price = roundedBallCost;
+        doughIng.name = `Hamur / Beze (${res.ballWeight}g)`;
       } else {
         doughIng = {
           id: 'ing-hamur-beze',

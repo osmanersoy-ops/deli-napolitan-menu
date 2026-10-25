@@ -15,7 +15,7 @@ window.COST_DATA = {
       "saltKgPrice": 25,
       "oliveOilGram": 0,
       "oliveOilKgPrice": 380,
-      "doughBallWeightGram": 280
+      "doughBallWeightGram": 260
     }
   },
   "rawIngredients": [
@@ -56,7 +56,7 @@ window.COST_DATA = {
     },
     {
       "id": "ing-hamur-beze",
-      "name": "Hamur / Beze (280g)",
+      "name": "Hamur / Beze (260g)",
       "unit": "adet",
       "price": 13,
       "category": "Hamur"
