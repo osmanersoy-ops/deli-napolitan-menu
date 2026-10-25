@@ -20,15 +20,15 @@ window.COST_DATA = {
     "wizards": {
       "dough": {
         "flourGram": 1000,
-        "flourKgPrice": 35.0,
+        "flourKgPrice": 35,
         "waterGram": 650,
-        "waterCost": 2.0,
-        "yeastGram": 2.0,
-        "yeastKgPrice": 350.0,
-        "saltGram": 30.0,
-        "saltKgPrice": 25.0,
-        "oliveOilGram": 0.0,
-        "oliveOilKgPrice": 380.0,
+        "waterCost": 2,
+        "yeastGram": 2,
+        "yeastKgPrice": 350,
+        "saltGram": 30,
+        "saltKgPrice": 25,
+        "oliveOilGram": 0,
+        "oliveOilKgPrice": 380,
         "doughBallWeightGram": 260
       },
       "rokaPesto": [
@@ -48,7 +48,7 @@ window.COST_DATA = {
           "kgPrice": 800
         },
         {
-          "name": "Ceviz / Çam Fıstığı",
+          "name": "Toz Fındık",
           "gram": 50,
           "kgPrice": 600
         },
@@ -139,35 +139,35 @@ window.COST_DATA = {
       "id": "ing-domates-sos",
       "name": "Domates Sos",
       "unit": "kg",
-      "price": 180,
+      "price": 169,
       "category": "Taban"
     },
     {
       "id": "ing-krema-taban",
       "name": "Krema (Taban)",
       "unit": "kg",
-      "price": 200,
+      "price": 130,
       "category": "Taban"
     },
     {
       "id": "ing-ispanak-krema",
       "name": "Ispanaklı Krema Taban",
       "unit": "kg",
-      "price": 220,
+      "price": 180,
       "category": "Taban"
     },
     {
       "id": "ing-truflu-krema",
       "name": "Siyah Sarımsak & Trüf Krema Taban",
       "unit": "kg",
-      "price": 340,
+      "price": 220,
       "category": "Taban"
     },
     {
       "id": "ing-muskat-krema",
       "name": "Muskat & Karabiberli Krema Taban",
       "unit": "kg",
-      "price": 220,
+      "price": 140,
       "category": "Taban"
     },
     {
@@ -209,56 +209,56 @@ window.COST_DATA = {
       "id": "ing-scamorza",
       "name": "Scamorza",
       "unit": "kg",
-      "price": 480,
+      "price": 1089,
       "category": "Peynir"
     },
     {
       "id": "ing-stracciatella",
       "name": "Stracciatella",
       "unit": "kg",
-      "price": 520,
+      "price": 475,
       "category": "Peynir"
     },
     {
       "id": "ing-ricotta",
       "name": "Ricotta",
       "unit": "kg",
-      "price": 240,
+      "price": 500,
       "category": "Peynir"
     },
     {
       "id": "ing-rende-parmesan",
       "name": "Rende Parmesan",
       "unit": "kg",
-      "price": 800,
+      "price": 1287,
       "category": "Peynir"
     },
     {
       "id": "ing-gorgonzola",
       "name": "Danish Blue",
       "unit": "kg",
-      "price": 700,
+      "price": 1138,
       "category": "Peynir"
     },
     {
       "id": "ing-erzurum-isli",
       "name": "Erzurum İsli Peynir",
       "unit": "kg",
-      "price": 260,
+      "price": 740,
       "category": "Peynir"
     },
     {
       "id": "ing-mihalic-olgun",
       "name": "Mihaliç Peyniri (Olgun)",
       "unit": "kg",
-      "price": 280,
+      "price": 670,
       "category": "Peynir"
     },
     {
       "id": "ing-mihalic-taze",
       "name": "Mihaliç Taze Peynir",
       "unit": "kg",
-      "price": 220,
+      "price": 670,
       "category": "Peynir"
     },
     {
@@ -377,7 +377,7 @@ window.COST_DATA = {
       "id": "ing-roka-pesto",
       "name": "Roka Pesto",
       "unit": "kg",
-      "price": 380,
+      "price": 300.43,
       "category": "Sos & Yağ"
     },
     {
@@ -426,7 +426,7 @@ window.COST_DATA = {
       "id": "ing-1792943670910",
       "name": "Domates Krema Taban",
       "unit": "kg",
-      "price": 200,
+      "price": 150,
       "category": "Taban"
     }
   ],
