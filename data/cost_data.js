@@ -413,6 +413,13 @@ window.COST_DATA = {
       "unit": "adet",
       "price": 5,
       "category": "Diğer"
+    },
+    {
+      "id": "ing-1792964482431",
+      "name": "Dana Dil Füme",
+      "unit": "kg",
+      "price": 1700,
+      "category": "Et & Şarküteri"
     }
   ],
   "recipes": {
