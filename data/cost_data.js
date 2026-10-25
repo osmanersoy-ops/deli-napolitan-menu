@@ -523,7 +523,7 @@ window.COST_DATA = {
       },
       {
         "ingredientId": "ing-feslegen",
-        "amount": 4,
+        "amount": 5,
         "unit": "adet"
       },
       {
