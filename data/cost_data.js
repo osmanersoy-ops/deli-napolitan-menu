@@ -399,6 +399,20 @@ window.COST_DATA = {
       "unit": "kg",
       "price": 1000,
       "category": "Et & Şarküteri"
+    },
+    {
+      "id": "ing-1792964246783",
+      "name": "Limon Zest",
+      "unit": "adet",
+      "price": 5,
+      "category": "Diğer"
+    },
+    {
+      "id": "ing-1792964259740",
+      "name": "Lime",
+      "unit": "adet",
+      "price": 5,
+      "category": "Diğer"
     }
   ],
   "recipes": {
@@ -848,6 +862,43 @@ window.COST_DATA = {
         "ingredientId": "ing-file-fistik",
         "amount": 15,
         "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-zeytinyagi",
+        "amount": 10,
+        "unit": "gr"
+      }
+    ],
+    "item-1792964119409": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-1792943670910",
+        "amount": 70,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-1792964227312",
+        "amount": 75,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-fior-di-latte",
+        "amount": 100,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-1792964246783",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-1792964259740",
+        "amount": 1,
+        "unit": "adet"
       },
       {
         "ingredientId": "ing-zeytinyagi",
