@@ -1233,6 +1233,162 @@
       align-items: center;
       flex-shrink: 0;
     }
+
+    /* ==========================================
+       COST & FOOD COST MODULE STYLES
+       ========================================== */
+    .cost-badge-good {
+      background: #dcfce7;
+      color: #15803d;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .cost-badge-mid {
+      background: #fef3c7;
+      color: #b45309;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .cost-badge-high {
+      background: #fee2e2;
+      color: #b91c1c;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .cost-badge-multiplier {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .ing-card-item {
+      background: var(--color-white);
+      border: 1px solid var(--color-cream-border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .ing-card-item:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #d1cbbd;
+    }
+
+    .ing-name-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--color-dark);
+    }
+
+    .ing-cat-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--color-cream);
+      color: var(--color-muted);
+      border: 1px solid var(--color-cream-border);
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    .ing-price-tag {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--color-forest);
+      white-space: nowrap;
+    }
+
+    .cost-pizza-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-cream-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .cost-pizza-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      border-color: #d1cbbd;
+    }
+
+    .cost-pizza-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--color-cream-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .cost-pizza-body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .cost-metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      background: var(--color-cream);
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-cream-border);
+    }
+
+    .cost-metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .cost-metric-label {
+      font-size: 0.7rem;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .cost-metric-val {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-dark);
+    }
   </style>
 </head>
 <body>
@@ -1266,6 +1422,10 @@
         </div>
       </div>
       <div class="header-actions">
+        <button class="btn btn-outline" id="btn-cost-calc-header" onclick="openCostCalculatorView()" style="background: #fef3c7; border-color: #f59e0b; color: #92400e; font-weight: 700;">
+          <span>📊</span>
+          <span>Maliyet Hesaplama</span>
+        </button>
         <button class="btn btn-outline" onclick="openGithubSettingsModal()">
           <span>🔑</span>
           <span>GitHub</span>
@@ -1316,6 +1476,10 @@
       <button class="view-switch-btn" id="view-tab-categories" onclick="switchAdminView('categories')">
         <span>📁</span>
         <span>Kategori Yönetimi & Sıralama (<span id="count-categories-tab">0</span>)</span>
+      </button>
+      <button class="view-switch-btn" id="view-tab-cost" onclick="openCostCalculatorView()">
+        <span>📊</span>
+        <span>Maliyet Hesaplama</span>
       </button>
     </div>
 
@@ -1371,6 +1535,101 @@
       </div>
     </div>
 
+
+    <!-- 3. COST & FOOD COST MANAGEMENT SECTION -->
+    <div id="section-cost-view" style="display: none;">
+      <!-- COST HEADER BAR -->
+      <div class="cat-mgmt-header" style="border-left: 4px solid #f59e0b;">
+        <div>
+          <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--color-forest); display: flex; align-items: center; gap: 8px;">
+            <span>📊</span> Maliyet Hesaplama & Food Cost
+          </h2>
+          <p style="font-size: 0.82rem; color: var(--color-muted); margin-top: 3px;">
+            Hammadde alış fiyatları, reçeteler ve porsiyon food cost kârlılık analizi.
+          </p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-outline" onclick="openDoughWizardModal()" style="border-color: #b45309; color: #92400e; background: #fef3c7; font-weight: 600;">
+            <span>🥖</span> Hamur Sihirbazı
+          </button>
+          
+          <!-- Fire Toggle & Rate Input -->
+          <div style="display: flex; align-items: center; gap: 6px; background: var(--color-white); border: 1px solid var(--color-cream-border); padding: 5px 10px; border-radius: var(--radius-sm); font-size: 0.82rem;">
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-weight: 600; color: var(--color-dark);">
+              <input type="checkbox" id="cost-fire-toggle" onchange="toggleFireRate(this.checked)" style="width: 16px; height: 16px; cursor: pointer;">
+              <span>Fire Oranı:</span>
+            </label>
+            <div style="display: flex; align-items: center;">
+              <span style="font-weight: 700; color: var(--color-forest); margin-right: 2px;">%</span>
+              <input type="number" id="cost-fire-rate-input" min="0" max="50" step="0.5" value="8" onchange="updateFireRate(this.value)" style="width: 50px; padding: 3px 4px; font-weight: 700; border: 1px solid var(--color-cream-border); border-radius: 4px; text-align: center;">
+            </div>
+          </div>
+
+          <button class="btn btn-publish" onclick="saveCostDataToGithub()" style="padding: 7px 14px;">
+            <span>💾</span> Maliyetleri Kaydet
+          </button>
+        </div>
+      </div>
+
+      <!-- COST SUB-NAVIGATION TABS (1 Ürünler ve Fiyat, 2 Pizzalar) -->
+      <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <button class="view-switch-btn active" id="cost-subtab-ingredients" onclick="switchCostSubTab('ingredients')" style="max-width: 280px;">
+          <span>🥩</span> 1. Ürünler ve Fiyat (<span id="cost-ingredients-count">0</span>)
+        </button>
+        <button class="view-switch-btn" id="cost-subtab-pizzas" onclick="switchCostSubTab('pizzas')" style="max-width: 280px;">
+          <span>🍕</span> 2. Pizzalar (<span id="cost-pizzas-count">0</span>)
+        </button>
+      </div>
+
+      <!-- SUB-VIEW 1: INGREDIENTS & PRICES -->
+      <div id="cost-subview-ingredients">
+        <div class="controls-bar">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; flex: 1;">
+            <div class="search-box" style="max-width: 300px;">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="cost-ing-search" placeholder="Hammadde ara..." oninput="renderCostIngredientsView()">
+            </div>
+            <select class="form-select" id="cost-ing-cat-filter" onchange="renderCostIngredientsView()" style="width: auto; min-width: 170px; padding: 8px 12px; font-size: 0.85rem;">
+              <option value="ALL">Tüm Kategoriler</option>
+              <option value="Taban">Taban</option>
+              <option value="Peynir">Peynir</option>
+              <option value="Et & Şarküteri">Et & Şarküteri</option>
+              <option value="Sebze">Sebze</option>
+              <option value="Hamur">Hamur</option>
+              <option value="Sos & Yağ">Sos & Yağ</option>
+              <option value="Yeşillik & Baharat">Yeşillik & Baharat</option>
+              <option value="Diğer">Diğer</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="openNewCostIngredientModal()">
+            <span>+</span>
+            <span>Yeni Ürün Ekle</span>
+          </button>
+        </div>
+
+        <div id="cost-ingredients-container" style="display: flex; flex-direction: column; gap: 8px;">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- SUB-VIEW 2: PIZZAS & RECIPES -->
+      <div id="cost-subview-pizzas" style="display: none;">
+        <div class="controls-bar" style="margin-bottom: 14px;">
+          <div class="search-box" style="max-width: 320px;">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="cost-pizza-search" placeholder="Pizza ara..." oninput="renderCostPizzasView()">
+          </div>
+          <div style="font-size: 0.82rem; color: var(--color-muted); display: flex; align-items: center; gap: 6px;">
+            <span>ℹ️</span> Menüdeki pizzalar otomatik listelenir. Tıklayarak reçete ekleyip düzenleyebilirsiniz.
+          </div>
+        </div>
+
+        <div id="cost-pizzas-container" class="products-grid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
+    </div>
   </main>
 
   <!-- FLOATING BOTTOM BAR (MOBILE QUICK SAVE) -->
@@ -1647,6 +1906,298 @@
     </div>
   </div>
 
+
+  <!-- COST AUTH / PASSWORD MODAL -->
+  <div class="modal-overlay" id="cost-auth-modal">
+    <div class="modal-box" id="cost-auth-card" style="max-width: 440px; text-align: center;">
+      <div class="modal-header" style="justify-content: center; position: relative;">
+        <div class="modal-title" style="font-size: 1.15rem;">
+          <span>🔐</span> Maliyet Yönetimi
+        </div>
+        <button class="modal-close-btn" onclick="closeCostAuthModal()" style="position: absolute; right: 0;">✕</button>
+      </div>
+      <div class="modal-body" style="gap: 16px; padding: 20px 8px;">
+        <p style="font-size: 0.88rem; color: var(--color-muted); line-height: 1.45;">
+          Maliyet hesaplama ve reçete yönetim ekranına erişmek için lütfen <strong>yönetici şifrenizi</strong> giriniz.
+        </p>
+        <div class="form-group" style="text-align: left;">
+          <label class="form-label">Yönetici Şifresi</label>
+          <div style="position: relative;">
+            <input type="password" class="form-input" id="cost-password-input" placeholder="Şifrenizi yazın..." onkeydown="if(event.key==='Enter') handleCostAuthSubmit()">
+            <button type="button" onclick="toggleCostPasswordVisibility()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--color-muted);">👁️</button>
+          </div>
+          <div id="cost-auth-error" style="color: var(--color-danger); font-size: 0.8rem; font-weight: 600; display: none; margin-top: 4px;">
+            ⚠️ Hatalı yönetici şifresi!
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button class="btn btn-outline" onclick="closeCostAuthModal()">Vazgeç</button>
+        <button class="btn btn-primary" onclick="handleCostAuthSubmit()" style="background: var(--color-forest); padding: 9px 20px;">
+          <span>Giriş Yap</span> <span>→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- COST INGREDIENT ADD / EDIT MODAL -->
+  <div class="modal-overlay" id="cost-ingredient-modal">
+    <div class="modal-box" style="max-width: 500px;">
+      <div class="modal-header">
+        <div class="modal-title" id="cost-ing-modal-title">
+          <span>🥩</span> Yeni Hammadde Ekle
+        </div>
+        <button class="modal-close-btn" onclick="closeCostIngredientModal()">✕</button>
+      </div>
+      <div class="modal-body" style="gap: 14px;">
+        <input type="hidden" id="cost-ing-edit-id" value="">
+        
+        <div class="form-group">
+          <label class="form-label">Ürün Adı <span style="color:red;">*</span></label>
+          <input type="text" class="form-input" id="cost-ing-name" placeholder="Örn: Fior di latte mozzarella" required>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Miktar / Birim Seçimi <span style="color:red;">*</span></label>
+            <select class="form-select" id="cost-ing-unit" onchange="handleIngredientUnitChange(this.value)">
+              <option value="kg">Kg (Kilogram bazlı)</option>
+              <option value="adet">Adet (Tane bazlı)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Alış Fiyatı (₺) <span style="color:red;">*</span></label>
+            <div style="position: relative;">
+              <input type="number" step="0.01" min="0" class="form-input" id="cost-ing-price" placeholder="0.00" required>
+              <span id="cost-ing-price-unit-hint" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: var(--color-muted); font-weight: 600;">₺ / kg</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Kategori</label>
+          <select class="form-select" id="cost-ing-category">
+            <option value="Taban">Taban</option>
+            <option value="Peynir">Peynir</option>
+            <option value="Et & Şarküteri">Et & Şarküteri</option>
+            <option value="Sebze">Sebze</option>
+            <option value="Hamur">Hamur</option>
+            <option value="Sos & Yağ">Sos & Yağ</option>
+            <option value="Yeşillik & Baharat">Yeşillik & Baharat</option>
+            <option value="Diğer">Diğer</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeCostIngredientModal()">Vazgeç</button>
+        <button class="btn btn-primary" onclick="saveCostIngredient()">
+          <span>✓</span> Kaydet
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOUGH COST WIZARD MODAL -->
+  <div class="modal-overlay" id="dough-wizard-modal">
+    <div class="modal-box" style="max-width: 580px;">
+      <div class="modal-header">
+        <div class="modal-title" style="color: #92400e;">
+          <span>🥖</span> Hamur Maliyet Sihirbazı
+        </div>
+        <button class="modal-close-btn" onclick="closeDoughWizardModal()">✕</button>
+      </div>
+      <div class="modal-body" style="gap: 14px;">
+        <p style="font-size: 0.83rem; color: var(--color-muted); line-height: 1.4;">
+          Un, su, maya ve tuz gramajlarını ve alış fiyatlarını girin. Sistem otomatik olarak toplam parti ağırlığını ve 1 adet bezenin maliyetini hesaplar.
+        </p>
+
+        <!-- INPUTS GRID -->
+        <div style="background: var(--color-cream); border: 1px solid var(--color-cream-border); border-radius: var(--radius-sm); padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label class="form-label" style="font-size: 0.78rem;">Un (Miktar gr)</label>
+            <input type="number" class="form-input" id="dw-flour-gram" value="1000" oninput="recalcDoughWizard()">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size: 0.78rem;">Un 1 Kg Fiyatı (₺)</label>
+            <input type="number" step="0.1" class="form-input" id="dw-flour-price" value="35" oninput="recalcDoughWizard()">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" style="font-size: 0.78rem;">Su (Miktar gr - %65)</label>
+            <input type="number" class="form-input" id="dw-water-gram" value="650" oninput="recalcDoughWizard()">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size: 0.78rem;">Su Maliyeti (₺)</label>
+            <input type="number" step="0.1" class="form-input" id="dw-water-cost" value="2" oninput="recalcDoughWizard()">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" style="font-size: 0.78rem;">Maya (Miktar gr)</label>
+            <input type="number" step="0.5" class="form-input" id="dw-yeast-gram" value="2" oninput="recalcDoughWizard()">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size: 0.78rem;">Maya 1 Kg Fiyatı (₺)</label>
+            <input type="number" step="1" class="form-input" id="dw-yeast-price" value="350" oninput="recalcDoughWizard()">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" style="font-size: 0.78rem;">Tuz (Miktar gr)</label>
+            <input type="number" step="1" class="form-input" id="dw-salt-gram" value="30" oninput="recalcDoughWizard()">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size: 0.78rem;">Tuz 1 Kg Fiyatı (₺)</label>
+            <input type="number" step="1" class="form-input" id="dw-salt-price" value="25" oninput="recalcDoughWizard()">
+          </div>
+
+          <div class="form-group" style="grid-column: span 2;">
+            <label class="form-label" style="font-size: 0.78rem; font-weight: 700; color: var(--color-forest);">1 Beze Hedef Gramajı (gr)</label>
+            <input type="number" class="form-input" id="dw-ball-weight" value="280" oninput="recalcDoughWizard()" style="font-weight: 700;">
+          </div>
+        </div>
+
+        <!-- RESULTS CARD -->
+        <div style="background: #fef3c7; border: 1px solid #fde68a; border-radius: var(--radius-sm); padding: 14px;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: #92400e; text-transform: uppercase; margin-bottom: 8px;">📊 Hesaplama Sonucu</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem;">
+            <div>Toplam Hamur Ağırlığı: <strong id="dw-res-total-weight">1682 gr</strong></div>
+            <div>Çıkan Beze Sayısı: <strong id="dw-res-ball-count">6.0 adet</strong></div>
+            <div>Toplam Parti Maliyeti: <strong id="dw-res-total-cost">38.45 ₺</strong></div>
+            <div style="font-size: 1.05rem; color: #78350f;">1 Beze Maliyeti: <strong id="dw-res-ball-cost" style="font-size: 1.2rem; color: #b45309;">6.40 ₺</strong></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button class="btn btn-outline" onclick="closeDoughWizardModal()">Kapat</button>
+        <button class="btn btn-primary" onclick="applyDoughWizardToIngredients()" style="background: #b45309;">
+          <span>🥖</span> Bu Fiyatı 'Hamur / Beze' Ürününe Aktar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIZZA RECIPE EDIT MODAL -->
+  <div class="modal-overlay" id="cost-recipe-modal">
+    <div class="modal-box" style="max-width: 720px; width: 95%;">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="cost-recipe-modal-title">
+            <span>🍕</span> Margherita Reçetesi
+          </div>
+          <div style="font-size: 0.8rem; color: var(--color-muted); margin-top: 2px;" id="cost-recipe-modal-subtitle">
+            Menü Satış Fiyatı: 540 ₺
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeCostRecipeModal()">✕</button>
+      </div>
+      
+      <div class="modal-body" style="gap: 16px;">
+        <input type="hidden" id="cost-recipe-pizza-id" value="">
+
+        <!-- RECIPE INGREDIENTS TABLE -->
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label class="form-label" style="margin: 0;">Reçetedeki Malzemeler</label>
+            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem;" onclick="addRecipeIngredientRow()">
+              <span>+</span> Malzeme Ekle
+            </button>
+          </div>
+
+          <div style="background: var(--color-white); border: 1px solid var(--color-cream-border); border-radius: var(--radius-sm); overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;" id="cost-recipe-table">
+              <thead>
+                <tr style="background: var(--color-cream); border-bottom: 1px solid var(--color-cream-border); text-align: left; font-size: 0.78rem; color: var(--color-muted);">
+                  <th style="padding: 8px 10px;">Malzeme</th>
+                  <th style="padding: 8px 10px; width: 110px;">Miktar</th>
+                  <th style="padding: 8px 10px; width: 60px;">Birim</th>
+                  <th style="padding: 8px 10px; width: 100px;">Birim Fiyat</th>
+                  <th style="padding: 8px 10px; width: 90px; text-align: right;">Maliyet (₺)</th>
+                  <th style="padding: 8px 10px; width: 36px; text-align: center;"></th>
+                </tr>
+              </thead>
+              <tbody id="cost-recipe-rows">
+                <!-- Dynamically generated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- COST CALCULATION & MULTIPLIER SUMMARY -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <!-- FINANCIAL METRICS -->
+          <div style="background: var(--color-cream); border: 1px solid var(--color-cream-border); border-radius: var(--radius-sm); padding: 12px; font-size: 0.85rem;">
+            <div style="font-weight: 700; color: var(--color-forest); margin-bottom: 8px; font-size: 0.88rem;">📊 Maliyet Özeti</div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>Hammadde Taban:</span>
+              <strong id="rec-summary-base-cost">0.00 ₺</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;" id="rec-summary-fire-row">
+              <span id="rec-summary-fire-label">Fire Payı (%8):</span>
+              <strong id="rec-summary-fire-cost">0.00 ₺</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--color-cream-border); font-size: 0.95rem;">
+              <span>Toplam Maliyet:</span>
+              <strong id="rec-summary-total-cost" style="color: var(--color-forest);">0.00 ₺</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--color-cream-border);">
+              <span>Menü Satış Fiyatı:</span>
+              <strong id="rec-summary-menu-price">0.00 ₺</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+              <span>Food Cost Oranı:</span>
+              <strong id="rec-summary-food-cost" style="color: #15803d;">%0.0</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+              <span>Gerçek Çarpan:</span>
+              <strong id="rec-summary-multiplier">0.0×</strong>
+            </div>
+          </div>
+
+          <!-- MULTIPLIERS REFERENCE GUIDE (EXCEL) -->
+          <div style="background: var(--color-white); border: 1px solid var(--color-cream-border); border-radius: var(--radius-sm); padding: 12px; font-size: 0.8rem;">
+            <div style="font-weight: 700; color: #b45309; margin-bottom: 6px; font-size: 0.85rem;">🎯 Çarpan Simülasyonu</div>
+            <div style="color: var(--color-muted); font-size: 0.75rem; margin-bottom: 8px;">Farklı çarpan hedeflerine göre önerilen menü satış fiyatları:</div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem;">
+              <tr style="border-bottom: 1px solid var(--color-cream-border);">
+                <td style="padding: 3px 0;">3.0× Çarpan (%33.3 FC):</td>
+                <td style="text-align: right; font-weight: 700;" id="rec-guide-3x">-</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-cream-border);">
+                <td style="padding: 3px 0;">3.5× Çarpan (%28.6 FC):</td>
+                <td style="text-align: right; font-weight: 700;" id="rec-guide-35x">-</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-cream-border);">
+                <td style="padding: 3px 0; color: var(--color-forest); font-weight: 600;">4.0× Çarpan (%25.0 FC):</td>
+                <td style="text-align: right; font-weight: 700; color: var(--color-forest);" id="rec-guide-4x">-</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-cream-border);">
+                <td style="padding: 3px 0;">4.5× Çarpan (%22.2 FC):</td>
+                <td style="text-align: right; font-weight: 700;" id="rec-guide-45x">-</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-cream-border);">
+                <td style="padding: 3px 0;">5.0× Çarpan (%20.0 FC):</td>
+                <td style="text-align: right; font-weight: 700;" id="rec-guide-5x">-</td>
+              </tr>
+              <tr>
+                <td style="padding: 3px 0;">6.0× Çarpan (%16.7 FC):</td>
+                <td style="text-align: right; font-weight: 700;" id="rec-guide-6x">-</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button class="btn btn-outline" onclick="closeCostRecipeModal()">Vazgeç</button>
+        <button class="btn btn-primary" onclick="savePizzaRecipe()">
+          <span>✓</span> Reçeteyi Kaydet
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- LOADING OVERLAY -->
   <div class="loading-overlay" id="loading-overlay">
     <div class="spinner"></div>
@@ -1656,6 +2207,7 @@
 
   <!-- SCRIPT -->
   <script src="data/menu_data.js"></script>
+  <script src="data/cost_data.js"></script>
   <script>
     // ==========================================
     // 0. AUTHENTICATION & LOGIN GATE
@@ -1784,6 +2336,7 @@
     window.addEventListener('DOMContentLoaded', async () => {
       checkAuth();
       await loadMenuData();
+      await loadCostData();
       renderAllergensPillGrid();
       renderCategoryFilterTabs();
       populateProductCategorySelect();
@@ -1828,21 +2381,35 @@
       currentAdminView = view;
       const prodTab = document.getElementById('view-tab-products');
       const catTab = document.getElementById('view-tab-categories');
+      const costTab = document.getElementById('view-tab-cost');
       const prodSec = document.getElementById('section-products-view');
       const catSec = document.getElementById('section-categories-view');
+      const costSec = document.getElementById('section-cost-view');
 
       if (view === 'products') {
         prodTab.classList.add('active');
         catTab.classList.remove('active');
+        if (costTab) costTab.classList.remove('active');
         prodSec.style.display = 'block';
         catSec.style.display = 'none';
+        if (costSec) costSec.style.display = 'none';
         renderProductsList();
-      } else {
+      } else if (view === 'categories') {
         catTab.classList.add('active');
         prodTab.classList.remove('active');
+        if (costTab) costTab.classList.remove('active');
         prodSec.style.display = 'none';
         catSec.style.display = 'block';
+        if (costSec) costSec.style.display = 'none';
         renderCategoryManagementView();
+      } else if (view === 'cost') {
+        if (costTab) costTab.classList.add('active');
+        prodTab.classList.remove('active');
+        catTab.classList.remove('active');
+        prodSec.style.display = 'none';
+        catSec.style.display = 'none';
+        if (costSec) costSec.style.display = 'block';
+        renderCostView();
       }
     }
 
@@ -2657,6 +3224,19 @@
         const jsBase64 = btoa(unescape(encodeURIComponent(jsContent)));
         await commitFileToGithub('data/menu_data.js', jsBase64, 'Menü JS yedeği güncellendi (Admin Panel)', token, false);
 
+        // Step 4: Commit data/cost_data.json & data/cost_data.js
+        if (costData) {
+          showLoading('Maliyet verileri kaydediliyor...', 'GitHub main dalına işleniyor...');
+          costData.lastUpdated = new Date().toISOString().split('T')[0];
+          const costJson = JSON.stringify(costData, null, 2);
+          const costJsonBase64 = btoa(unescape(encodeURIComponent(costJson)));
+          await commitFileToGithub('data/cost_data.json', costJsonBase64, 'Maliyet verileri güncellendi (Admin Panel)', token, false);
+
+          const costJs = `// Deli Napolitan Cost Data\nwindow.COST_DATA = ${costJson};\n`;
+          const costJsBase64 = btoa(unescape(encodeURIComponent(costJs)));
+          await commitFileToGithub('data/cost_data.js', costJsBase64, 'Maliyet JS yedeği güncellendi (Admin Panel)', token, false);
+        }
+
         hideLoading();
 
         unsavedChangesCount = 0;
@@ -2769,6 +3349,896 @@
     function hideLoading() {
       document.getElementById('loading-overlay').classList.remove('open');
     }
+
+    // ==========================================
+    // 0B. COST MODULE CONSTANTS & STATE
+    // ==========================================
+    const COST_ADMIN_PASSWORD = "deli59napo";
+    let costData = null;
+    let currentCostSubTab = "ingredients"; // 'ingredients' or 'pizzas'
+    let editingCostIngredientId = null;
+    let currentEditingPizzaId = null;
+
+    async function loadCostData() {
+      try {
+        const resp = await fetch('data/cost_data.json?t=' + Date.now());
+        if (resp.ok) {
+          costData = await resp.json();
+        } else {
+          throw new Error('Cost JSON fetch failed');
+        }
+      } catch (e) {
+        if (window.COST_DATA) {
+          costData = JSON.parse(JSON.stringify(window.COST_DATA));
+        } else {
+          const local = localStorage.getItem('deli_cost_data');
+          if (local) {
+            try { costData = JSON.parse(local); } catch (err) {}
+          }
+        }
+      }
+
+      if (!costData) {
+        costData = {
+          lastUpdated: new Date().toISOString().split('T')[0],
+          settings: {
+            fireEnabled: true,
+            fireRate: 8.0,
+            doughWizard: {
+              flourGram: 1000,
+              flourKgPrice: 35.0,
+              waterGram: 650,
+              waterCost: 2.0,
+              yeastGram: 2.0,
+              yeastKgPrice: 350.0,
+              saltGram: 30.0,
+              saltKgPrice: 25.0,
+              doughBallWeightGram: 280
+            }
+          },
+          rawIngredients: [],
+          recipes: {}
+        };
+      }
+
+      // Initialize UI inputs from settings
+      const fireToggle = document.getElementById('cost-fire-toggle');
+      if (fireToggle) fireToggle.checked = costData.settings?.fireEnabled !== false;
+      const fireInput = document.getElementById('cost-fire-rate-input');
+      if (fireInput) fireInput.value = costData.settings?.fireRate ?? 8;
+    }
+
+    function updateCostBadgeCounts() {
+      if (!costData) return;
+      const ingCountEl = document.getElementById('cost-ingredients-count');
+      if (ingCountEl) ingCountEl.textContent = costData.rawIngredients ? costData.rawIngredients.length : 0;
+      
+      const pizzaCountEl = document.getElementById('cost-pizzas-count');
+      if (pizzaCountEl && menuData) {
+        const pizzas = menuData.items ? menuData.items.filter(it => it.categoryId === 'pizza') : [];
+        pizzaCountEl.textContent = pizzas.length;
+      }
+    }
+
+    // ==========================================
+    // COST AUTHENTICATION
+    // ==========================================
+    function openCostCalculatorView() {
+      const isAuth = sessionStorage.getItem('deli_cost_auth') === 'true';
+      if (isAuth) {
+        switchAdminView('cost');
+      } else {
+        openCostAuthModal();
+      }
+    }
+
+    function openCostAuthModal() {
+      const modal = document.getElementById('cost-auth-modal');
+      const input = document.getElementById('cost-password-input');
+      const err = document.getElementById('cost-auth-error');
+      if (err) err.style.display = 'none';
+      if (input) input.value = '';
+      modal.classList.add('open');
+      setTimeout(() => { if (input) input.focus(); }, 150);
+    }
+
+    function closeCostAuthModal() {
+      document.getElementById('cost-auth-modal').classList.remove('open');
+    }
+
+    function toggleCostPasswordVisibility() {
+      const input = document.getElementById('cost-password-input');
+      if (input) input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function handleCostAuthSubmit() {
+      const input = document.getElementById('cost-password-input');
+      const entered = input.value.trim().toLowerCase();
+      const err = document.getElementById('cost-auth-error');
+      const card = document.getElementById('cost-auth-card');
+
+      if (entered === COST_ADMIN_PASSWORD.toLowerCase()) {
+        sessionStorage.setItem('deli_cost_auth', 'true');
+        closeCostAuthModal();
+        switchAdminView('cost');
+      } else {
+        if (err) err.style.display = 'block';
+        if (card) {
+          card.classList.remove('shake');
+          void card.offsetWidth;
+          card.classList.add('shake');
+        }
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    // ==========================================
+    // COST SUB-NAVIGATION (1. ÜRÜNLER vs 2. PİZZALAR)
+    // ==========================================
+    function switchCostSubTab(subTab) {
+      currentCostSubTab = subTab;
+      const tabIng = document.getElementById('cost-subtab-ingredients');
+      const tabPiz = document.getElementById('cost-subtab-pizzas');
+      const viewIng = document.getElementById('cost-subview-ingredients');
+      const viewPiz = document.getElementById('cost-subview-pizzas');
+
+      if (subTab === 'ingredients') {
+        tabIng.classList.add('active');
+        tabPiz.classList.remove('active');
+        viewIng.style.display = 'block';
+        viewPiz.style.display = 'none';
+        renderCostIngredientsView();
+      } else {
+        tabPiz.classList.add('active');
+        tabIng.classList.remove('active');
+        viewIng.style.display = 'none';
+        viewPiz.style.display = 'block';
+        renderCostPizzasView();
+      }
+    }
+
+    function renderCostView() {
+      updateCostBadgeCounts();
+      if (currentCostSubTab === 'ingredients') {
+        renderCostIngredientsView();
+      } else {
+        renderCostPizzasView();
+      }
+    }
+
+    // ==========================================
+    // SUB-TAB 1: RAW INGREDIENTS (ÜRÜNLER VE FİYAT)
+    // ==========================================
+    function renderCostIngredientsView() {
+      if (!costData || !costData.rawIngredients) return;
+      const container = document.getElementById('cost-ingredients-container');
+      const search = (document.getElementById('cost-ing-search')?.value || '').toLowerCase().trim();
+      const catFilter = document.getElementById('cost-ing-cat-filter')?.value || 'ALL';
+
+      let items = costData.rawIngredients.filter(it => {
+        const matchesSearch = !search || it.name.toLowerCase().includes(search) || (it.category && it.category.toLowerCase().includes(search));
+        const matchesCat = catFilter === 'ALL' || it.category === catFilter;
+        return matchesSearch && matchesCat;
+      });
+
+      updateCostBadgeCounts();
+
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div style="background:var(--color-white); border:1px dashed var(--color-cream-border); border-radius:var(--radius-md); padding:30px; text-align:center; color:var(--color-muted);">
+            <div style="font-size:2rem; margin-bottom:8px;">🥩</div>
+            <div style="font-weight:600;">Eşleşen hammadde bulunamadı.</div>
+            <div style="font-size:0.8rem; margin-top:4px;">Yeni ürün eklemek için sağ üstteki "+ Yeni Ürün Ekle" butonunu kullanabilirsiniz.</div>
+          </div>
+        `;
+        return;
+      }
+
+      // Count usage of each ingredient in pizza recipes
+      const usageMap = {};
+      if (costData.recipes) {
+        Object.values(costData.recipes).forEach(recList => {
+          if (Array.isArray(recList)) {
+            recList.forEach(line => {
+              usageMap[line.ingredientId] = (usageMap[line.ingredientId] || 0) + 1;
+            });
+          }
+        });
+      }
+
+      container.innerHTML = items.map(it => {
+        const usageCount = usageMap[it.id] || 0;
+        const usageBadge = usageCount > 0 
+          ? `<span style="font-size:0.7rem; color:var(--color-forest); font-weight:600; background:rgba(49,84,62,0.08); padding:2px 6px; border-radius:4px;">${usageCount} pizzada kullanılıyor</span>` 
+          : `<span style="font-size:0.7rem; color:var(--color-muted);">Henüz reçetede yok</span>`;
+        
+        const priceUnitStr = it.unit === 'kg' ? '₺ / kg' : '₺ / adet';
+        const formattedPrice = Number(it.price).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        return `
+          <div class="ing-card-item">
+            <div style="display:flex; align-items:center; gap:12px; flex:1;">
+              <div style="width:36px; height:36px; border-radius:8px; background:var(--color-cream); border:1px solid var(--color-cream-border); display:flex; align-items:center; justify-content:center; font-size:1.1rem;">
+                ${getCategoryEmoji(it.category)}
+              </div>
+              <div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span class="ing-name-title">${escapeHtml(it.name)}</span>
+                  <span class="ing-cat-pill">${escapeHtml(it.category || 'Genel')}</span>
+                </div>
+                <div style="margin-top:2px;">
+                  ${usageBadge}
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:16px;">
+              <div style="text-align:right;">
+                <div class="ing-price-tag">${formattedPrice} <span style="font-size:0.75rem; font-weight:500; color:var(--color-muted);">${priceUnitStr}</span></div>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button class="btn btn-outline" style="padding:6px 10px; font-size:0.78rem;" onclick="openEditCostIngredientModal('${it.id}')" title="Düzenle">
+                  ✏️
+                </button>
+                <button class="btn btn-outline" style="padding:6px 10px; font-size:0.78rem; color:var(--color-danger);" onclick="deleteCostIngredient('${it.id}')" title="Sil">
+                  🗑️
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function getCategoryEmoji(cat) {
+      switch (cat) {
+        case 'Taban': return '🥫';
+        case 'Peynir': return '🧀';
+        case 'Et & Şarküteri': return '🥩';
+        case 'Sebze': return '🍄';
+        case 'Hamur': return '🥖';
+        case 'Sos & Yağ': return '🫒';
+        case 'Yeşillik & Baharat': return '🌿';
+        default: return '📦';
+      }
+    }
+
+    function handleIngredientUnitChange(unit) {
+      const hint = document.getElementById('cost-ing-price-unit-hint');
+      if (hint) {
+        hint.textContent = unit === 'kg' ? '₺ / kg' : '₺ / adet';
+      }
+    }
+
+    function openNewCostIngredientModal() {
+      editingCostIngredientId = null;
+      document.getElementById('cost-ing-modal-title').innerHTML = '<span>🥩</span> Yeni Hammadde / Ürün Ekle';
+      document.getElementById('cost-ing-edit-id').value = '';
+      document.getElementById('cost-ing-name').value = '';
+      document.getElementById('cost-ing-unit').value = 'kg';
+      document.getElementById('cost-ing-price').value = '';
+      document.getElementById('cost-ing-category').value = 'Peynir';
+      handleIngredientUnitChange('kg');
+      document.getElementById('cost-ingredient-modal').classList.add('open');
+      setTimeout(() => document.getElementById('cost-ing-name').focus(), 150);
+    }
+
+    function openEditCostIngredientModal(id) {
+      if (!costData || !costData.rawIngredients) return;
+      const ing = costData.rawIngredients.find(it => it.id === id);
+      if (!ing) return;
+
+      editingCostIngredientId = id;
+      document.getElementById('cost-ing-modal-title').innerHTML = '<span>✏️</span> Hammadde Düzenle';
+      document.getElementById('cost-ing-edit-id').value = id;
+      document.getElementById('cost-ing-name').value = ing.name;
+      document.getElementById('cost-ing-unit').value = ing.unit || 'kg';
+      document.getElementById('cost-ing-price').value = ing.price;
+      document.getElementById('cost-ing-category').value = ing.category || 'Diğer';
+      handleIngredientUnitChange(ing.unit || 'kg');
+      document.getElementById('cost-ingredient-modal').classList.add('open');
+      setTimeout(() => document.getElementById('cost-ing-price').focus(), 150);
+    }
+
+    function closeCostIngredientModal() {
+      document.getElementById('cost-ingredient-modal').classList.remove('open');
+    }
+
+    function saveCostIngredient() {
+      const name = document.getElementById('cost-ing-name').value.trim();
+      const unit = document.getElementById('cost-ing-unit').value;
+      const price = parseFloat(document.getElementById('cost-ing-price').value);
+      const category = document.getElementById('cost-ing-category').value;
+
+      if (!name) {
+        alert('Lütfen ürün adını giriniz.');
+        return;
+      }
+      if (isNaN(price) || price < 0) {
+        alert('Lütfen geçerli bir alış fiyatı giriniz.');
+        return;
+      }
+
+      if (!costData.rawIngredients) costData.rawIngredients = [];
+
+      if (editingCostIngredientId) {
+        const idx = costData.rawIngredients.findIndex(it => it.id === editingCostIngredientId);
+        if (idx !== -1) {
+          costData.rawIngredients[idx].name = name;
+          costData.rawIngredients[idx].unit = unit;
+          costData.rawIngredients[idx].price = price;
+          costData.rawIngredients[idx].category = category;
+        }
+      } else {
+        const newId = 'ing-' + Date.now();
+        costData.rawIngredients.push({
+          id: newId,
+          name: name,
+          unit: unit,
+          price: price,
+          category: category
+        });
+      }
+
+      saveCostDataLocally();
+      closeCostIngredientModal();
+      renderCostIngredientsView();
+      renderCostPizzasView();
+    }
+
+    function deleteCostIngredient(id) {
+      if (!costData || !costData.rawIngredients) return;
+      const ing = costData.rawIngredients.find(it => it.id === id);
+      if (!ing) return;
+
+      // Check usage in recipes
+      let usedInPizzas = [];
+      if (costData.recipes && menuData && menuData.items) {
+        Object.entries(costData.recipes).forEach(([pId, rList]) => {
+          if (Array.isArray(rList) && rList.some(line => line.ingredientId === id)) {
+            const pizza = menuData.items.find(it => it.id === pId);
+            if (pizza) usedInPizzas.push(pizza.name.tr);
+          }
+        });
+      }
+
+      let warnMsg = `"${ing.name}" ürününü silmek istediğinize emin misiniz?`;
+      if (usedInPizzas.length > 0) {
+        warnMsg = `DİKKAT: "${ing.name}" şu pizzaların reçetesinde kullanılıyor:
+- ` + usedInPizzas.join('\n- ') + `
+
+Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunuz?`;
+      }
+
+      if (!confirm(warnMsg)) return;
+
+      costData.rawIngredients = costData.rawIngredients.filter(it => it.id !== id);
+      
+      // Clean up from recipes
+      if (costData.recipes) {
+        Object.keys(costData.recipes).forEach(pId => {
+          costData.recipes[pId] = costData.recipes[pId].filter(l => l.ingredientId !== id);
+        });
+      }
+
+      saveCostDataLocally();
+      renderCostIngredientsView();
+      renderCostPizzasView();
+    }
+
+    // ==========================================
+    // SUB-TAB 2: PIZZAS & RECIPE FOOD COST
+    // ==========================================
+    function calculatePizzaCost(pizzaId) {
+      if (!costData || !costData.recipes) return { baseCost: 0, finalCost: 0, fireAmount: 0 };
+      const recipe = costData.recipes[pizzaId] || [];
+      const ingMap = {};
+      (costData.rawIngredients || []).forEach(it => { ingMap[it.id] = it; });
+
+      let baseCost = 0;
+      recipe.forEach(line => {
+        const ing = ingMap[line.ingredientId];
+        if (ing) {
+          const amt = parseFloat(line.amount) || 0;
+          if (ing.unit === 'kg') {
+            baseCost += (amt / 1000) * Number(ing.price);
+          } else {
+            baseCost += amt * Number(ing.price);
+          }
+        }
+      });
+
+      const fireEnabled = costData.settings?.fireEnabled !== false;
+      const fireRate = costData.settings?.fireRate ?? 8.0;
+      const fireAmount = fireEnabled ? baseCost * (fireRate / 100) : 0;
+      const finalCost = baseCost + fireAmount;
+
+      return { baseCost, finalCost, fireAmount, fireEnabled, fireRate };
+    }
+
+    function renderCostPizzasView() {
+      if (!menuData || !menuData.items) return;
+      const container = document.getElementById('cost-pizzas-container');
+      const search = (document.getElementById('cost-pizza-search')?.value || '').toLowerCase().trim();
+
+      const pizzas = menuData.items.filter(it => it.categoryId === 'pizza' && (!search || it.name.tr.toLowerCase().includes(search) || it.name.en.toLowerCase().includes(search)));
+
+      updateCostBadgeCounts();
+
+      if (pizzas.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; background:var(--color-white); border:1px dashed var(--color-cream-border); border-radius:var(--radius-md); padding:30px; text-align:center; color:var(--color-muted);">
+            <div style="font-size:2rem; margin-bottom:8px;">🍕</div>
+            <div style="font-weight:600;">Menüde pizza bulunamadı.</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = pizzas.map(pizza => {
+        const { baseCost, finalCost, fireEnabled, fireRate } = calculatePizzaCost(pizza.id);
+        const menuPrice = Number(pizza.price) || 0;
+        const recipeList = costData?.recipes?.[pizza.id] || [];
+        const hasRecipe = recipeList.length > 0;
+
+        let foodCostPct = menuPrice > 0 ? (finalCost / menuPrice) * 100 : 0;
+        let multiplier = finalCost > 0 ? (menuPrice / finalCost) : 0;
+        let grossProfit = menuPrice - finalCost;
+
+        // Food Cost Badge Style
+        let fcBadgeClass = 'cost-badge-good';
+        if (foodCostPct > 35) fcBadgeClass = 'cost-badge-high';
+        else if (foodCostPct >= 25) fcBadgeClass = 'cost-badge-mid';
+
+        const fireNotice = fireEnabled ? `(+%${fireRate} fire dahil)` : `(fire hariç)`;
+
+        return `
+          <div class="cost-pizza-card">
+            <div class="cost-pizza-header">
+              <div>
+                <h3 style="font-size:1rem; font-weight:700; color:var(--color-dark); text-transform:capitalize;">${escapeHtml(pizza.name.tr)}</h3>
+                <div style="font-size:0.75rem; color:var(--color-muted); font-style:italic;">${escapeHtml(pizza.name.en || '')}</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:1.05rem; font-weight:700; color:var(--color-forest);">${menuPrice} ₺</div>
+                <div style="font-size:0.7rem; color:var(--color-muted); text-transform:uppercase;">Menü Satış</div>
+              </div>
+            </div>
+
+            <div class="cost-pizza-body">
+              ${hasRecipe ? `
+                <div class="cost-metric-grid">
+                  <div class="cost-metric-item">
+                    <span class="cost-metric-label">Maliyet ${fireNotice}</span>
+                    <span class="cost-metric-val" style="color:var(--color-forest);">${finalCost.toFixed(2)} ₺</span>
+                  </div>
+                  <div class="cost-metric-item">
+                    <span class="cost-metric-label">Food Cost %</span>
+                    <div><span class="${fcBadgeClass}">%${foodCostPct.toFixed(1)} FC</span></div>
+                  </div>
+                  <div class="cost-metric-item">
+                    <span class="cost-metric-label">Kâr Çarpanı</span>
+                    <div><span class="cost-badge-multiplier">${multiplier.toFixed(2)}×</span></div>
+                  </div>
+                  <div class="cost-metric-item">
+                    <span class="cost-metric-label">Brüt Kâr</span>
+                    <span class="cost-metric-val" style="color:#15803d;">+${grossProfit.toFixed(2)} ₺</span>
+                  </div>
+                </div>
+                <div style="font-size:0.75rem; color:var(--color-muted); display:flex; align-items:center; gap:4px;">
+                  <span>📋 Reçete: ${recipeList.length} malzeme tanımlı</span>
+                </div>
+              ` : `
+                <div style="background:#fffbeb; border:1px solid #fef3c7; border-radius:var(--radius-sm); padding:10px; text-align:center; font-size:0.8rem; color:#92400e;">
+                  ⚠️ Bu pizzanın henüz reçetesi oluşturulmadı.
+                </div>
+              `}
+
+              <div style="margin-top:auto; padding-top:6px;">
+                <button class="btn btn-outline" style="width:100%; font-size:0.82rem; font-weight:600; padding:8px;" onclick="openCostRecipeModal('${pizza.id}')">
+                  <span>${hasRecipe ? '📝 Reçeteyi Düzenle' : '+ Reçete Oluştur'}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ==========================================
+    // PIZZA RECIPE MODAL EDITOR
+    // ==========================================
+    function openCostRecipeModal(pizzaId) {
+      if (!menuData || !menuData.items) return;
+      const pizza = menuData.items.find(it => it.id === pizzaId);
+      if (!pizza) return;
+
+      currentEditingPizzaId = pizzaId;
+      document.getElementById('cost-recipe-pizza-id').value = pizzaId;
+      document.getElementById('cost-recipe-modal-title').innerHTML = `<span>🍕</span> ${escapeHtml(pizza.name.tr)} Reçetesi`;
+      document.getElementById('cost-recipe-modal-subtitle').textContent = `Menü Satış Fiyatı: ${pizza.price} ₺`;
+      document.getElementById('rec-summary-menu-price').textContent = `${pizza.price} ₺`;
+
+      const tbody = document.getElementById('cost-recipe-rows');
+      tbody.innerHTML = '';
+
+      const recipe = costData?.recipes?.[pizzaId] || [];
+      if (recipe.length === 0) {
+        // Add default hamur / beze row as starter
+        addRecipeIngredientRow('ing-hamur-beze', 1);
+      } else {
+        recipe.forEach(line => {
+          addRecipeIngredientRow(line.ingredientId, line.amount);
+        });
+      }
+
+      recalcRecipeModalFinancials();
+      document.getElementById('cost-recipe-modal').classList.add('open');
+    }
+
+    function closeCostRecipeModal() {
+      document.getElementById('cost-recipe-modal').classList.remove('open');
+    }
+
+    function addRecipeIngredientRow(defaultIngId = '', defaultAmount = '') {
+      const tbody = document.getElementById('cost-recipe-rows');
+      const rowId = 'rec-row-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4);
+
+      if (!costData || !costData.rawIngredients) return;
+
+      // Group ingredients by category for dropdown
+      const cats = {};
+      costData.rawIngredients.forEach(it => {
+        const cat = it.category || 'Diğer';
+        if (!cats[cat]) cats[cat] = [];
+        cats[cat].push(it);
+      });
+
+      let optionsHtml = '<option value="">-- Malzeme Seçin --</option>';
+      Object.entries(cats).forEach(([catName, list]) => {
+        optionsHtml += `<optgroup label="${escapeHtml(catName)}">`;
+        list.forEach(it => {
+          const selected = it.id === defaultIngId ? 'selected' : '';
+          optionsHtml += `<option value="${it.id}" data-unit="${it.unit}" data-price="${it.price}" ${selected}>${escapeHtml(it.name)} (${it.price} ₺/${it.unit})</option>`;
+        });
+        optionsHtml += `</optgroup>`;
+      });
+
+      const tr = document.createElement('tr');
+      tr.id = rowId;
+      tr.style.borderBottom = '1px solid var(--color-cream-border)';
+      tr.innerHTML = `
+        <td style="padding: 6px 10px;">
+          <select class="form-select rec-ing-select" onchange="handleRecipeIngredientChange('${rowId}')" style="font-size:0.82rem; padding:6px 8px;">
+            ${optionsHtml}
+          </select>
+        </td>
+        <td style="padding: 6px 10px;">
+          <input type="number" step="any" min="0" class="form-input rec-amount-input" value="${defaultAmount}" placeholder="0" oninput="handleRecipeAmountChange('${rowId}')" style="font-size:0.82rem; padding:6px 8px; font-weight:700;">
+        </td>
+        <td style="padding: 6px 10px; font-weight:600; color:var(--color-muted);" class="rec-unit-cell">-</td>
+        <td style="padding: 6px 10px; color:var(--color-muted);" class="rec-price-cell">-</td>
+        <td style="padding: 6px 10px; text-align:right; font-weight:700; color:var(--color-forest);" class="rec-cost-cell">0.00 ₺</td>
+        <td style="padding: 6px 10px; text-align:center;">
+          <button type="button" onclick="removeRecipeIngredientRow('${rowId}')" style="background:none; border:none; cursor:pointer; color:var(--color-danger); font-size:1rem;" title="Kaldır">✕</button>
+        </td>
+      `;
+
+      tbody.appendChild(tr);
+      handleRecipeIngredientChange(rowId);
+    }
+
+    function removeRecipeIngredientRow(rowId) {
+      const row = document.getElementById(rowId);
+      if (row) row.remove();
+      recalcRecipeModalFinancials();
+    }
+
+    function handleRecipeIngredientChange(rowId) {
+      const row = document.getElementById(rowId);
+      if (!row) return;
+
+      const select = row.querySelector('.rec-ing-select');
+      const selectedOpt = select.options[select.selectedIndex];
+      const unitCell = row.querySelector('.rec-unit-cell');
+      const priceCell = row.querySelector('.rec-price-cell');
+      const amountInput = row.querySelector('.rec-amount-input');
+
+      if (selectedOpt && selectedOpt.value) {
+        const rawUnit = selectedOpt.getAttribute('data-unit');
+        const rawPrice = Number(selectedOpt.getAttribute('data-price')) || 0;
+        
+        // If raw unit is kg, usage amount is in grams (gr). If adet, usage amount is in adet.
+        unitCell.textContent = rawUnit === 'kg' ? 'gr' : 'adet';
+        priceCell.textContent = `${rawPrice} ₺/${rawUnit}`;
+        
+        // Provide friendly default if empty
+        if (!amountInput.value) {
+          amountInput.value = rawUnit === 'kg' ? '100' : '1';
+        }
+      } else {
+        unitCell.textContent = '-';
+        priceCell.textContent = '-';
+      }
+
+      handleRecipeAmountChange(rowId);
+    }
+
+    function handleRecipeAmountChange(rowId) {
+      const row = document.getElementById(rowId);
+      if (!row) return;
+
+      const select = row.querySelector('.rec-ing-select');
+      const selectedOpt = select.options[select.selectedIndex];
+      const amountInput = row.querySelector('.rec-amount-input');
+      const costCell = row.querySelector('.rec-cost-cell');
+
+      let lineCost = 0;
+      if (selectedOpt && selectedOpt.value) {
+        const rawUnit = selectedOpt.getAttribute('data-unit');
+        const rawPrice = Number(selectedOpt.getAttribute('data-price')) || 0;
+        const amount = parseFloat(amountInput.value) || 0;
+
+        if (rawUnit === 'kg') {
+          lineCost = (amount / 1000) * rawPrice;
+        } else {
+          lineCost = amount * rawPrice;
+        }
+      }
+
+      costCell.textContent = `${lineCost.toFixed(2)} ₺`;
+      recalcRecipeModalFinancials();
+    }
+
+    function recalcRecipeModalFinancials() {
+      const tbody = document.getElementById('cost-recipe-rows');
+      const rows = tbody.querySelectorAll('tr');
+
+      let baseCost = 0;
+      rows.forEach(row => {
+        const select = row.querySelector('.rec-ing-select');
+        const selectedOpt = select?.options[select.selectedIndex];
+        const amountInput = row.querySelector('.rec-amount-input');
+
+        if (selectedOpt && selectedOpt.value) {
+          const rawUnit = selectedOpt.getAttribute('data-unit');
+          const rawPrice = Number(selectedOpt.getAttribute('data-price')) || 0;
+          const amount = parseFloat(amountInput?.value) || 0;
+
+          if (rawUnit === 'kg') {
+            baseCost += (amount / 1000) * rawPrice;
+          } else {
+            baseCost += amount * rawPrice;
+          }
+        }
+      });
+
+      const fireEnabled = costData.settings?.fireEnabled !== false;
+      const fireRate = costData.settings?.fireRate ?? 8.0;
+      const fireAmount = fireEnabled ? baseCost * (fireRate / 100) : 0;
+      const totalCost = baseCost + fireAmount;
+
+      const pizza = menuData?.items?.find(it => it.id === currentEditingPizzaId);
+      const menuPrice = pizza ? Number(pizza.price) : 0;
+
+      const foodCostPct = menuPrice > 0 ? (totalCost / menuPrice) * 100 : 0;
+      const multiplier = totalCost > 0 ? (menuPrice / totalCost) : 0;
+
+      // Update Financial Box
+      document.getElementById('rec-summary-base-cost').textContent = `${baseCost.toFixed(2)} ₺`;
+      const fireRow = document.getElementById('rec-summary-fire-row');
+      const fireLabel = document.getElementById('rec-summary-fire-label');
+      const fireCost = document.getElementById('rec-summary-fire-cost');
+      
+      if (fireEnabled) {
+        fireRow.style.display = 'flex';
+        fireLabel.textContent = `Fire Payı (%${fireRate}):`;
+        fireCost.textContent = `+${fireAmount.toFixed(2)} ₺`;
+      } else {
+        fireRow.style.display = 'none';
+      }
+
+      document.getElementById('rec-summary-total-cost').textContent = `${totalCost.toFixed(2)} ₺`;
+      document.getElementById('rec-summary-food-cost').textContent = `%${foodCostPct.toFixed(1)}`;
+      document.getElementById('rec-summary-multiplier').textContent = `${multiplier.toFixed(2)}×`;
+
+      // Update Multipliers Table (Excel Model: 3x, 3.5x, 4x, 4.5x, 5x, 6x)
+      document.getElementById('rec-guide-3x').textContent = totalCost > 0 ? `${(totalCost * 3).toFixed(0)} ₺` : '-';
+      document.getElementById('rec-guide-35x').textContent = totalCost > 0 ? `${(totalCost * 3.5).toFixed(0)} ₺` : '-';
+      document.getElementById('rec-guide-4x').textContent = totalCost > 0 ? `${(totalCost * 4).toFixed(0)} ₺` : '-';
+      document.getElementById('rec-guide-45x').textContent = totalCost > 0 ? `${(totalCost * 4.5).toFixed(0)} ₺` : '-';
+      document.getElementById('rec-guide-5x').textContent = totalCost > 0 ? `${(totalCost * 5).toFixed(0)} ₺` : '-';
+      document.getElementById('rec-guide-6x').textContent = totalCost > 0 ? `${(totalCost * 6).toFixed(0)} ₺` : '-';
+    }
+
+    function savePizzaRecipe() {
+      if (!currentEditingPizzaId) return;
+      const tbody = document.getElementById('cost-recipe-rows');
+      const rows = tbody.querySelectorAll('tr');
+
+      const recipeLines = [];
+      rows.forEach(row => {
+        const select = row.querySelector('.rec-ing-select');
+        const selectedOpt = select?.options[select.selectedIndex];
+        const amountInput = row.querySelector('.rec-amount-input');
+
+        if (selectedOpt && selectedOpt.value) {
+          const rawUnit = selectedOpt.getAttribute('data-unit');
+          const amount = parseFloat(amountInput?.value) || 0;
+          if (amount > 0) {
+            recipeLines.push({
+              ingredientId: selectedOpt.value,
+              amount: amount,
+              unit: rawUnit === 'kg' ? 'gr' : 'adet'
+            });
+          }
+        }
+      });
+
+      if (!costData.recipes) costData.recipes = {};
+      costData.recipes[currentEditingPizzaId] = recipeLines;
+
+      saveCostDataLocally();
+      closeCostRecipeModal();
+      renderCostPizzasView();
+    }
+
+    // ==========================================
+    // DOUGH COST WIZARD (HAMUR MALİYET SİHİRBAZI)
+    // ==========================================
+    function openDoughWizardModal() {
+      const dw = costData.settings?.doughWizard || {
+        flourGram: 1000, flourKgPrice: 35, waterGram: 650, waterCost: 2,
+        yeastGram: 2, yeastKgPrice: 350, saltGram: 30, saltKgPrice: 25, doughBallWeightGram: 280
+      };
+
+      document.getElementById('dw-flour-gram').value = dw.flourGram ?? 1000;
+      document.getElementById('dw-flour-price').value = dw.flourKgPrice ?? 35;
+      document.getElementById('dw-water-gram').value = dw.waterGram ?? 650;
+      document.getElementById('dw-water-cost').value = dw.waterCost ?? 2;
+      document.getElementById('dw-yeast-gram').value = dw.yeastGram ?? 2;
+      document.getElementById('dw-yeast-price').value = dw.yeastKgPrice ?? 350;
+      document.getElementById('dw-salt-gram').value = dw.saltGram ?? 30;
+      document.getElementById('dw-salt-price').value = dw.saltKgPrice ?? 25;
+      document.getElementById('dw-ball-weight').value = dw.doughBallWeightGram ?? 280;
+
+      recalcDoughWizard();
+      document.getElementById('dough-wizard-modal').classList.add('open');
+    }
+
+    function closeDoughWizardModal() {
+      document.getElementById('dough-wizard-modal').classList.remove('open');
+    }
+
+    function recalcDoughWizard() {
+      const flourGram = parseFloat(document.getElementById('dw-flour-gram').value) || 0;
+      const flourPrice = parseFloat(document.getElementById('dw-flour-price').value) || 0;
+      const waterGram = parseFloat(document.getElementById('dw-water-gram').value) || 0;
+      const waterCost = parseFloat(document.getElementById('dw-water-cost').value) || 0;
+      const yeastGram = parseFloat(document.getElementById('dw-yeast-gram').value) || 0;
+      const yeastPrice = parseFloat(document.getElementById('dw-yeast-price').value) || 0;
+      const saltGram = parseFloat(document.getElementById('dw-salt-gram').value) || 0;
+      const saltPrice = parseFloat(document.getElementById('dw-salt-price').value) || 0;
+      const ballWeight = parseFloat(document.getElementById('dw-ball-weight').value) || 280;
+
+      const totalWeight = flourGram + waterGram + yeastGram + saltGram;
+      const ballCount = ballWeight > 0 ? (totalWeight / ballWeight) : 0;
+
+      const flourCost = (flourGram / 1000) * flourPrice;
+      const yeastCost = (yeastGram / 1000) * yeastPrice;
+      const saltCost = (saltGram / 1000) * saltPrice;
+      const totalCost = flourCost + waterCost + yeastCost + saltCost;
+
+      const costPerBall = ballCount > 0 ? (totalCost / ballCount) : 0;
+
+      document.getElementById('dw-res-total-weight').textContent = `${totalWeight.toFixed(0)} gr`;
+      document.getElementById('dw-res-ball-count').textContent = `${ballCount.toFixed(1)} adet`;
+      document.getElementById('dw-res-total-cost').textContent = `${totalCost.toFixed(2)} ₺`;
+      document.getElementById('dw-res-ball-cost').textContent = `${costPerBall.toFixed(2)} ₺`;
+
+      return { totalWeight, ballCount, totalCost, costPerBall, ballWeight };
+    }
+
+    function applyDoughWizardToIngredients() {
+      const res = recalcDoughWizard();
+      if (!costData.settings) costData.settings = {};
+      costData.settings.doughWizard = {
+        flourGram: parseFloat(document.getElementById('dw-flour-gram').value) || 1000,
+        flourKgPrice: parseFloat(document.getElementById('dw-flour-price').value) || 35,
+        waterGram: parseFloat(document.getElementById('dw-water-gram').value) || 650,
+        waterCost: parseFloat(document.getElementById('dw-water-cost').value) || 2,
+        yeastGram: parseFloat(document.getElementById('dw-yeast-gram').value) || 2,
+        yeastKgPrice: parseFloat(document.getElementById('dw-yeast-price').value) || 350,
+        saltGram: parseFloat(document.getElementById('dw-salt-gram').value) || 30,
+        saltKgPrice: parseFloat(document.getElementById('dw-salt-price').value) || 25,
+        doughBallWeightGram: res.ballWeight
+      };
+
+      // Update or add 'Hamur / Beze' in raw ingredients
+      if (!costData.rawIngredients) costData.rawIngredients = [];
+      let doughIng = costData.rawIngredients.find(it => it.id === 'ing-hamur-beze' || it.name.toLowerCase().includes('beze') || it.name.toLowerCase().includes('hamur'));
+      
+      const roundedBallCost = Math.round(res.costPerBall * 100) / 100;
+      if (doughIng) {
+        doughIng.price = roundedBallCost;
+      } else {
+        doughIng = {
+          id: 'ing-hamur-beze',
+          name: `Hamur / Beze (${res.ballWeight}g)`,
+          unit: 'adet',
+          price: roundedBallCost,
+          category: 'Hamur'
+        };
+        costData.rawIngredients.push(doughIng);
+      }
+
+      saveCostDataLocally();
+      alert(`✅ Hamur beze fiyatı (${roundedBallCost} ₺ / adet) olarak güncellendi ve tüm pizza maliyetlerine yansıtıldı!`);
+      closeDoughWizardModal();
+      renderCostIngredientsView();
+      renderCostPizzasView();
+    }
+
+    // ==========================================
+    // FIRE ORANI AYARLARI
+    // ==========================================
+    function toggleFireRate(enabled) {
+      if (!costData.settings) costData.settings = {};
+      costData.settings.fireEnabled = enabled;
+      saveCostDataLocally();
+      renderCostPizzasView();
+    }
+
+    function updateFireRate(val) {
+      const num = parseFloat(val);
+      if (isNaN(num) || num < 0) return;
+      if (!costData.settings) costData.settings = {};
+      costData.settings.fireRate = num;
+      saveCostDataLocally();
+      renderCostPizzasView();
+    }
+
+    // ==========================================
+    // COST PERSISTENCE & GITHUB SYNC
+    // ==========================================
+    function saveCostDataLocally() {
+      if (!costData) return;
+      costData.lastUpdated = new Date().toISOString().split('T')[0];
+      try {
+        localStorage.setItem('deli_cost_data', JSON.stringify(costData));
+      } catch (e) {}
+    }
+
+    async function saveCostDataToGithub() {
+      const token = localStorage.getItem('deli_github_token');
+      if (!token) {
+        alert('GitHub\'a kaydetmek için lütfen önce GitHub Token anahtarınızı kaydedin.');
+        openGithubSettingsModal();
+        return;
+      }
+
+      showLoading('Maliyet verileri kaydediliyor...', 'GitHub main dalına işleniyor...');
+
+      try {
+        saveCostDataLocally();
+        const jsonContent = JSON.stringify(costData, null, 2);
+        const jsonBase64 = btoa(unescape(encodeURIComponent(jsonContent)));
+        await commitFileToGithub('data/cost_data.json', jsonBase64, 'Maliyet verileri ve reçeteler güncellendi (Admin)', token, false);
+
+        const jsContent = `// Deli Napolitan Cost Data\nwindow.COST_DATA = ${jsonContent};\n`;
+        const jsBase64 = btoa(unescape(encodeURIComponent(jsContent)));
+        await commitFileToGithub('data/cost_data.js', jsBase64, 'Maliyet JS yedeği güncellendi (Admin)', token, false);
+
+        hideLoading();
+        alert('🎉 TEBRİKLER! Maliyet verileri ve tüm reçeteler başarıyla GitHub\'a kaydedildi!');
+      } catch (err) {
+        hideLoading();
+        console.error('Cost publish error:', err);
+        alert('HATA: Maliyetler kaydedilirken bir sorun oluştu.\n' + err.message);
+      }
+    }
+
   </script>
 </body>
 </html>
