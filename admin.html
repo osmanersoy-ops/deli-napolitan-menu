@@ -1638,6 +1638,11 @@
         <div id="cost-pizzas-container" class="products-grid">
           <!-- Populated dynamically via JS -->
         </div>
+
+        <!-- TOTAL PORTFOLIO SUMMARY BOX (BOTTOM OF PIZZAS PAGE) -->
+        <div id="cost-pizzas-summary-box" style="margin-top: 24px;">
+          <!-- Populated dynamically via renderCostPizzasView() -->
+        </div>
       </div>
 
     </div>
@@ -3230,14 +3235,26 @@
     // ==========================================
     // 10. GITHUB API DIRECT PUBLISHING
     // ==========================================
+    function getActiveGithubToken() {
+      const custom = localStorage.getItem('deli_github_token');
+      if (custom && custom.trim().length > 10) return custom.trim();
+      return null;
+    }
+
     function checkGithubTokenStatus() {
-      const token = localStorage.getItem('deli_github_token');
+      const token = getActiveGithubToken();
       if (token) {
-        document.getElementById('github-token-input').value = token;
+        const input = document.getElementById('github-token-input');
+        if (input) input.value = token;
       }
     }
 
     function openGithubSettingsModal() {
+      const token = getActiveGithubToken();
+      if (token) {
+        const input = document.getElementById('github-token-input');
+        if (input) input.value = token;
+      }
       document.getElementById('github-modal').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -3259,7 +3276,7 @@
     }
 
     async function handlePublishChanges() {
-      const token = localStorage.getItem('deli_github_token');
+      const token = getActiveGithubToken();
       if (!token) {
         alert('Canlıya aktarım için lütfen önce GitHub Token anahtarınızı kaydedin.');
         openGithubSettingsModal();
@@ -3441,23 +3458,128 @@
     let editingCostIngredientId = null;
     let currentEditingPizzaId = null;
 
+    const INITIAL_DEFAULT_PRICES = {
+      'ing-domates-sos': 180,
+      'ing-krema-taban': 200,
+      'ing-ispanak-krema': 220,
+      'ing-truflu-krema': 340,
+      'ing-muskat-krema': 220,
+      'ing-scamorza': 480,
+      'ing-stracciatella': 520,
+      'ing-ricotta': 240,
+      'ing-rende-parmesan': 800,
+      'ing-gorgonzola': 700,
+      'ing-erzurum-isli': 260,
+      'ing-mihalic-olgun': 280,
+      'ing-mihalic-taze': 220,
+      'ing-roka-pesto': 380,
+      'ing-1792943670910': 200
+    };
+
+    function mergeCostDataSources(baseFileData, localSavedData) {
+      if (!baseFileData && !localSavedData) return null;
+      if (!baseFileData) return JSON.parse(JSON.stringify(localSavedData));
+      if (!localSavedData) return JSON.parse(JSON.stringify(baseFileData));
+
+      const merged = JSON.parse(JSON.stringify(baseFileData));
+
+      // 1. Settings: localSavedData takes precedence
+      if (localSavedData.settings && typeof localSavedData.settings === 'object') {
+        merged.settings = {
+          ...(merged.settings || {}),
+          ...localSavedData.settings,
+          doughWizard: {
+            ...((merged.settings && merged.settings.doughWizard) || {}),
+            ...((localSavedData.settings && localSavedData.settings.doughWizard) || {})
+          },
+          wizards: {
+            ...((merged.settings && merged.settings.wizards) || {}),
+            ...((localSavedData.settings && localSavedData.settings.wizards) || {})
+          }
+        };
+      }
+
+      // 2. Raw Ingredients: merge localSavedData and baseFileData intelligently
+      if (Array.isArray(localSavedData.rawIngredients) && localSavedData.rawIngredients.length > 0) {
+        const fileMap = new Map();
+        if (Array.isArray(merged.rawIngredients)) {
+          merged.rawIngredients.forEach(fIng => {
+            if (fIng && fIng.id) fileMap.set(fIng.id, fIng);
+          });
+        }
+        const localMap = new Map();
+        const combinedIngredients = localSavedData.rawIngredients.map(localIng => {
+          if (!localIng || !localIng.id) return localIng;
+          localMap.set(localIng.id, localIng);
+          const fileIng = fileMap.get(localIng.id);
+          if (fileIng) {
+            const initDef = INITIAL_DEFAULT_PRICES[localIng.id];
+            // If localIng still had the old placeholder price while fileIng has a user-published price, keep fileIng's price
+            if (initDef !== undefined && Number(localIng.price) === initDef && Number(fileIng.price) !== initDef) {
+              return { ...localIng, price: fileIng.price, name: fileIng.name || localIng.name };
+            }
+          }
+          return localIng;
+        });
+        if (Array.isArray(merged.rawIngredients)) {
+          merged.rawIngredients.forEach(fileIng => {
+            if (fileIng && fileIng.id && !localMap.has(fileIng.id)) {
+              combinedIngredients.push(fileIng);
+            }
+          });
+        }
+        merged.rawIngredients = combinedIngredients;
+      }
+
+      // 3. Recipes: keep all recipes from baseFileData, and overlay all non-empty recipes from localSavedData
+      merged.recipes = { ...(merged.recipes || {}) };
+      if (localSavedData.recipes && typeof localSavedData.recipes === 'object') {
+        Object.keys(localSavedData.recipes).forEach(pizzaId => {
+          const rec = localSavedData.recipes[pizzaId];
+          if (Array.isArray(rec) && rec.length > 0) {
+            merged.recipes[pizzaId] = rec;
+          }
+        });
+      }
+
+      return merged;
+    }
+
     async function loadCostData() {
+      let fileCostData = null;
       try {
         const resp = await fetch('data/cost_data.json?t=' + Date.now());
         if (resp.ok) {
-          costData = await resp.json();
-        } else {
-          throw new Error('Cost JSON fetch failed');
+          fileCostData = await resp.json();
         }
-      } catch (e) {
-        if (window.COST_DATA) {
-          costData = JSON.parse(JSON.stringify(window.COST_DATA));
-        } else {
-          const local = localStorage.getItem('deli_cost_data');
-          if (local) {
-            try { costData = JSON.parse(local); } catch (err) {}
+      } catch (e) {}
+
+      if (!fileCostData && window.COST_DATA) {
+        fileCostData = JSON.parse(JSON.stringify(window.COST_DATA));
+      }
+
+      let localSavedData = null;
+      try {
+        const localStr = localStorage.getItem('deli_cost_data');
+        if (localStr) {
+          localSavedData = JSON.parse(localStr);
+        }
+      } catch (err) {}
+
+      costData = mergeCostDataSources(fileCostData, localSavedData);
+
+      // If localSavedData had extra recipes or newer changes than fileCostData, persist merged result and auto-sync to GitHub
+      if (costData && localSavedData) {
+        try {
+          localStorage.setItem('deli_cost_data', JSON.stringify(costData));
+          const fileJsonStr = fileCostData ? JSON.stringify(fileCostData.recipes || {}) : '';
+          const mergedJsonStr = JSON.stringify(costData.recipes || {});
+          const fileIngStr = fileCostData ? JSON.stringify(fileCostData.rawIngredients || []) : '';
+          const mergedIngStr = JSON.stringify(costData.rawIngredients || []);
+          if (mergedJsonStr !== fileJsonStr || mergedIngStr !== fileIngStr) {
+            scheduleAutoSyncCostToGithub();
           }
-        }
+        } catch (e) {}
       }
 
       if (!costData) {
@@ -3594,14 +3716,12 @@
     // ==========================================
     function renderCostIngredientsView() {
       if (!costData || !costData.rawIngredients) {
-        if (window.COST_DATA) {
-          costData = JSON.parse(JSON.stringify(window.COST_DATA));
-        } else {
-          const local = localStorage.getItem('deli_cost_data');
-          if (local) {
-            try { costData = JSON.parse(local); } catch (e) {}
-          }
-        }
+        let localSaved = null;
+        try {
+          const localStr = localStorage.getItem('deli_cost_data');
+          if (localStr) localSaved = JSON.parse(localStr);
+        } catch (e) {}
+        costData = mergeCostDataSources(window.COST_DATA || null, localSaved);
       }
       if (!costData || !costData.rawIngredients) return;
       const container = document.getElementById('cost-ingredients-container');
@@ -3858,14 +3978,12 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
 
     function renderCostPizzasView() {
       if (!costData) {
-        if (window.COST_DATA) {
-          costData = JSON.parse(JSON.stringify(window.COST_DATA));
-        } else {
-          const local = localStorage.getItem('deli_cost_data');
-          if (local) {
-            try { costData = JSON.parse(local); } catch (e) {}
-          }
-        }
+        let localSaved = null;
+        try {
+          const localStr = localStorage.getItem('deli_cost_data');
+          if (localStr) localSaved = JSON.parse(localStr);
+        } catch (e) {}
+        costData = mergeCostDataSources(window.COST_DATA || null, localSaved);
       }
       if (!menuData || !menuData.items) {
         if (window.MENU_DATA) {
@@ -3877,7 +3995,8 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       if (!container) return;
       const search = (document.getElementById('cost-pizza-search')?.value || '').toLowerCase().trim();
 
-      const pizzas = menuData.items.filter(it => it.categoryId === 'pizza' && (!search || (it.name?.tr || '').toLowerCase().includes(search) || (it.name?.en || '').toLowerCase().includes(search)));
+      const allPizzas = menuData.items.filter(it => it.categoryId === 'pizza');
+      const pizzas = allPizzas.filter(it => !search || (it.name?.tr || '').toLowerCase().includes(search) || (it.name?.en || '').toLowerCase().includes(search));
 
       updateCostBadgeCounts();
 
@@ -3888,77 +4007,304 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
             <div style="font-weight:600;">Menüde pizza bulunamadı.</div>
           </div>
         `;
-        return;
+      } else {
+        container.innerHTML = pizzas.map(pizza => {
+          const { baseCost, finalCost, fireEnabled, fireRate } = calculatePizzaCost(pizza.id);
+          const menuPrice = Number(pizza.price) || 0;
+          const recipeList = costData?.recipes?.[pizza.id] || [];
+          const hasRecipe = recipeList.length > 0;
+
+          let foodCostPct = menuPrice > 0 ? (finalCost / menuPrice) * 100 : 0;
+          let multiplier = finalCost > 0 ? (menuPrice / finalCost) : 0;
+          let grossProfit = menuPrice - finalCost;
+
+          // Food Cost Badge Style
+          let fcBadgeClass = 'cost-badge-good';
+          if (foodCostPct > 35) fcBadgeClass = 'cost-badge-high';
+          else if (foodCostPct >= 25) fcBadgeClass = 'cost-badge-mid';
+
+          const fireNotice = fireEnabled ? `(+%${fireRate} fire dahil)` : `(fire hariç)`;
+
+          return `
+            <div class="cost-pizza-card">
+              <div class="cost-pizza-header">
+                <div>
+                  <h3 style="font-size:1rem; font-weight:700; color:var(--color-dark); text-transform:capitalize;">${escapeHtml(pizza.name.tr)}</h3>
+                  <div style="font-size:0.75rem; color:var(--color-muted); font-style:italic;">${escapeHtml(pizza.name.en || '')}</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:1.05rem; font-weight:700; color:var(--color-forest);">${menuPrice} ₺</div>
+                  <div style="font-size:0.7rem; color:var(--color-muted); text-transform:uppercase;">Menü Satış</div>
+                </div>
+              </div>
+
+              <div class="cost-pizza-body">
+                ${hasRecipe ? `
+                  <div class="cost-metric-grid">
+                    <div class="cost-metric-item">
+                      <span class="cost-metric-label">Maliyet ${fireNotice}</span>
+                      <span class="cost-metric-val" style="color:var(--color-forest);">${finalCost.toFixed(2)} ₺</span>
+                    </div>
+                    <div class="cost-metric-item">
+                      <span class="cost-metric-label">Food Cost %</span>
+                      <div><span class="${fcBadgeClass}">%${foodCostPct.toFixed(1)} FC</span></div>
+                    </div>
+                    <div class="cost-metric-item">
+                      <span class="cost-metric-label">Kâr Çarpanı</span>
+                      <div><span class="cost-badge-multiplier">${multiplier.toFixed(2)}×</span></div>
+                    </div>
+                    <div class="cost-metric-item">
+                      <span class="cost-metric-label">Brüt Kâr</span>
+                      <span class="cost-metric-val" style="color:#15803d;">+${grossProfit.toFixed(2)} ₺</span>
+                    </div>
+                  </div>
+                  <div style="font-size:0.75rem; color:var(--color-muted); display:flex; align-items:center; gap:4px;">
+                    <span>📋 Reçete: ${recipeList.length} malzeme tanımlı</span>
+                  </div>
+                ` : `
+                  <div style="background:#fffbeb; border:1px solid #fef3c7; border-radius:var(--radius-sm); padding:10px; text-align:center; font-size:0.8rem; color:#92400e;">
+                    ⚠️ Bu pizzanın henüz reçetesi oluşturulmadı.
+                  </div>
+                `}
+
+                <div style="margin-top:auto; padding-top:6px;">
+                  <button class="btn btn-outline" style="width:100%; font-size:0.82rem; font-weight:600; padding:8px;" onclick="openCostRecipeModal('${pizza.id}')">
+                    <span>${hasRecipe ? '📝 Reçeteyi Düzenle' : '+ Reçete Oluştur'}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
       }
 
-      container.innerHTML = pizzas.map(pizza => {
-        const { baseCost, finalCost, fireEnabled, fireRate } = calculatePizzaCost(pizza.id);
-        const menuPrice = Number(pizza.price) || 0;
-        const recipeList = costData?.recipes?.[pizza.id] || [];
-        const hasRecipe = recipeList.length > 0;
+      // Render Bottom Portfolio Summary Box across all completed pizza recipes
+      const summaryBox = document.getElementById('cost-pizzas-summary-box');
+      if (summaryBox) {
+        const completedStats = [];
+        allPizzas.forEach(pizza => {
+          const recipeList = costData?.recipes?.[pizza.id] || [];
+          if (recipeList.length > 0) {
+            const { baseCost, finalCost, fireAmount, fireEnabled, fireRate } = calculatePizzaCost(pizza.id);
+            const menuPrice = Number(pizza.price) || 0;
+            const foodCostPct = menuPrice > 0 ? (finalCost / menuPrice) * 100 : 0;
+            const multiplier = finalCost > 0 ? (menuPrice / finalCost) : 0;
+            const grossProfit = menuPrice - finalCost;
+            const grossMarginPct = menuPrice > 0 ? (grossProfit / menuPrice) * 100 : 0;
+            completedStats.push({
+              id: pizza.id,
+              name: pizza.name?.tr || pizza.id,
+              menuPrice,
+              baseCost,
+              finalCost,
+              fireAmount,
+              fireEnabled,
+              fireRate,
+              foodCostPct,
+              multiplier,
+              grossProfit,
+              grossMarginPct,
+              ingredientCount: recipeList.length
+            });
+          }
+        });
 
-        let foodCostPct = menuPrice > 0 ? (finalCost / menuPrice) * 100 : 0;
-        let multiplier = finalCost > 0 ? (menuPrice / finalCost) : 0;
-        let grossProfit = menuPrice - finalCost;
+        const totalPizzaCount = allPizzas.length;
+        const completedCount = completedStats.length;
+        const completionPct = totalPizzaCount > 0 ? (completedCount / totalPizzaCount) * 100 : 0;
+        const fireEnabled = costData?.settings?.fireEnabled !== false;
+        const fireRate = costData?.settings?.fireRate ?? 8.0;
 
-        // Food Cost Badge Style
-        let fcBadgeClass = 'cost-badge-good';
-        if (foodCostPct > 35) fcBadgeClass = 'cost-badge-high';
-        else if (foodCostPct >= 25) fcBadgeClass = 'cost-badge-mid';
+        if (completedCount === 0) {
+          summaryBox.innerHTML = `
+            <div style="background: var(--color-white); border: 1.5px dashed var(--color-cream-border); border-radius: var(--radius-lg); padding: 22px; text-align: center; color: var(--color-muted);">
+              <div style="font-size: 1.4rem; margin-bottom: 6px;">📊</div>
+              <div style="font-weight: 700; color: var(--color-dark); margin-bottom: 4px;">Menü Genel Maliyet & Oran Özeti</div>
+              <div style="font-size: 0.85rem;">Genel ortalamaların hesaplanması için en az 1 pizzanın reçetesini tamamlayın.</div>
+            </div>
+          `;
+        } else {
+          const sumMenuPrice = completedStats.reduce((acc, s) => acc + s.menuPrice, 0);
+          const sumBaseCost = completedStats.reduce((acc, s) => acc + s.baseCost, 0);
+          const sumFinalCost = completedStats.reduce((acc, s) => acc + s.finalCost, 0);
+          const sumFireAmount = completedStats.reduce((acc, s) => acc + s.fireAmount, 0);
+          const sumGrossProfit = completedStats.reduce((acc, s) => acc + s.grossProfit, 0);
+          const sumIngredients = completedStats.reduce((acc, s) => acc + s.ingredientCount, 0);
 
-        const fireNotice = fireEnabled ? `(+%${fireRate} fire dahil)` : `(fire hariç)`;
+          const avgMenuPrice = sumMenuPrice / completedCount;
+          const avgBaseCost = sumBaseCost / completedCount;
+          const avgFinalCost = sumFinalCost / completedCount;
+          const avgGrossProfit = sumGrossProfit / completedCount;
+          const avgIngredientCount = sumIngredients / completedCount;
 
-        return `
-          <div class="cost-pizza-card">
-            <div class="cost-pizza-header">
-              <div>
-                <h3 style="font-size:1rem; font-weight:700; color:var(--color-dark); text-transform:capitalize;">${escapeHtml(pizza.name.tr)}</h3>
-                <div style="font-size:0.75rem; color:var(--color-muted); font-style:italic;">${escapeHtml(pizza.name.en || '')}</div>
+          // Arithmetic & Weighted Food Cost %
+          const arithmeticAvgFcPct = completedStats.reduce((acc, s) => acc + s.foodCostPct, 0) / completedCount;
+          const weightedAvgFcPct = sumMenuPrice > 0 ? (sumFinalCost / sumMenuPrice) * 100 : 0;
+          const weightedGrossMarginPct = sumMenuPrice > 0 ? (sumGrossProfit / sumMenuPrice) * 100 : 0;
+
+          // Arithmetic & Portfolio Multipliers
+          const validMultipliers = completedStats.filter(s => s.multiplier > 0);
+          const arithmeticAvgMultiplier = validMultipliers.length > 0
+            ? validMultipliers.reduce((acc, s) => acc + s.multiplier, 0) / validMultipliers.length
+            : 0;
+          const portfolioMultiplier = sumFinalCost > 0 ? (sumMenuPrice / sumFinalCost) : 0;
+
+          // Extremes (Best & Worst FC, Highest Profit, Lowest/Highest Cost)
+          const sortedByFc = [...completedStats].sort((a, b) => a.foodCostPct - b.foodCostPct);
+          const bestFcPizza = sortedByFc[0];
+          const worstFcPizza = sortedByFc[sortedByFc.length - 1];
+
+          const sortedByProfit = [...completedStats].sort((a, b) => b.grossProfit - a.grossProfit);
+          const highestProfitPizza = sortedByProfit[0];
+          const lowestProfitPizza = sortedByProfit[sortedByProfit.length - 1];
+
+          const sortedByCost = [...completedStats].sort((a, b) => a.finalCost - b.finalCost);
+          const lowestCostPizza = sortedByCost[0];
+          const highestCostPizza = sortedByCost[sortedByCost.length - 1];
+
+          let avgFcBadgeClass = 'cost-badge-good';
+          if (arithmeticAvgFcPct > 35) avgFcBadgeClass = 'cost-badge-high';
+          else if (arithmeticAvgFcPct >= 25) avgFcBadgeClass = 'cost-badge-mid';
+
+          summaryBox.innerHTML = `
+            <div style="background: linear-gradient(180deg, #ffffff 0%, #faf8f3 100%); border: 2px solid var(--color-forest); border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow-md);">
+              <!-- Header -->
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--color-cream-border); margin-bottom: 18px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--color-forest); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                    📊
+                  </div>
+                  <div>
+                    <h3 style="font-size: 1.08rem; font-weight: 800; color: var(--color-dark); margin: 0;">
+                      Pizza Menüsü Genel Maliyet & Kârlılık Özeti (Total Oranlar)
+                    </h3>
+                    <div style="font-size: 0.78rem; color: var(--color-muted);">
+                      Reçetesi tamamlanmış <strong>${completedCount} / ${totalPizzaCount} pizza</strong> üzerinden canlı hesaplanmıştır ${fireEnabled ? `(Fire +%${fireRate} dahil)` : '(Fire hariç)'}
+                    </div>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                  <span style="background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; font-size: 0.78rem; font-weight: 700; padding: 5px 11px; border-radius: 20px;">
+                    ✅ Reçete Tamamlanma: ${completedCount}/${totalPizzaCount} (%${completionPct.toFixed(0)})
+                  </span>
+                </div>
               </div>
-              <div style="text-align:right;">
-                <div style="font-size:1.05rem; font-weight:700; color:var(--color-forest);">${menuPrice} ₺</div>
-                <div style="font-size:0.7rem; color:var(--color-muted); text-transform:uppercase;">Menü Satış</div>
+
+              <!-- Row 1: Primary Average KPIs -->
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 12px; margin-bottom: 16px;">
+                <!-- 1. Ortalama Food Cost % -->
+                <div style="background: #ffffff; border: 1px solid var(--color-cream-border); border-radius: var(--radius-md); padding: 14px;">
+                  <div style="font-size: 0.74rem; font-weight: 700; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 6px;">
+                    Ortalama Food Cost Oranı
+                  </div>
+                  <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px;">
+                    <span style="font-size: 1.45rem; font-weight: 800; color: var(--color-dark);">%${arithmeticAvgFcPct.toFixed(1)}</span>
+                    <span class="${avgFcBadgeClass}">${arithmeticAvgFcPct < 25 ? 'İdeal (<%25)' : (arithmeticAvgFcPct <= 35 ? 'Dengeli' : 'Yüksek (>%35)')}</span>
+                  </div>
+                  <div style="font-size: 0.74rem; color: var(--color-muted); margin-top: 6px;">
+                    Ağırlıklı (Ciro Bazlı) FC: <strong>%${weightedAvgFcPct.toFixed(1)}</strong>
+                  </div>
+                </div>
+
+                <!-- 2. Ortalama Kâr Çarpanı -->
+                <div style="background: #ffffff; border: 1px solid var(--color-cream-border); border-radius: var(--radius-md); padding: 14px;">
+                  <div style="font-size: 0.74rem; font-weight: 700; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 6px;">
+                    Ortalama Kâr Çarpanı
+                  </div>
+                  <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px;">
+                    <span style="font-size: 1.45rem; font-weight: 800; color: var(--color-forest);">${arithmeticAvgMultiplier.toFixed(2)}×</span>
+                    <span class="cost-badge-multiplier">Satış / Maliyet</span>
+                  </div>
+                  <div style="font-size: 0.74rem; color: var(--color-muted); margin-top: 6px;">
+                    Toplam Portföy Çarpanı: <strong>${portfolioMultiplier.toFixed(2)}×</strong>
+                  </div>
+                </div>
+
+                <!-- 3. Ortalama Pizza Maliyeti -->
+                <div style="background: #ffffff; border: 1px solid var(--color-cream-border); border-radius: var(--radius-md); padding: 14px;">
+                  <div style="font-size: 0.74rem; font-weight: 700; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 6px;">
+                    Ortalama Pizza Maliyeti
+                  </div>
+                  <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px;">
+                    <span style="font-size: 1.45rem; font-weight: 800; color: var(--color-forest);">${avgFinalCost.toFixed(2)} ₺</span>
+                    <span style="font-size: 0.72rem; color: var(--color-muted); font-weight: 600;">/ 1 Pizza</span>
+                  </div>
+                  <div style="font-size: 0.74rem; color: var(--color-muted); margin-top: 6px;">
+                    Baz (Fire Hariç): <strong>${avgBaseCost.toFixed(2)} ₺</strong> • Ort. ${avgIngredientCount.toFixed(1)} malzeme
+                  </div>
+                </div>
+
+                <!-- 4. Ortalama Menü Satış & Brüt Kâr -->
+                <div style="background: #ffffff; border: 1px solid var(--color-cream-border); border-radius: var(--radius-md); padding: 14px;">
+                  <div style="font-size: 0.74rem; font-weight: 700; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 6px;">
+                    Ortalama Brüt Kâr & Satış
+                  </div>
+                  <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px;">
+                    <span style="font-size: 1.45rem; font-weight: 800; color: #15803d;">+${avgGrossProfit.toFixed(2)} ₺</span>
+                    <span style="font-size: 0.74rem; font-weight: 700; color: #15803d; background: #dcfce7; padding: 2px 7px; border-radius: 6px;">%${weightedGrossMarginPct.toFixed(1)} Marj</span>
+                  </div>
+                  <div style="font-size: 0.74rem; color: var(--color-muted); margin-top: 6px;">
+                    Ortalama Menü Satış Fiyatı: <strong>${avgMenuPrice.toFixed(2)} ₺</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row 2: Total Portfolio Simulation (1'er Adet Satış) & Extremes -->
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                <!-- Sol Kutu: 1'er Adet Tam Menü Satış Toplamı -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--radius-md); padding: 14px;">
+                  <div style="font-size: 0.78rem; font-weight: 800; color: var(--color-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                    <span>🧮</span> Tamamlanan ${completedCount} Pizzadan 1'er Adet Satış Toplamı
+                  </div>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.8rem;">
+                    <div style="background: #fff; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                      <div style="color: var(--color-muted); font-size: 0.72rem;">Toplam Satış Cirosu</div>
+                      <div style="font-weight: 800; color: var(--color-dark); font-size: 0.96rem;">${sumMenuPrice.toFixed(2)} ₺</div>
+                    </div>
+                    <div style="background: #fff; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                      <div style="color: var(--color-muted); font-size: 0.72rem;">Toplam Reçete Maliyeti</div>
+                      <div style="font-weight: 800; color: var(--color-forest); font-size: 0.96rem;">${sumFinalCost.toFixed(2)} ₺</div>
+                    </div>
+                    <div style="background: #fff; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                      <div style="color: var(--color-muted); font-size: 0.72rem;">Toplam Brüt Kâr</div>
+                      <div style="font-weight: 800; color: #15803d; font-size: 0.96rem;">+${sumGrossProfit.toFixed(2)} ₺</div>
+                    </div>
+                    <div style="background: #fff; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                      <div style="color: var(--color-muted); font-size: 0.72rem;">Toplam Fire Payı</div>
+                      <div style="font-weight: 700; color: #b45309; font-size: 0.96rem;">${sumFireAmount.toFixed(2)} ₺</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Sağ Kutu: Menü Uç Değer & Performans Analizi -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--radius-md); padding: 14px;">
+                  <div style="font-size: 0.78rem; font-weight: 800; color: var(--color-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                    <span>🏆</span> Menü Performans & Uç Değer Analizi
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.79rem;">
+                    <div style="display: flex; justify-content: space-between; gap: 8px; background: #fff; padding: 6px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                      <span style="color: var(--color-muted);">En Düşük Food Cost (En Yüksek Çarpan):</span>
+                      <strong style="color: #15803d; text-transform: capitalize;">${escapeHtml(bestFcPizza.name)} (%${bestFcPizza.foodCostPct.toFixed(1)} • ${bestFcPizza.multiplier.toFixed(2)}×)</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; gap: 8px; background: #fff; padding: 6px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                      <span style="color: var(--color-muted);">En Yüksek Food Cost (En Düşük Çarpan):</span>
+                      <strong style="color: #b91c1c; text-transform: capitalize;">${escapeHtml(worstFcPizza.name)} (%${worstFcPizza.foodCostPct.toFixed(1)} • ${worstFcPizza.multiplier.toFixed(2)}×)</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; gap: 8px; background: #fff; padding: 6px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                      <span style="color: var(--color-muted);">En Yüksek TL Brüt Kâr Bırakan:</span>
+                      <strong style="color: var(--color-forest); text-transform: capitalize;">${escapeHtml(highestProfitPizza.name)} (+${highestProfitPizza.grossProfit.toFixed(2)} ₺)</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; gap: 8px; background: #fff; padding: 6px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                      <span style="color: var(--color-muted);">Maliyet Aralığı (Min – Maks):</span>
+                      <strong style="color: var(--color-dark); text-transform: capitalize;">${escapeHtml(lowestCostPizza.name)} (${lowestCostPizza.finalCost.toFixed(2)} ₺) — ${escapeHtml(highestCostPizza.name)} (${highestCostPizza.finalCost.toFixed(2)} ₺)</strong>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div class="cost-pizza-body">
-              ${hasRecipe ? `
-                <div class="cost-metric-grid">
-                  <div class="cost-metric-item">
-                    <span class="cost-metric-label">Maliyet ${fireNotice}</span>
-                    <span class="cost-metric-val" style="color:var(--color-forest);">${finalCost.toFixed(2)} ₺</span>
-                  </div>
-                  <div class="cost-metric-item">
-                    <span class="cost-metric-label">Food Cost %</span>
-                    <div><span class="${fcBadgeClass}">%${foodCostPct.toFixed(1)} FC</span></div>
-                  </div>
-                  <div class="cost-metric-item">
-                    <span class="cost-metric-label">Kâr Çarpanı</span>
-                    <div><span class="cost-badge-multiplier">${multiplier.toFixed(2)}×</span></div>
-                  </div>
-                  <div class="cost-metric-item">
-                    <span class="cost-metric-label">Brüt Kâr</span>
-                    <span class="cost-metric-val" style="color:#15803d;">+${grossProfit.toFixed(2)} ₺</span>
-                  </div>
-                </div>
-                <div style="font-size:0.75rem; color:var(--color-muted); display:flex; align-items:center; gap:4px;">
-                  <span>📋 Reçete: ${recipeList.length} malzeme tanımlı</span>
-                </div>
-              ` : `
-                <div style="background:#fffbeb; border:1px solid #fef3c7; border-radius:var(--radius-sm); padding:10px; text-align:center; font-size:0.8rem; color:#92400e;">
-                  ⚠️ Bu pizzanın henüz reçetesi oluşturulmadı.
-                </div>
-              `}
-
-              <div style="margin-top:auto; padding-top:6px;">
-                <button class="btn btn-outline" style="width:100%; font-size:0.82rem; font-weight:600; padding:8px;" onclick="openCostRecipeModal('${pizza.id}')">
-                  <span>${hasRecipe ? '📝 Reçeteyi Düzenle' : '+ Reçete Oluştur'}</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
+          `;
+        }
+      }
     }
 
     // ==========================================
@@ -4553,26 +4899,72 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
     // ==========================================
     // COST PERSISTENCE & GITHUB SYNC
     // ==========================================
-    function saveCostDataLocally() {
+    let costAutoSyncTimer = null;
+    let costAutoSyncInProgress = false;
+    let costAutoSyncQueued = false;
+
+    function saveCostDataLocally(skipAutoRemote = false) {
       if (!costData) return;
       costData.lastUpdated = new Date().toISOString().split('T')[0];
       try {
         localStorage.setItem('deli_cost_data', JSON.stringify(costData));
       } catch (e) {}
+      if (!skipAutoRemote) {
+        scheduleAutoSyncCostToGithub();
+      }
+    }
+
+    function scheduleAutoSyncCostToGithub() {
+      if (costAutoSyncTimer) clearTimeout(costAutoSyncTimer);
+      costAutoSyncTimer = setTimeout(() => {
+        runAutoSyncCostToGithub();
+      }, 1200);
+    }
+
+    async function runAutoSyncCostToGithub() {
+      if (!costData) return;
+      const token = getActiveGithubToken();
+      if (!token) return;
+
+      if (costAutoSyncInProgress) {
+        costAutoSyncQueued = true;
+        return;
+      }
+      costAutoSyncInProgress = true;
+      costAutoSyncQueued = false;
+
+      try {
+        const snapshot = JSON.parse(JSON.stringify(costData));
+        const jsonContent = JSON.stringify(snapshot, null, 2);
+        const jsonBase64 = btoa(unescape(encodeURIComponent(jsonContent)));
+        await commitFileToGithub('data/cost_data.json', jsonBase64, 'Maliyet verileri ve reçeteler otomatik güncellendi (Admin)', token, false);
+
+        const jsContent = `// Deli Napolitan Cost Data\nwindow.COST_DATA = ${jsonContent};\n`;
+        const jsBase64 = btoa(unescape(encodeURIComponent(jsContent)));
+        await commitFileToGithub('data/cost_data.js', jsBase64, 'Maliyet JS yedeği otomatik güncellendi (Admin)', token, false);
+      } catch (err) {
+        console.warn('Auto cost sync warning:', err);
+      } finally {
+        costAutoSyncInProgress = false;
+        if (costAutoSyncQueued) {
+          scheduleAutoSyncCostToGithub();
+        }
+      }
     }
 
     async function saveCostDataToGithub() {
-      const token = localStorage.getItem('deli_github_token');
+      const token = getActiveGithubToken();
       if (!token) {
         alert('GitHub\'a kaydetmek için lütfen önce GitHub Token anahtarınızı kaydedin.');
         openGithubSettingsModal();
         return;
       }
 
+      if (costAutoSyncTimer) clearTimeout(costAutoSyncTimer);
       showLoading('Maliyet verileri kaydediliyor...', 'GitHub main dalına işleniyor...');
 
       try {
-        saveCostDataLocally();
+        saveCostDataLocally(true);
         const jsonContent = JSON.stringify(costData, null, 2);
         const jsonBase64 = btoa(unescape(encodeURIComponent(jsonContent)));
         await commitFileToGithub('data/cost_data.json', jsonBase64, 'Maliyet verileri ve reçeteler güncellendi (Admin)', token, false);
