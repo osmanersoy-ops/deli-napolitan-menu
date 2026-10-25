@@ -1549,9 +1549,20 @@
           </p>
         </div>
         <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-          <button class="btn btn-outline" onclick="openDoughWizardModal()" style="border-color: #b45309; color: #92400e; background: #fef3c7; font-weight: 600;">
-            <span>🥖</span> Hamur Sihirbazı
-          </button>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button class="btn btn-outline" onclick="openPrepWizardModal('dough')" style="border-color: #b45309; color: #92400e; background: #fef3c7; font-weight: 600; padding: 6px 10px; font-size: 0.8rem;">
+              <span>🥖</span> Hamur (260g)
+            </button>
+            <button class="btn btn-outline" onclick="openPrepWizardModal('rokaPesto')" style="border-color: #15803d; color: #166534; background: #dcfce7; font-weight: 600; padding: 6px 10px; font-size: 0.8rem;">
+              <span>🌿</span> Roka Pesto
+            </button>
+            <button class="btn btn-outline" onclick="openPrepWizardModal('fistikPesto')" style="border-color: #0369a1; color: #075985; background: #e0f2fe; font-weight: 600; padding: 6px 10px; font-size: 0.8rem;">
+              <span>🥜</span> Fıstıklı Pesto
+            </button>
+            <button class="btn btn-outline" onclick="openPrepWizardModal('stroganoff')" style="border-color: #b91c1c; color: #991b1b; background: #fee2e2; font-weight: 600; padding: 6px 10px; font-size: 0.8rem;">
+              <span>🍲</span> Stroganoff Sos
+            </button>
+          </div>
           
           <!-- Fire Toggle & Rate Input -->
           <div style="display: flex; align-items: center; gap: 6px; background: var(--color-white); border: 1px solid var(--color-cream-border); padding: 5px 10px; border-radius: var(--radius-sm); font-size: 0.82rem;">
@@ -1998,79 +2009,140 @@
     </div>
   </div>
 
-  <!-- DOUGH COST WIZARD MODAL -->
-  <div class="modal-overlay" id="dough-wizard-modal">
-    <div class="modal-box" style="max-width: 580px;">
+  <!-- PREP & SAUCE WIZARDS MODAL (HAMUR & SOSLAR) -->
+  <div class="modal-overlay" id="prep-wizard-modal">
+    <div class="modal-box" style="max-width: 700px; width: 95%;">
       <div class="modal-header">
-        <div class="modal-title" style="color: #92400e;">
-          <span>🥖</span> Hamur Maliyet Sihirbazı
+        <div class="modal-title" id="prep-wizard-title" style="color: #92400e;">
+          <span>🧙</span> Reçete & Hazırlık Sihirbazı
         </div>
-        <button class="modal-close-btn" onclick="closeDoughWizardModal()">✕</button>
+        <button class="modal-close-btn" onclick="closePrepWizardModal()">✕</button>
       </div>
+
+      <!-- TABS -->
+      <div style="padding: 10px 18px 0; border-bottom: 1px solid var(--color-cream-border); display: flex; gap: 8px; overflow-x: auto;">
+        <button class="btn btn-outline wizard-tab-btn active" id="wiz-tab-dough" onclick="switchWizardTab('dough')" style="font-size:0.82rem; padding:6px 12px; font-weight:700;">
+          🥖 Hamur (260g)
+        </button>
+        <button class="btn btn-outline wizard-tab-btn" id="wiz-tab-rokaPesto" onclick="switchWizardTab('rokaPesto')" style="font-size:0.82rem; padding:6px 12px; font-weight:700;">
+          🌿 Roka Pesto
+        </button>
+        <button class="btn btn-outline wizard-tab-btn" id="wiz-tab-fistikPesto" onclick="switchWizardTab('fistikPesto')" style="font-size:0.82rem; padding:6px 12px; font-weight:700;">
+          🥜 Fıstıklı Pesto
+        </button>
+        <button class="btn btn-outline wizard-tab-btn" id="wiz-tab-stroganoff" onclick="switchWizardTab('stroganoff')" style="font-size:0.82rem; padding:6px 12px; font-weight:700;">
+          🍲 Stroganoff Sos
+        </button>
+      </div>
+
       <div class="modal-body" style="gap: 14px;">
-        <p style="font-size: 0.83rem; color: var(--color-muted); line-height: 1.4;">
-          Un, su, maya ve tuz gramajlarını ve alış fiyatlarını girin. Sistem otomatik olarak toplam parti ağırlığını ve 1 adet bezenin maliyetini hesaplar.
-        </p>
+        <!-- 1. DOUGH SECTION -->
+        <div id="wiz-view-dough">
+          <p style="font-size: 0.83rem; color: var(--color-muted); line-height: 1.4; margin-bottom: 10px;">
+            Un, su, maya ve tuz gramajlarını ve alış fiyatlarını girin. Sistem otomatik olarak toplam parti ağırlığını ve 1 adet bezenin maliyetini hesaplar.
+          </p>
 
-        <!-- INPUTS GRID -->
-        <div style="background: var(--color-cream); border: 1px solid var(--color-cream-border); border-radius: var(--radius-sm); padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-          <div class="form-group">
-            <label class="form-label" style="font-size: 0.78rem;">Un (Miktar gr)</label>
-            <input type="number" class="form-input" id="dw-flour-gram" value="1000" oninput="recalcDoughWizard()">
-          </div>
-          <div class="form-group">
-            <label class="form-label" style="font-size: 0.78rem;">Un 1 Kg Fiyatı (₺)</label>
-            <input type="number" step="0.1" class="form-input" id="dw-flour-price" value="35" oninput="recalcDoughWizard()">
+          <div style="background: var(--color-cream); border: 1px solid var(--color-cream-border); border-radius: var(--radius-sm); padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.78rem;">Un (Miktar gr)</label>
+              <input type="number" class="form-input" id="dw-flour-gram" value="1000" oninput="recalcDoughWizard()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.78rem;">Un 1 Kg Fiyatı (₺)</label>
+              <input type="number" step="0.1" class="form-input" id="dw-flour-price" value="35" oninput="recalcDoughWizard()">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.78rem;">Su (Miktar gr - %65)</label>
+              <input type="number" class="form-input" id="dw-water-gram" value="650" oninput="recalcDoughWizard()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.78rem;">Su Maliyeti (₺)</label>
+              <input type="number" step="0.1" class="form-input" id="dw-water-cost" value="2" oninput="recalcDoughWizard()">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.78rem;">Maya (Miktar gr)</label>
+              <input type="number" step="0.5" class="form-input" id="dw-yeast-gram" value="2" oninput="recalcDoughWizard()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.78rem;">Maya 1 Kg Fiyatı (₺)</label>
+              <input type="number" step="1" class="form-input" id="dw-yeast-price" value="350" oninput="recalcDoughWizard()">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.78rem;">Tuz (Miktar gr)</label>
+              <input type="number" step="1" class="form-input" id="dw-salt-gram" value="30" oninput="recalcDoughWizard()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.78rem;">Tuz 1 Kg Fiyatı (₺)</label>
+              <input type="number" step="1" class="form-input" id="dw-salt-price" value="25" oninput="recalcDoughWizard()">
+            </div>
+
+            <div class="form-group" style="grid-column: span 2;">
+              <label class="form-label" style="font-size: 0.78rem; font-weight: 700; color: var(--color-forest);">1 Beze Hedef Gramajı (gr)</label>
+              <input type="number" class="form-input" id="dw-ball-weight" value="260" oninput="recalcDoughWizard()" style="font-weight: 700;">
+            </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" style="font-size: 0.78rem;">Su (Miktar gr - %65)</label>
-            <input type="number" class="form-input" id="dw-water-gram" value="650" oninput="recalcDoughWizard()">
-          </div>
-          <div class="form-group">
-            <label class="form-label" style="font-size: 0.78rem;">Su Maliyeti (₺)</label>
-            <input type="number" step="0.1" class="form-input" id="dw-water-cost" value="2" oninput="recalcDoughWizard()">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" style="font-size: 0.78rem;">Maya (Miktar gr)</label>
-            <input type="number" step="0.5" class="form-input" id="dw-yeast-gram" value="2" oninput="recalcDoughWizard()">
-          </div>
-          <div class="form-group">
-            <label class="form-label" style="font-size: 0.78rem;">Maya 1 Kg Fiyatı (₺)</label>
-            <input type="number" step="1" class="form-input" id="dw-yeast-price" value="350" oninput="recalcDoughWizard()">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" style="font-size: 0.78rem;">Tuz (Miktar gr)</label>
-            <input type="number" step="1" class="form-input" id="dw-salt-gram" value="30" oninput="recalcDoughWizard()">
-          </div>
-          <div class="form-group">
-            <label class="form-label" style="font-size: 0.78rem;">Tuz 1 Kg Fiyatı (₺)</label>
-            <input type="number" step="1" class="form-input" id="dw-salt-price" value="25" oninput="recalcDoughWizard()">
-          </div>
-
-          <div class="form-group" style="grid-column: span 2;">
-            <label class="form-label" style="font-size: 0.78rem; font-weight: 700; color: var(--color-forest);">1 Beze Hedef Gramajı (gr)</label>
-            <input type="number" class="form-input" id="dw-ball-weight" value="260" oninput="recalcDoughWizard()" style="font-weight: 700;">
+          <div style="background: #fef3c7; border: 1px solid #fde68a; border-radius: var(--radius-sm); padding: 14px; margin-top: 10px;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #92400e; text-transform: uppercase; margin-bottom: 8px;">📊 Hesaplama Sonucu</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem;">
+              <div>Toplam Hamur Ağırlığı: <strong id="dw-res-total-weight">1682 gr</strong></div>
+              <div>Çıkan Beze Sayısı: <strong id="dw-res-ball-count">6.5 adet</strong></div>
+              <div>Toplam Parti Maliyeti: <strong id="dw-res-total-cost">38.45 ₺</strong></div>
+              <div style="font-size: 1.05rem; color: #78350f;"><span id="dw-res-ball-label">1 Beze (260g) Maliyeti:</span> <strong id="dw-res-ball-cost" style="font-size: 1.2rem; color: #b45309;">5.94 ₺</strong></div>
+            </div>
           </div>
         </div>
 
-        <!-- RESULTS CARD -->
-        <div style="background: #fef3c7; border: 1px solid #fde68a; border-radius: var(--radius-sm); padding: 14px;">
-          <div style="font-size: 0.8rem; font-weight: 700; color: #92400e; text-transform: uppercase; margin-bottom: 8px;">📊 Hesaplama Sonucu</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem;">
-            <div>Toplam Hamur Ağırlığı: <strong id="dw-res-total-weight">1682 gr</strong></div>
-            <div>Çıkan Beze Sayısı: <strong id="dw-res-ball-count">6.5 adet</strong></div>
-            <div>Toplam Parti Maliyeti: <strong id="dw-res-total-cost">38.45 ₺</strong></div>
-            <div style="font-size: 1.05rem; color: #78350f;"><span id="dw-res-ball-label">1 Beze (260g) Maliyeti:</span> <strong id="dw-res-ball-cost" style="font-size: 1.2rem; color: #b45309;">5.94 ₺</strong></div>
+        <!-- 2. SAUCE WIZARD VIEW -->
+        <div id="wiz-view-sauce" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <p style="font-size: 0.82rem; color: var(--color-muted); margin: 0;" id="wiz-sauce-desc">
+              Sos bileşenlerini ve alış fiyatlarını girin. Sistem otomatik olarak 1 Kg maliyetini hesaplar.
+            </p>
+            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem;" onclick="addSauceWizardRow()">
+              <span>+</span> Malzeme Ekle
+            </button>
+          </div>
+
+          <div style="background: var(--color-white); border: 1px solid var(--color-cream-border); border-radius: var(--radius-sm); overflow-x: auto; margin-bottom: 12px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;" id="wiz-sauce-table">
+              <thead>
+                <tr style="background: var(--color-cream); border-bottom: 1px solid var(--color-cream-border); text-align: left; font-size: 0.78rem; color: var(--color-muted);">
+                  <th style="padding: 8px 10px;">Malzeme</th>
+                  <th style="padding: 8px 10px; width: 110px;">Miktar (gr)</th>
+                  <th style="padding: 8px 10px; width: 120px;">1 Kg Alış Fiyatı (₺)</th>
+                  <th style="padding: 8px 10px; width: 90px; text-align: right;">Maliyet (₺)</th>
+                  <th style="padding: 8px 10px; width: 36px; text-align: center;"></th>
+                </tr>
+              </thead>
+              <tbody id="wiz-sauce-tbody">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- SAUCE RESULT CARD -->
+          <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: var(--radius-sm); padding: 14px;" id="wiz-sauce-result-box">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #065f46; text-transform: uppercase; margin-bottom: 8px;" id="wiz-sauce-res-title">📊 Sos Hesaplama Sonucu</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem;">
+              <div>Toplam Sos Ağırlığı: <strong id="wiz-sauce-res-weight">0 gr</strong></div>
+              <div>Toplam Parti Maliyeti: <strong id="wiz-sauce-res-batch-cost">0.00 ₺</strong></div>
+              <div style="grid-column: span 2; font-size: 1.15rem; color: #065f46; border-top: 1px dashed #6ee7b7; padding-top: 8px; margin-top: 4px; display: flex; justify-content: space-between; align-items: center;">
+                <span>Hesaplanan 1 Kg Alış Fiyatı:</span>
+                <strong id="wiz-sauce-res-kg-cost" style="font-size: 1.3rem; color: #047857;">0.00 ₺ / kg</strong>
+              </div>
+            </div>
           </div>
         </div>
 
       </div>
+
       <div class="modal-footer" style="justify-content: space-between;">
-        <button class="btn btn-outline" onclick="closeDoughWizardModal()">Kapat</button>
-        <button class="btn btn-primary" onclick="applyDoughWizardToIngredients()" style="background: #b45309;">
+        <button class="btn btn-outline" onclick="closePrepWizardModal()">Kapat</button>
+        <button class="btn btn-primary" id="wiz-apply-btn" onclick="applyActiveWizardToIngredients()" style="background: #b45309;">
           <span>🥖</span> Bu Fiyatı 'Hamur / Beze' Ürününe Aktar
         </button>
       </div>
@@ -3600,7 +3672,11 @@
               <div style="text-align:right;">
                 <div class="ing-price-tag">${formattedPrice} <span style="font-size:0.75rem; font-weight:500; color:var(--color-muted);">${priceUnitStr}</span></div>
               </div>
-              <div style="display:flex; gap:6px;">
+              <div style="display:flex; gap:6px; align-items:center;">
+                ${it.id === 'ing-hamur-beze' ? `<button class="btn btn-outline" style="padding:5px 8px; font-size:0.75rem; font-weight:700; color:#92400e; background:#fef3c7; border-color:#fde68a;" onclick="openPrepWizardModal('dough')" title="Hamur Sihirbazı">🪄 Sihirbaz</button>` : ''}
+                ${it.id === 'ing-roka-pesto' ? `<button class="btn btn-outline" style="padding:5px 8px; font-size:0.75rem; font-weight:700; color:#166534; background:#dcfce7; border-color:#bbf7d0;" onclick="openPrepWizardModal('rokaPesto')" title="Roka Pesto Sihirbazı">🪄 Sihirbaz</button>` : ''}
+                ${it.id === 'ing-antep-pesto' ? `<button class="btn btn-outline" style="padding:5px 8px; font-size:0.75rem; font-weight:700; color:#075985; background:#e0f2fe; border-color:#bae6fd;" onclick="openPrepWizardModal('fistikPesto')" title="Fıstıklı Pesto Sihirbazı">🪄 Sihirbaz</button>` : ''}
+                ${it.id === 'ing-stroganoff-sos' ? `<button class="btn btn-outline" style="padding:5px 8px; font-size:0.75rem; font-weight:700; color:#991b1b; background:#fee2e2; border-color:#fecaca;" onclick="openPrepWizardModal('stroganoff')" title="Stroganoff Sos Sihirbazı">🪄 Sihirbaz</button>` : ''}
                 <button class="btn btn-outline" style="padding:6px 10px; font-size:0.78rem;" onclick="openEditCostIngredientModal('${it.id}')" title="Düzenle">
                   ✏️
                 </button>
@@ -4124,30 +4200,211 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
     }
 
     // ==========================================
-    // DOUGH COST WIZARD (HAMUR MALİYET SİHİRBAZI)
+    // PREP & SAUCE WIZARDS (HAMUR & SOSLAR)
     // ==========================================
-    function openDoughWizardModal() {
-      const dw = costData.settings?.doughWizard || {
-        flourGram: 1000, flourKgPrice: 35, waterGram: 650, waterCost: 2,
-        yeastGram: 2, yeastKgPrice: 350, saltGram: 30, saltKgPrice: 25, doughBallWeightGram: 260
-      };
+    let currentWizardTab = 'dough';
 
-      document.getElementById('dw-flour-gram').value = dw.flourGram ?? 1000;
-      document.getElementById('dw-flour-price').value = dw.flourKgPrice ?? 35;
-      document.getElementById('dw-water-gram').value = dw.waterGram ?? 650;
-      document.getElementById('dw-water-cost').value = dw.waterCost ?? 2;
-      document.getElementById('dw-yeast-gram').value = dw.yeastGram ?? 2;
-      document.getElementById('dw-yeast-price').value = dw.yeastKgPrice ?? 350;
-      document.getElementById('dw-salt-gram').value = dw.saltGram ?? 30;
-      document.getElementById('dw-salt-price').value = dw.saltKgPrice ?? 25;
-      document.getElementById('dw-ball-weight').value = dw.doughBallWeightGram ?? 260;
+    const DEFAULT_SAUCE_RECIPES = {
+      rokaPesto: {
+        title: '🌿 Roka Pesto Sihirbazı',
+        targetId: 'ing-roka-pesto',
+        targetName: 'Roka Pesto',
+        color: '#166534',
+        btnBg: '#15803d',
+        desc: 'Taze roka, sızma zeytinyağı, parmesan, sarımsak ve çerez oranlarını girin. 1 Kg maliyeti otomatik hesaplanır.',
+        items: [
+          { name: 'Taze Roka', gram: 500, kgPrice: 90 },
+          { name: 'Sızma Zeytinyağı', gram: 300, kgPrice: 380 },
+          { name: 'Rende Parmesan', gram: 150, kgPrice: 800 },
+          { name: 'Ceviz / Çam Fıstığı', gram: 50, kgPrice: 600 },
+          { name: 'Tıraş Sarımsak', gram: 30, kgPrice: 150 },
+          { name: 'Tuz & Baharat', gram: 15, kgPrice: 30 }
+        ]
+      },
+      fistikPesto: {
+        title: '🥜 Antep Fıstıklı Pesto Sihirbazı',
+        targetId: 'ing-antep-pesto',
+        targetName: 'Antep Fıstıklı Pesto',
+        color: '#075985',
+        btnBg: '#0369a1',
+        desc: 'Antep fıstığı, sızma zeytinyağı, parmesan ve taze fesleğen oranlarını girin. 1 Kg maliyeti otomatik hesaplanır.',
+        items: [
+          { name: 'Antep Fıstığı (İç / File)', gram: 350, kgPrice: 950 },
+          { name: 'Sızma Zeytinyağı', gram: 350, kgPrice: 380 },
+          { name: 'Rende Parmesan', gram: 150, kgPrice: 800 },
+          { name: 'Taze Fesleğen', gram: 100, kgPrice: 300 },
+          { name: 'Sarımsak', gram: 20, kgPrice: 150 },
+          { name: 'Tuz & Karabiber', gram: 10, kgPrice: 30 }
+        ]
+      },
+      stroganoff: {
+        title: '🍲 Stroganoff Sos Sihirbazı',
+        targetId: 'ing-stroganoff-sos',
+        targetName: 'Stroganoff Sos',
+        color: '#991b1b',
+        btnBg: '#b91c1c',
+        desc: 'Krema, tereyağı, mantar, hardal ve baharat oranlarını girin. 1 Kg maliyeti otomatik hesaplanır.',
+        items: [
+          { name: 'Krema (%35 Yağlı)', gram: 500, kgPrice: 200 },
+          { name: 'Kültür / Kestane Mantarı', gram: 250, kgPrice: 120 },
+          { name: 'Tereyağı', gram: 100, kgPrice: 360 },
+          { name: 'Kuru Soğan', gram: 100, kgPrice: 30 },
+          { name: 'Dijon Hardalı', gram: 40, kgPrice: 220 },
+          { name: 'Et Bulyon & Çeşni', gram: 20, kgPrice: 80 },
+          { name: 'Worcestershire / Baharat', gram: 15, kgPrice: 180 }
+        ]
+      }
+    };
 
-      recalcDoughWizard();
-      document.getElementById('dough-wizard-modal').classList.add('open');
+    function openPrepWizardModal(tab = 'dough') {
+      switchWizardTab(tab);
+      document.getElementById('prep-wizard-modal').classList.add('open');
     }
 
-    function closeDoughWizardModal() {
-      document.getElementById('dough-wizard-modal').classList.remove('open');
+    function closePrepWizardModal() {
+      document.getElementById('prep-wizard-modal').classList.remove('open');
+    }
+
+    // Backwards compatibility alias
+    function openDoughWizardModal() { openPrepWizardModal('dough'); }
+    function closeDoughWizardModal() { closePrepWizardModal(); }
+
+    function switchWizardTab(tab) {
+      currentWizardTab = tab;
+
+      // Update tab buttons
+      ['dough', 'rokaPesto', 'fistikPesto', 'stroganoff'].forEach(t => {
+        const btn = document.getElementById(`wiz-tab-${t}`);
+        if (btn) {
+          if (t === tab) {
+            btn.classList.add('active');
+            btn.style.background = 'var(--color-forest)';
+            btn.style.color = '#fff';
+          } else {
+            btn.classList.remove('active');
+            btn.style.background = 'transparent';
+            btn.style.color = 'var(--color-dark)';
+          }
+        }
+      });
+
+      const doughView = document.getElementById('wiz-view-dough');
+      const sauceView = document.getElementById('wiz-view-sauce');
+      const titleEl = document.getElementById('prep-wizard-title');
+      const applyBtn = document.getElementById('wiz-apply-btn');
+
+      if (tab === 'dough') {
+        doughView.style.display = 'block';
+        sauceView.style.display = 'none';
+        titleEl.innerHTML = '<span>🥖</span> Hamur Maliyet Sihirbazı (260g)';
+        titleEl.style.color = '#92400e';
+        applyBtn.innerHTML = '<span>🥖</span> Bu Fiyatı \'Hamur / Beze\' Ürününe Aktar';
+        applyBtn.style.background = '#b45309';
+
+        const dw = costData.settings?.doughWizard || {
+          flourGram: 1000, flourKgPrice: 35, waterGram: 650, waterCost: 2,
+          yeastGram: 2, yeastKgPrice: 350, saltGram: 30, saltKgPrice: 25, doughBallWeightGram: 260
+        };
+        document.getElementById('dw-flour-gram').value = dw.flourGram ?? 1000;
+        document.getElementById('dw-flour-price').value = dw.flourKgPrice ?? 35;
+        document.getElementById('dw-water-gram').value = dw.waterGram ?? 650;
+        document.getElementById('dw-water-cost').value = dw.waterCost ?? 2;
+        document.getElementById('dw-yeast-gram').value = dw.yeastGram ?? 2;
+        document.getElementById('dw-yeast-price').value = dw.yeastKgPrice ?? 350;
+        document.getElementById('dw-salt-gram').value = dw.saltGram ?? 30;
+        document.getElementById('dw-salt-price').value = dw.saltKgPrice ?? 25;
+        document.getElementById('dw-ball-weight').value = dw.doughBallWeightGram ?? 260;
+
+        recalcDoughWizard();
+      } else {
+        doughView.style.display = 'none';
+        sauceView.style.display = 'block';
+
+        const conf = DEFAULT_SAUCE_RECIPES[tab];
+        titleEl.innerHTML = conf.title;
+        titleEl.style.color = conf.color;
+        applyBtn.innerHTML = `<span>✓</span> Bu Fiyatı \'${conf.targetName}\' Ürününe Aktar`;
+        applyBtn.style.background = conf.btnBg;
+        document.getElementById('wiz-sauce-desc').textContent = conf.desc;
+
+        // Load items from costData.settings.wizards or default
+        const items = costData.settings?.wizards?.[tab] || conf.items;
+        renderSauceWizardRows(items);
+        recalcSauceWizard();
+      }
+    }
+
+    function renderSauceWizardRows(items) {
+      const tbody = document.getElementById('wiz-sauce-tbody');
+      tbody.innerHTML = '';
+      items.forEach(it => {
+        addSauceWizardRow(it.name, it.gram, it.kgPrice);
+      });
+    }
+
+    function addSauceWizardRow(name = '', gram = '', kgPrice = '') {
+      const tbody = document.getElementById('wiz-sauce-tbody');
+      const rowId = 'sw-row-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4);
+
+      const tr = document.createElement('tr');
+      tr.id = rowId;
+      tr.style.borderBottom = '1px solid var(--color-cream-border)';
+      tr.innerHTML = `
+        <td style="padding: 6px 10px;">
+          <input type="text" class="form-input sw-name-input" value="${escapeHtml(name)}" placeholder="Malzeme adı" style="font-size:0.82rem; padding:6px 8px;">
+        </td>
+        <td style="padding: 6px 10px;">
+          <input type="number" step="any" min="0" class="form-input sw-gram-input" value="${gram}" placeholder="0" oninput="recalcSauceWizard()" style="font-size:0.82rem; padding:6px 8px; font-weight:700;">
+        </td>
+        <td style="padding: 6px 10px;">
+          <input type="number" step="any" min="0" class="form-input sw-price-input" value="${kgPrice}" placeholder="0.00" oninput="recalcSauceWizard()" style="font-size:0.82rem; padding:6px 8px; font-weight:600;">
+        </td>
+        <td style="padding: 6px 10px; text-align:right; font-weight:700; color:var(--color-forest);" class="sw-cost-cell">0.00 ₺</td>
+        <td style="padding: 6px 10px; text-align:center;">
+          <button type="button" onclick="removeSauceWizardRow('${rowId}')" style="background:none; border:none; cursor:pointer; color:var(--color-danger); font-size:1rem;" title="Kaldır">✕</button>
+        </td>
+      `;
+
+      tbody.appendChild(tr);
+      recalcSauceWizard();
+    }
+
+    function removeSauceWizardRow(rowId) {
+      const row = document.getElementById(rowId);
+      if (row) row.remove();
+      recalcSauceWizard();
+    }
+
+    function recalcSauceWizard() {
+      const tbody = document.getElementById('wiz-sauce-tbody');
+      if (!tbody) return { totalWeight: 0, totalCost: 0, kgCost: 0 };
+      const rows = tbody.querySelectorAll('tr');
+
+      let totalWeight = 0;
+      let totalCost = 0;
+
+      rows.forEach(row => {
+        const gramInput = row.querySelector('.sw-gram-input');
+        const priceInput = row.querySelector('.sw-price-input');
+        const costCell = row.querySelector('.sw-cost-cell');
+
+        const gram = parseFloat(gramInput?.value) || 0;
+        const price = parseFloat(priceInput?.value) || 0;
+        const lineCost = (gram / 1000) * price;
+
+        if (costCell) costCell.textContent = `${lineCost.toFixed(2)} ₺`;
+
+        totalWeight += gram;
+        totalCost += lineCost;
+      });
+
+      const kgCost = totalWeight > 0 ? (totalCost / (totalWeight / 1000)) : 0;
+
+      document.getElementById('wiz-sauce-res-weight').textContent = `${totalWeight.toFixed(0)} gr`;
+      document.getElementById('wiz-sauce-res-batch-cost').textContent = `${totalCost.toFixed(2)} ₺`;
+      document.getElementById('wiz-sauce-res-kg-cost').textContent = `${kgCost.toFixed(2)} ₺ / kg`;
+
+      return { totalWeight, totalCost, kgCost };
     }
 
     function recalcDoughWizard() {
@@ -4181,6 +4438,59 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       return { totalWeight, ballCount, totalCost, costPerBall, ballWeight };
     }
 
+    function applyActiveWizardToIngredients() {
+      if (currentWizardTab === 'dough') {
+        applyDoughWizardToIngredients();
+        return;
+      }
+
+      const conf = DEFAULT_SAUCE_RECIPES[currentWizardTab];
+      if (!conf) return;
+
+      const { totalWeight, totalCost, kgCost } = recalcSauceWizard();
+
+      // Read current rows to persist in settings
+      const tbody = document.getElementById('wiz-sauce-tbody');
+      const rows = tbody.querySelectorAll('tr');
+      const savedItems = [];
+      rows.forEach(row => {
+        const name = row.querySelector('.sw-name-input')?.value.trim() || '';
+        const gram = parseFloat(row.querySelector('.sw-gram-input')?.value) || 0;
+        const kgPrice = parseFloat(row.querySelector('.sw-price-input')?.value) || 0;
+        if (name && gram > 0) {
+          savedItems.push({ name, gram, kgPrice });
+        }
+      });
+
+      if (!costData.settings) costData.settings = {};
+      if (!costData.settings.wizards) costData.settings.wizards = {};
+      costData.settings.wizards[currentWizardTab] = savedItems;
+
+      // Update ingredient price in costData.rawIngredients
+      if (!costData.rawIngredients) costData.rawIngredients = [];
+      let ing = costData.rawIngredients.find(it => it.id === conf.targetId || it.name.toLowerCase().includes(conf.targetName.toLowerCase()));
+
+      const roundedKgCost = Math.round(kgCost * 100) / 100;
+      if (ing) {
+        ing.price = roundedKgCost;
+      } else {
+        ing = {
+          id: conf.targetId,
+          name: conf.targetName,
+          unit: 'kg',
+          price: roundedKgCost,
+          category: 'Sos & Yağ'
+        };
+        costData.rawIngredients.push(ing);
+      }
+
+      saveCostDataLocally();
+      alert(`✅ ${conf.targetName} 1 Kg alış fiyatı (${roundedKgCost} ₺ / kg) olarak güncellendi ve tüm pizza maliyetlerine yansıtıldı!`);
+      closePrepWizardModal();
+      renderCostIngredientsView();
+      renderCostPizzasView();
+    }
+
     function applyDoughWizardToIngredients() {
       const res = recalcDoughWizard();
       if (!costData.settings) costData.settings = {};
@@ -4196,7 +4506,6 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
         doughBallWeightGram: res.ballWeight
       };
 
-      // Update or add 'Hamur / Beze' in raw ingredients
       if (!costData.rawIngredients) costData.rawIngredients = [];
       let doughIng = costData.rawIngredients.find(it => it.id === 'ing-hamur-beze' || it.name.toLowerCase().includes('beze') || it.name.toLowerCase().includes('hamur'));
       
@@ -4217,7 +4526,7 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
 
       saveCostDataLocally();
       alert(`✅ Hamur beze fiyatı (${roundedBallCost} ₺ / adet) olarak güncellendi ve tüm pizza maliyetlerine yansıtıldı!`);
-      closeDoughWizardModal();
+      closePrepWizardModal();
       renderCostIngredientsView();
       renderCostPizzasView();
     }

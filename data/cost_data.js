@@ -16,6 +16,122 @@ window.COST_DATA = {
       "oliveOilGram": 0,
       "oliveOilKgPrice": 380,
       "doughBallWeightGram": 260
+    },
+    "wizards": {
+      "dough": {
+        "flourGram": 1000,
+        "flourKgPrice": 35.0,
+        "waterGram": 650,
+        "waterCost": 2.0,
+        "yeastGram": 2.0,
+        "yeastKgPrice": 350.0,
+        "saltGram": 30.0,
+        "saltKgPrice": 25.0,
+        "oliveOilGram": 0.0,
+        "oliveOilKgPrice": 380.0,
+        "doughBallWeightGram": 260
+      },
+      "rokaPesto": [
+        {
+          "name": "Taze Roka",
+          "gram": 500,
+          "kgPrice": 90
+        },
+        {
+          "name": "Sızma Zeytinyağı",
+          "gram": 300,
+          "kgPrice": 380
+        },
+        {
+          "name": "Rende Parmesan",
+          "gram": 150,
+          "kgPrice": 800
+        },
+        {
+          "name": "Ceviz / Çam Fıstığı",
+          "gram": 50,
+          "kgPrice": 600
+        },
+        {
+          "name": "Sarımsak",
+          "gram": 30,
+          "kgPrice": 150
+        },
+        {
+          "name": "Tuz & Baharat",
+          "gram": 15,
+          "kgPrice": 30
+        }
+      ],
+      "fistikPesto": [
+        {
+          "name": "Antep Fıstığı (İç / File)",
+          "gram": 350,
+          "kgPrice": 950
+        },
+        {
+          "name": "Sızma Zeytinyağı",
+          "gram": 350,
+          "kgPrice": 380
+        },
+        {
+          "name": "Rende Parmesan",
+          "gram": 150,
+          "kgPrice": 800
+        },
+        {
+          "name": "Taze Fesleğen",
+          "gram": 100,
+          "kgPrice": 300
+        },
+        {
+          "name": "Sarımsak",
+          "gram": 20,
+          "kgPrice": 150
+        },
+        {
+          "name": "Tuz & Karabiber",
+          "gram": 10,
+          "kgPrice": 30
+        }
+      ],
+      "stroganoff": [
+        {
+          "name": "Krema (%35 Yağlı)",
+          "gram": 500,
+          "kgPrice": 200
+        },
+        {
+          "name": "Kültür / Kestane Mantarı",
+          "gram": 250,
+          "kgPrice": 120
+        },
+        {
+          "name": "Tereyağı",
+          "gram": 100,
+          "kgPrice": 360
+        },
+        {
+          "name": "Kuru Soğan",
+          "gram": 100,
+          "kgPrice": 30
+        },
+        {
+          "name": "Dijon Hardalı",
+          "gram": 40,
+          "kgPrice": 220
+        },
+        {
+          "name": "Et Bulyon & Çeşni",
+          "gram": 20,
+          "kgPrice": 80
+        },
+        {
+          "name": "Worcestershire / Baharat",
+          "gram": 15,
+          "kgPrice": 180
+        }
+      ]
     }
   },
   "rawIngredients": [
