@@ -912,6 +912,33 @@ window.COST_DATA = {
         "amount": 10,
         "unit": "gr"
       }
+    ],
+    "item-1792964412375": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-fior-di-latte",
+        "amount": 100,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-1792964482431",
+        "amount": 50,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-mihalic-olgun",
+        "amount": 20,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-1792964246783",
+        "amount": 1,
+        "unit": "adet"
+      }
     ]
   }
 };
