@@ -31,34 +31,34 @@ window.COST_DATA = {
       },
       "rokaPesto": [
         {
-          "name": "Taze Roka",
-          "gram": 500,
-          "kgPrice": 90
+          "name": "Fesleğen",
+          "gram": 60,
+          "kgPrice": 1200
         },
         {
-          "name": "Sızma Zeytinyağı",
-          "gram": 300,
-          "kgPrice": 380
+          "name": "Roka",
+          "gram": 60,
+          "kgPrice": 300
         },
         {
-          "name": "Rende Parmesan",
-          "gram": 150,
-          "kgPrice": 800
+          "name": "Fındık",
+          "gram": 75,
+          "kgPrice": 1089
         },
         {
-          "name": "Toz Fındık",
-          "gram": 50,
-          "kgPrice": 600
+          "name": "Parmesan",
+          "gram": 75,
+          "kgPrice": 1000
+        },
+        {
+          "name": "Zeytinyağı",
+          "gram": 200,
+          "kgPrice": 310
         },
         {
           "name": "Sarımsak",
-          "gram": 30,
-          "kgPrice": 150
-        },
-        {
-          "name": "Tuz & Baharat",
-          "gram": 15,
-          "kgPrice": 30
+          "gram": 3,
+          "kgPrice": 1000
         }
       ],
       "fistikPesto": [
@@ -361,7 +361,7 @@ window.COST_DATA = {
       "id": "ing-roka-pesto",
       "name": "Roka Pesto",
       "unit": "kg",
-      "price": 300.43,
+      "price": 658.93,
       "category": "Sos & Yağ"
     },
     {
