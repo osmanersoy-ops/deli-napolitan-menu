@@ -563,7 +563,7 @@ window.COST_DATA = {
       },
       {
         "ingredientId": "ing-zeytinyagi",
-        "amount": 10,
+        "amount": 15,
         "unit": "gr"
       }
     ],
