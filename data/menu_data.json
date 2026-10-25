@@ -442,39 +442,6 @@
       ]
     },
     {
-      "id": "pizza-10",
-      "categoryId": "pizza",
-      "name": {
-        "tr": "tütsülenmiş hindi sosis",
-        "en": "smoked turkey sausage"
-      },
-      "description": {
-        "tr": "domates sos, fior di latte mozarella, tütsülenmiş hindi sosis, hardallı eritilmiş çedar peynir sos, mor soğan turşusu, küp doğranmış çubuk turşu",
-        "en": "tomato sauce, fior di latte mozzarella, smoked turkey sausage, melted mustard cheddar sauce, pickled red onions, diced çubuk pickles"
-      },
-      "price": 690,
-      "spicy": 0,
-      "badge": null,
-      "image": "assets/product_placeholder.jpg",
-      "allergens": [
-        {
-          "code": "gluten",
-          "tr": "Gluten",
-          "en": "Gluten"
-        },
-        {
-          "code": "milk",
-          "tr": "Laktoz / Süt",
-          "en": "Dairy / Lactose"
-        },
-        {
-          "code": "mustard",
-          "tr": "Hardal",
-          "en": "Mustard"
-        }
-      ]
-    },
-    {
       "id": "pizza-11",
       "categoryId": "pizza",
       "name": {
@@ -562,34 +529,6 @@
       ]
     },
     {
-      "id": "pizza-14",
-      "categoryId": "pizza",
-      "name": {
-        "tr": "çemensiz pastırma",
-        "en": "cured beef pastirma (fenugreek-free)"
-      },
-      "description": {
-        "tr": "domates sos, mihaliç taze peynir, çemensiz pastırma, rende isli peynir",
-        "en": "tomato sauce, fresh mihaliç cheese, fenugreek-free cured beef pastirma, grated smoked cheese"
-      },
-      "price": 880,
-      "spicy": 0,
-      "badge": null,
-      "image": "assets/product_placeholder.jpg",
-      "allergens": [
-        {
-          "code": "gluten",
-          "tr": "Gluten",
-          "en": "Gluten"
-        },
-        {
-          "code": "milk",
-          "tr": "Laktoz / Süt",
-          "en": "Dairy"
-        }
-      ]
-    },
-    {
       "id": "pizza-15",
       "categoryId": "pizza",
       "name": {
@@ -647,34 +586,6 @@
           "code": "nuts",
           "tr": "Kuruyemiş / Fındık / Fıstık",
           "en": "Tree Nuts / Peanuts"
-        }
-      ]
-    },
-    {
-      "id": "pizza-17",
-      "categoryId": "pizza",
-      "name": {
-        "tr": "acı kremalı ispanyol salam",
-        "en": "spicy cream spanish beef salami"
-      },
-      "description": {
-        "tr": "tabasco acı sos ile hazırlanmış krema domates taban, fior di latte mozarella, dana ispanyol salamı, haşlanmış patates, jalepeno dilimleri, rende olgun mihaliç peyniri",
-        "en": "tabasco spicy tomato cream base, fior di latte mozzarella, spanish beef salami, tender potato slices, jalapeno slices, aged mihaliç cheese"
-      },
-      "price": 790,
-      "spicy": 2,
-      "badge": null,
-      "image": "assets/product_placeholder.jpg",
-      "allergens": [
-        {
-          "code": "gluten",
-          "tr": "Gluten",
-          "en": "Gluten"
-        },
-        {
-          "code": "milk",
-          "tr": "Laktoz / Süt",
-          "en": "Dairy / Lactose"
         }
       ]
     },
