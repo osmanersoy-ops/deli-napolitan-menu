@@ -4,16 +4,14 @@
     "fireEnabled": true,
     "fireRate": 5,
     "doughWizard": {
-      "flourGram": 1000,
+      "flourGram": 20000,
       "flourKgPrice": 35,
-      "waterGram": 650,
-      "waterCost": 2,
-      "yeastGram": 2,
-      "yeastKgPrice": 350,
-      "saltGram": 30,
-      "saltKgPrice": 25,
-      "oliveOilGram": 0,
-      "oliveOilKgPrice": 380,
+      "waterGram": 14000,
+      "waterCost": 80,
+      "yeastGram": 50,
+      "yeastKgPrice": 100,
+      "saltGram": 600,
+      "saltKgPrice": 30,
       "doughBallWeightGram": 260
     },
     "wizards": {
@@ -173,7 +171,7 @@
       "id": "ing-hamur-beze",
       "name": "Hamur / Beze (260g)",
       "unit": "adet",
-      "price": 13,
+      "price": 6.03,
       "category": "Hamur"
     },
     {
