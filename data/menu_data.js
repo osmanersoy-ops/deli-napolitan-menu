@@ -809,6 +809,29 @@ window.MENU_DATA = {
           "en": "Crustaceans"
         }
       ]
+    },
+    {
+      "id": "item-1792964412375",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "dana dil füme",
+        "en": "dana dil füme"
+      },
+      "description": {
+        "tr": "domates taban, fior di latte mozarella\nkekik, karabiber ve portakal kabuğu ile marine edilmiş dana dil füme rende olgun mihaliç peyniri, limon zest, frenk soğanı",
+        "en": ""
+      },
+      "price": 840,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        }
+      ]
     }
   ]
 };
