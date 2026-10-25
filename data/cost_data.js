@@ -188,7 +188,7 @@ window.COST_DATA = {
       "id": "ing-tras-sarimsak",
       "name": "Tıraş Sarımsak",
       "unit": "adet",
-      "price": 2,
+      "price": 1,
       "category": "Yeşillik & Baharat"
     },
     {
@@ -265,28 +265,28 @@ window.COST_DATA = {
       "id": "ing-dana-fume-kaburga",
       "name": "Dana Füme Kaburga",
       "unit": "kg",
-      "price": 750,
+      "price": 1700,
       "category": "Et & Şarküteri"
     },
     {
       "id": "ing-antrikot",
       "name": "Antrikot (Jülyen)",
       "unit": "kg",
-      "price": 850,
+      "price": 2000,
       "category": "Et & Şarküteri"
     },
     {
       "id": "ing-kasap-sucuk",
       "name": "Kasap Sucuk",
       "unit": "kg",
-      "price": 600,
+      "price": 1230,
       "category": "Et & Şarküteri"
     },
     {
       "id": "ing-acili-sucuk",
       "name": "Acılı Kasap Sucuk",
       "unit": "kg",
-      "price": 620,
+      "price": 1230,
       "category": "Et & Şarküteri"
     },
     {
@@ -300,7 +300,7 @@ window.COST_DATA = {
       "id": "ing-mortadella",
       "name": "Dana Mortadella Salam",
       "unit": "kg",
-      "price": 580,
+      "price": 1150,
       "category": "Et & Şarküteri"
     },
     {
@@ -321,49 +321,35 @@ window.COST_DATA = {
       "id": "ing-bolonez",
       "name": "Bolonez Sos (Dana Kıyma Bazlı)",
       "unit": "kg",
-      "price": 420,
+      "price": 1200,
       "category": "Et & Şarküteri"
     },
     {
       "id": "ing-kestane-mantari",
       "name": "Kestane Mantarı",
       "unit": "kg",
-      "price": 120,
+      "price": 500,
       "category": "Sebze"
     },
     {
       "id": "ing-kultur-mantari",
       "name": "Kültür Mantarı",
       "unit": "kg",
-      "price": 90,
+      "price": 400,
       "category": "Sebze"
     },
     {
       "id": "ing-ceri-domates",
       "name": "Yarı Kurutulmuş Çeri Domates",
       "unit": "kg",
-      "price": 240,
-      "category": "Sebze"
-    },
-    {
-      "id": "ing-haslanmis-patates",
-      "name": "Haşlanmış Patates Dilimleri",
-      "unit": "kg",
-      "price": 40,
-      "category": "Sebze"
-    },
-    {
-      "id": "ing-jalapeno",
-      "name": "Jalapeño Dilimleri",
-      "unit": "kg",
-      "price": 120,
+      "price": 200,
       "category": "Sebze"
     },
     {
       "id": "ing-roka",
       "name": "Taze Roka",
       "unit": "kg",
-      "price": 90,
+      "price": 250,
       "category": "Sebze"
     },
     {
@@ -412,7 +398,7 @@ window.COST_DATA = {
       "id": "ing-zeytinyagi",
       "name": "Sızma Zeytinyağı (EVO)",
       "unit": "kg",
-      "price": 380,
+      "price": 310,
       "category": "Sos & Yağ"
     },
     {
@@ -439,7 +425,7 @@ window.COST_DATA = {
       },
       {
         "ingredientId": "ing-domates-sos",
-        "amount": 90,
+        "amount": 80,
         "unit": "gr"
       },
       {
@@ -449,7 +435,7 @@ window.COST_DATA = {
       },
       {
         "ingredientId": "ing-feslegen",
-        "amount": 4,
+        "amount": 5,
         "unit": "adet"
       },
       {
@@ -466,17 +452,12 @@ window.COST_DATA = {
       },
       {
         "ingredientId": "ing-domates-sos",
-        "amount": 90,
+        "amount": 80,
         "unit": "gr"
       },
       {
         "ingredientId": "ing-fior-di-latte",
         "amount": 100,
-        "unit": "gr"
-      },
-      {
-        "ingredientId": "ing-stracciatella",
-        "amount": 60,
         "unit": "gr"
       },
       {
@@ -498,7 +479,7 @@ window.COST_DATA = {
       },
       {
         "ingredientId": "ing-domates-sos",
-        "amount": 110,
+        "amount": 100,
         "unit": "gr"
       },
       {
@@ -525,7 +506,7 @@ window.COST_DATA = {
       },
       {
         "ingredientId": "ing-domates-sos",
-        "amount": 90,
+        "amount": 80,
         "unit": "gr"
       },
       {
@@ -535,17 +516,17 @@ window.COST_DATA = {
       },
       {
         "ingredientId": "ing-acili-sucuk",
-        "amount": 60,
-        "unit": "gr"
-      },
-      {
-        "ingredientId": "ing-jalapeno",
-        "amount": 25,
+        "amount": 55,
         "unit": "gr"
       },
       {
         "ingredientId": "ing-zeytinyagi",
-        "amount": 8,
+        "amount": 10,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-rende-parmesan",
+        "amount": 15,
         "unit": "gr"
       }
     ],
@@ -562,17 +543,330 @@ window.COST_DATA = {
       },
       {
         "ingredientId": "ing-gorgonzola",
-        "amount": 50,
+        "amount": 35,
         "unit": "gr"
       },
       {
         "ingredientId": "ing-rende-parmesan",
-        "amount": 25,
+        "amount": 20,
         "unit": "gr"
       },
       {
         "ingredientId": "ing-domates-sos",
+        "amount": 80,
+        "unit": "gr"
+      }
+    ],
+    "pizza-12": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-1792943670910",
+        "amount": 80,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-antrikot",
+        "amount": 60,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-stroganoff-sos",
+        "amount": 20,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-fior-di-latte",
+        "amount": 80,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-zeytinyagi",
+        "amount": 10,
+        "unit": "gr"
+      }
+    ],
+    "pizza-4": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-domates-sos",
         "amount": 100,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-stracciatella",
+        "amount": 120,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-ceri-domates",
+        "amount": 10,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-feslegen",
+        "amount": 4,
+        "unit": "adet"
+      }
+    ],
+    "pizza-7": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-krema-taban",
+        "amount": 70,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-scamorza",
+        "amount": 80,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-erzurum-isli",
+        "amount": 20,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-rende-parmesan",
+        "amount": 20,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-zeytinyagi",
+        "amount": 10,
+        "unit": "gr"
+      }
+    ],
+    "pizza-8": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-ispanak-krema",
+        "amount": 100,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-fior-di-latte",
+        "amount": 100,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-kuskonmaz",
+        "amount": 100,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-mihalic-olgun",
+        "amount": 20,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-balzamik-glaze",
+        "amount": 15,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-zeytinyagi",
+        "amount": 10,
+        "unit": "gr"
+      }
+    ],
+    "pizza-9": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-truflu-krema",
+        "amount": 70,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-fior-di-latte",
+        "amount": 100,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-kestane-mantari",
+        "amount": 35,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-kultur-mantari",
+        "amount": 60,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-roka",
+        "amount": 25,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-mihalic-olgun",
+        "amount": 20,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-zeytinyagi",
+        "amount": 15,
+        "unit": "gr"
+      }
+    ],
+    "pizza-11": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-fior-di-latte",
+        "amount": 100,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-bolonez",
+        "amount": 80,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-ceri-domates",
+        "amount": 15,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-feslegen",
+        "amount": 2,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-zeytinyagi",
+        "amount": 15,
+        "unit": "gr"
+      }
+    ],
+    "pizza-13": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-domates-sos",
+        "amount": 80,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-kasap-sucuk",
+        "amount": 55,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-kirmizi-sogan",
+        "amount": 2,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-mihalic-olgun",
+        "amount": 20,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-zeytinyagi",
+        "amount": 15,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-fior-di-latte",
+        "amount": 100,
+        "unit": "gr"
+      }
+    ],
+    "pizza-15": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-domates-sos",
+        "amount": 80,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-fior-di-latte",
+        "amount": 100,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-dana-fume-kaburga",
+        "amount": 50,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-mihalic-olgun",
+        "amount": 20,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-roka-pesto",
+        "amount": 20,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-zeytinyagi",
+        "amount": 10,
+        "unit": "gr"
+      }
+    ],
+    "pizza-16": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-krema-taban",
+        "amount": 50,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-fior-di-latte",
+        "amount": 100,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-mortadella",
+        "amount": 50,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-ricotta",
+        "amount": 25,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-file-fistik",
+        "amount": 15,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-zeytinyagi",
+        "amount": 10,
         "unit": "gr"
       }
     ]

@@ -3566,20 +3566,31 @@
         }
       } catch (err) {}
 
-      costData = mergeCostDataSources(fileCostData, localSavedData);
+      const fileRecipeCount = fileCostData && fileCostData.recipes ? Object.keys(fileCostData.recipes).length : 0;
+      const localRecipeCount = localSavedData && localSavedData.recipes ? Object.keys(localSavedData.recipes).length : 0;
+      const recoveryDone = localStorage.getItem('deli_cost_recovery_v2') === 'done';
 
-      // If localSavedData had extra recipes or newer changes than fileCostData, persist merged result and auto-sync to GitHub
-      if (costData && localSavedData) {
+      if (fileCostData && (!recoveryDone || fileRecipeCount > localRecipeCount)) {
+        // Restore the full recovered 14-recipe + 40-ingredient dataset from fileCostData
+        costData = JSON.parse(JSON.stringify(fileCostData));
         try {
           localStorage.setItem('deli_cost_data', JSON.stringify(costData));
-          const fileJsonStr = fileCostData ? JSON.stringify(fileCostData.recipes || {}) : '';
-          const mergedJsonStr = JSON.stringify(costData.recipes || {});
-          const fileIngStr = fileCostData ? JSON.stringify(fileCostData.rawIngredients || []) : '';
-          const mergedIngStr = JSON.stringify(costData.rawIngredients || []);
-          if (mergedJsonStr !== fileJsonStr || mergedIngStr !== fileIngStr) {
-            scheduleAutoSyncCostToGithub();
-          }
+          localStorage.setItem('deli_cost_recovery_v2', 'done');
         } catch (e) {}
+      } else {
+        costData = mergeCostDataSources(fileCostData, localSavedData);
+        if (costData && localSavedData) {
+          try {
+            localStorage.setItem('deli_cost_data', JSON.stringify(costData));
+            const fileJsonStr = fileCostData ? JSON.stringify(fileCostData.recipes || {}) : '';
+            const mergedJsonStr = JSON.stringify(costData.recipes || {});
+            const fileIngStr = fileCostData ? JSON.stringify(fileCostData.rawIngredients || []) : '';
+            const mergedIngStr = JSON.stringify(costData.rawIngredients || []);
+            if (mergedJsonStr !== fileJsonStr || mergedIngStr !== fileIngStr) {
+              scheduleAutoSyncCostToGithub();
+            }
+          } catch (e) {}
+        }
       }
 
       if (!costData) {
