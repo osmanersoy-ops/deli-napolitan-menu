@@ -3,18 +3,18 @@ window.COST_DATA = {
   "lastUpdated": "2026-10-25",
   "settings": {
     "fireEnabled": true,
-    "fireRate": 8.0,
+    "fireRate": 8,
     "doughWizard": {
       "flourGram": 1000,
-      "flourKgPrice": 35.0,
+      "flourKgPrice": 35,
       "waterGram": 650,
-      "waterCost": 2.0,
-      "yeastGram": 2.0,
-      "yeastKgPrice": 350.0,
-      "saltGram": 30.0,
-      "saltKgPrice": 25.0,
-      "oliveOilGram": 0.0,
-      "oliveOilKgPrice": 380.0,
+      "waterCost": 2,
+      "yeastGram": 2,
+      "yeastKgPrice": 350,
+      "saltGram": 30,
+      "saltKgPrice": 25,
+      "oliveOilGram": 0,
+      "oliveOilKgPrice": 380,
       "doughBallWeightGram": 280
     }
   },
