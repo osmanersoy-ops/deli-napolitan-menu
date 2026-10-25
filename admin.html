@@ -2214,6 +2214,16 @@
     // ==========================================
     const ADMIN_PASSWORD = "deli2026";
 
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     function checkAuth() {
       let isAuth = false;
       try {
@@ -3511,13 +3521,26 @@
     // SUB-TAB 1: RAW INGREDIENTS (ÜRÜNLER VE FİYAT)
     // ==========================================
     function renderCostIngredientsView() {
+      if (!costData || !costData.rawIngredients) {
+        if (window.COST_DATA) {
+          costData = JSON.parse(JSON.stringify(window.COST_DATA));
+        } else {
+          const local = localStorage.getItem('deli_cost_data');
+          if (local) {
+            try { costData = JSON.parse(local); } catch (e) {}
+          }
+        }
+      }
       if (!costData || !costData.rawIngredients) return;
       const container = document.getElementById('cost-ingredients-container');
+      if (!container) return;
       const search = (document.getElementById('cost-ing-search')?.value || '').toLowerCase().trim();
       const catFilter = document.getElementById('cost-ing-cat-filter')?.value || 'ALL';
 
       let items = costData.rawIngredients.filter(it => {
-        const matchesSearch = !search || it.name.toLowerCase().includes(search) || (it.category && it.category.toLowerCase().includes(search));
+        const nameStr = (it.name || '').toLowerCase();
+        const catStr = (it.category || '').toLowerCase();
+        const matchesSearch = !search || nameStr.includes(search) || catStr.includes(search);
         const matchesCat = catFilter === 'ALL' || it.category === catFilter;
         return matchesSearch && matchesCat;
       });
@@ -3758,11 +3781,27 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
     }
 
     function renderCostPizzasView() {
+      if (!costData) {
+        if (window.COST_DATA) {
+          costData = JSON.parse(JSON.stringify(window.COST_DATA));
+        } else {
+          const local = localStorage.getItem('deli_cost_data');
+          if (local) {
+            try { costData = JSON.parse(local); } catch (e) {}
+          }
+        }
+      }
+      if (!menuData || !menuData.items) {
+        if (window.MENU_DATA) {
+          menuData = JSON.parse(JSON.stringify(window.MENU_DATA));
+        }
+      }
       if (!menuData || !menuData.items) return;
       const container = document.getElementById('cost-pizzas-container');
+      if (!container) return;
       const search = (document.getElementById('cost-pizza-search')?.value || '').toLowerCase().trim();
 
-      const pizzas = menuData.items.filter(it => it.categoryId === 'pizza' && (!search || it.name.tr.toLowerCase().includes(search) || it.name.en.toLowerCase().includes(search)));
+      const pizzas = menuData.items.filter(it => it.categoryId === 'pizza' && (!search || (it.name?.tr || '').toLowerCase().includes(search) || (it.name?.en || '').toLowerCase().includes(search)));
 
       updateCostBadgeCounts();
 
