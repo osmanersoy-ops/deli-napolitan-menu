@@ -2433,18 +2433,38 @@
     });
 
     async function loadMenuData() {
+      menuData = null;
       try {
-        const resp = await fetch('data/menu_data.json?t=' + Date.now());
-        if (resp.ok) {
-          menuData = await resp.json();
-        } else {
-          throw new Error('JSON fetch failed');
+        const token = getActiveGithubToken();
+        const ghHeaders = { 'Accept': 'application/vnd.github.v3+json' };
+        if (token) ghHeaders['Authorization'] = `Bearer ${token}`;
+        const ghResp = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/data/menu_data.json?ref=${GITHUB_BRANCH}&t=${Date.now()}`, {
+          headers: ghHeaders,
+          cache: 'no-store'
+        });
+        if (ghResp.ok) {
+          const ghJson = await ghResp.json();
+          if (ghJson && ghJson.content) {
+            const decoded = decodeURIComponent(escape(atob(ghJson.content.replace(/\s/g, ''))));
+            menuData = JSON.parse(decoded);
+          }
         }
-      } catch (e) {
-        if (window.MENU_DATA) {
-          menuData = JSON.parse(JSON.stringify(window.MENU_DATA));
-        } else {
-          alert('Menü verisi yüklenemedi!');
+      } catch (e) {}
+
+      if (!menuData) {
+        try {
+          const resp = await fetch('data/menu_data.json?t=' + Date.now(), { cache: 'no-store' });
+          if (resp.ok) {
+            menuData = await resp.json();
+          } else {
+            throw new Error('JSON fetch failed');
+          }
+        } catch (e) {
+          if (window.MENU_DATA) {
+            menuData = JSON.parse(JSON.stringify(window.MENU_DATA));
+          } else {
+            alert('Menü verisi yüklenemedi!');
+          }
         }
       }
       updateStatusBanner();
@@ -3283,6 +3303,7 @@
         return;
       }
 
+      if (costAutoSyncTimer) clearTimeout(costAutoSyncTimer);
       showLoading('GitHub deposuna bağlanılıyor...', 'Lütfen bekleyin...');
 
       try {
@@ -3326,7 +3347,7 @@
         // Step 4: Commit data/cost_data.json & data/cost_data.js
         if (costData) {
           showLoading('Maliyet verileri kaydediliyor...', 'GitHub main dalına işleniyor...');
-          costData.lastUpdated = new Date().toISOString().split('T')[0];
+          saveCostDataLocally(true);
           const costJson = JSON.stringify(costData, null, 2);
           const costJsonBase64 = btoa(unescape(encodeURIComponent(costJson)));
           await commitFileToGithub('data/cost_data.json', costJsonBase64, 'Maliyet verileri güncellendi (Admin Panel)', token, false);
@@ -3342,8 +3363,10 @@
         document.getElementById('header-unsaved-badge').style.display = 'none';
         document.getElementById('mobile-bar-info').innerHTML = `<span>Tüm değişiklikler yayında ✓</span>`;
         document.getElementById('status-dot').className = 'status-dot';
+        const costBtn = document.getElementById('btn-save-cost-github');
+        if (costBtn) costBtn.innerHTML = '<span>✅</span> Otomatik Kaydedildi';
 
-        alert('🎉 TEBRİKLER! Menü başarıyla GitHub\'a aktarıldı.\nVercel yaklaşık 15-20 saniye içinde canlı menüyü güncelleyecektir.');
+        alert('🎉 TEBRİKLER! Menü ve maliyet verileri başarıyla GitHub\'a aktarıldı.\nVercel yaklaşık 15-20 saniye içinde canlı menüyü güncelleyecektir.');
 
       } catch (err) {
         hideLoading();
@@ -3354,48 +3377,66 @@
 
     async function commitFileToGithub(path, base64Content, commitMessage, token, isBinary = false) {
       const url = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${path}`;
-      
-      // Get current SHA if file exists
-      let sha = null;
-      try {
-        const getResp = await fetch(url + `?ref=${GITHUB_BRANCH}`, {
+      let lastError = null;
+
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        // Always bypass browser HTTP cache when fetching current file SHA
+        let sha = null;
+        try {
+          const getResp = await fetch(`${url}?ref=${GITHUB_BRANCH}&_cb=${Date.now()}_${attempt}`, {
+            cache: 'no-store',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Accept': 'application/vnd.github.v3+json'
+            }
+          });
+          if (getResp.ok) {
+            const fileData = await getResp.json();
+            sha = fileData.sha;
+          }
+        } catch (e) {
+          // file might not exist yet
+        }
+
+        const bodyData = {
+          message: commitMessage,
+          content: base64Content,
+          branch: GITHUB_BRANCH
+        };
+        if (sha) {
+          bodyData.sha = sha;
+        }
+
+        const putResp = await fetch(url, {
+          method: 'PUT',
+          cache: 'no-store',
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Accept': 'application/vnd.github.v3+json'
-          }
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(bodyData)
         });
-        if (getResp.ok) {
-          const fileData = await getResp.json();
-          sha = fileData.sha;
+
+        if (putResp.ok) {
+          return await putResp.json();
         }
-      } catch (e) {
-        // file might not exist yet
-      }
 
-      const bodyData = {
-        message: commitMessage,
-        content: base64Content,
-        branch: GITHUB_BRANCH
-      };
-      if (sha) {
-        bodyData.sha = sha;
-      }
+        let errJson = {};
+        try {
+          errJson = await putResp.json();
+        } catch (e) {}
+        const errMsg = errJson.message || putResp.statusText || '';
+        lastError = new Error(`GitHub API hatası (${path}): ${errMsg}`);
 
-      const putResp = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(bodyData)
-      });
-
-      if (!putResp.ok) {
-        const errJson = await putResp.json();
-        throw new Error(`GitHub API hatası (${path}): ` + (errJson.message || putResp.statusText));
+        // If 409 SHA mismatch (e.g. concurrent commit or stale cache), wait briefly and retry with fresh SHA
+        if ((putResp.status === 409 || errMsg.includes('does not match')) && attempt < 3) {
+          await new Promise(r => setTimeout(r, 450 * attempt));
+          continue;
+        }
+        throw lastError;
       }
-      return await putResp.json();
+      throw lastError;
     }
 
     // ==========================================
