@@ -832,6 +832,29 @@ window.MENU_DATA = {
           "en": "Gluten"
         }
       ]
+    },
+    {
+      "id": "item-1792964667286",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "acı biber reçelli dana brisket füme",
+        "en": "acı biber reçelli dana brisket füme"
+      },
+      "description": {
+        "tr": "domates taban, dana döş brisket füme\nstraccitaella italyan peyniri, meksika biber reçeli, limon zest",
+        "en": ""
+      },
+      "price": 820,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        }
+      ]
     }
   ]
 };
