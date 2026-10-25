@@ -392,6 +392,13 @@ window.COST_DATA = {
       "unit": "kg",
       "price": 150,
       "category": "Taban"
+    },
+    {
+      "id": "ing-1792964227312",
+      "name": "Karides",
+      "unit": "kg",
+      "price": 1000,
+      "category": "Et & Şarküteri"
     }
   ],
   "recipes": {
