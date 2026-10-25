@@ -3,7 +3,7 @@ window.COST_DATA = {
   "lastUpdated": "2026-10-25",
   "settings": {
     "fireEnabled": true,
-    "fireRate": 4,
+    "fireRate": 5,
     "doughWizard": {
       "flourGram": 1000,
       "flourKgPrice": 35,
