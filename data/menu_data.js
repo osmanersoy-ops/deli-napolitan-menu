@@ -177,8 +177,8 @@ window.MENU_DATA = {
         "en": "creamy wild mushroom soup"
       },
       "description": {
-        "tr": "tereyağında sotelenmiş kestane ve kültür mantarları, taze krema ve frenk maydanozu ile",
-        "en": "sautéed chestnut & button mushrooms in butter, fresh cream, fresh herbs"
+        "tr": "",
+        "en": ""
       },
       "price": 220,
       "spicy": 0,
@@ -502,6 +502,39 @@ window.MENU_DATA = {
       ]
     },
     {
+      "id": "item-1792964119409",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "Sote Karides",
+        "en": "Sote Karides"
+      },
+      "description": {
+        "tr": "domates & krema taban, fior di latte mozarella\ntereyağında tarhun otu ile sotelenmiş karides\nlimon zest, frenk maydanozu (lime ile servis edilir)",
+        "en": ""
+      },
+      "price": 840,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy / Lactose"
+        },
+        {
+          "code": "crustaceans",
+          "tr": "Kabuklu Deniz Ürünleri",
+          "en": "Crustaceans"
+        }
+      ]
+    },
+    {
       "id": "pizza-13",
       "categoryId": "pizza",
       "name": {
@@ -554,39 +587,6 @@ window.MENU_DATA = {
           "code": "milk",
           "tr": "Laktoz / Süt",
           "en": "Dairy"
-        }
-      ]
-    },
-    {
-      "id": "pizza-16",
-      "categoryId": "pizza",
-      "name": {
-        "tr": "antep fıstıklı pesto dana mortadella",
-        "en": "beef mortadella & pistachio pesto"
-      },
-      "description": {
-        "tr": "krema taban, fior di latte mozarella, dana mortadella salam, italyan ricotto peynir, antep fıstıklı pesto, file antep fıstık",
-        "en": "cream base, fior di latte mozzarella, beef mortadella, italian ricotta cheese, pistachio pesto, toasted sliced pistachios"
-      },
-      "price": 790,
-      "spicy": 0,
-      "badge": null,
-      "image": "assets/products/pizza-16.jpg",
-      "allergens": [
-        {
-          "code": "gluten",
-          "tr": "Gluten",
-          "en": "Gluten"
-        },
-        {
-          "code": "milk",
-          "tr": "Laktoz / Süt",
-          "en": "Dairy / Lactose"
-        },
-        {
-          "code": "nuts",
-          "tr": "Kuruyemiş / Fındık / Fıstık",
-          "en": "Tree Nuts / Peanuts"
         }
       ]
     },
@@ -708,11 +708,11 @@ window.MENU_DATA = {
       "categoryId": "icecek",
       "name": {
         "tr": "limonata",
-        "en": "homemade lemonade"
+        "en": "lemonade"
       },
       "description": {
-        "tr": "taze sıkım nane ve limonlu ev yapımı limonata",
-        "en": "freshly squeezed homemade lemonade with fresh mint"
+        "tr": "limonata",
+        "en": ""
       },
       "price": 94,
       "spicy": 0,
@@ -778,20 +778,20 @@ window.MENU_DATA = {
       "allergens": []
     },
     {
-      "id": "item-1792964119409",
+      "id": "pizza-16",
       "categoryId": "pizza",
       "name": {
-        "tr": "Sote Karides",
-        "en": "Sote Karides"
+        "tr": "antep fıstıklı pesto dana mortadella",
+        "en": "beef mortadella & pistachio pesto"
       },
       "description": {
-        "tr": "domates & krema taban, fior di latte mozarella\ntereyağında tarhun otu ile sotelenmiş karides\nlimon zest, frenk maydanozu (lime ile servis edilir)",
-        "en": ""
+        "tr": "krema taban, fior di latte mozarella, dana mortadella salam, italyan ricotto peynir, antep fıstıklı pesto, file antep fıstık",
+        "en": "cream base, fior di latte mozzarella, beef mortadella, italian ricotta cheese, pistachio pesto, toasted sliced pistachios"
       },
-      "price": 840,
+      "price": 790,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-16.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -804,32 +804,9 @@ window.MENU_DATA = {
           "en": "Dairy / Lactose"
         },
         {
-          "code": "crustaceans",
-          "tr": "Kabuklu Deniz Ürünleri",
-          "en": "Crustaceans"
-        }
-      ]
-    },
-    {
-      "id": "item-1792964412375",
-      "categoryId": "pizza",
-      "name": {
-        "tr": "dana dil füme",
-        "en": "dana dil füme"
-      },
-      "description": {
-        "tr": "domates taban, fior di latte mozarella\nkekik, karabiber ve portakal kabuğu ile marine edilmiş dana dil füme rende olgun mihaliç peyniri, limon zest, frenk soğanı",
-        "en": ""
-      },
-      "price": 840,
-      "spicy": 0,
-      "badge": null,
-      "image": "assets/product_placeholder.jpg",
-      "allergens": [
-        {
-          "code": "gluten",
-          "tr": "Gluten",
-          "en": "Gluten"
+          "code": "nuts",
+          "tr": "Kuruyemiş / Fındık / Fıstık",
+          "en": "Tree Nuts / Peanuts"
         }
       ]
     },
@@ -846,6 +823,29 @@ window.MENU_DATA = {
       },
       "price": 820,
       "spicy": 2,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        }
+      ]
+    },
+    {
+      "id": "item-1792964412375",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "dana dil füme",
+        "en": "dana dil füme"
+      },
+      "description": {
+        "tr": "domates taban, fior di latte mozarella\nkekik, karabiber ve portakal kabuğu ile marine edilmiş dana dil füme rende olgun mihaliç peyniri, limon zest, frenk soğanı",
+        "en": ""
+      },
+      "price": 840,
+      "spicy": 0,
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
