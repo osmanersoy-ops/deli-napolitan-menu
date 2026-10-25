@@ -3,7 +3,7 @@ window.COST_DATA = {
   "lastUpdated": "2026-10-25",
   "settings": {
     "fireEnabled": true,
-    "fireRate": 8,
+    "fireRate": 4,
     "doughWizard": {
       "flourGram": 1000,
       "flourKgPrice": 35,
@@ -100,7 +100,7 @@ window.COST_DATA = {
       "id": "ing-fior-di-latte",
       "name": "Fior di latte Mozzarella",
       "unit": "kg",
-      "price": 420,
+      "price": 650,
       "category": "Peynir"
     },
     {
