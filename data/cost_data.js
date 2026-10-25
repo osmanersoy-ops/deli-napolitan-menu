@@ -63,34 +63,29 @@ window.COST_DATA = {
       ],
       "fistikPesto": [
         {
-          "name": "Antep Fıstığı (İç / File)",
-          "gram": 350,
-          "kgPrice": 950
+          "name": "Antep Fıstık",
+          "gram": 37,
+          "kgPrice": 755
         },
         {
-          "name": "Sızma Zeytinyağı",
-          "gram": 350,
-          "kgPrice": 380
+          "name": "Fesleğen",
+          "gram": 120,
+          "kgPrice": 1200
         },
         {
-          "name": "Rende Parmesan",
-          "gram": 150,
-          "kgPrice": 800
+          "name": "Fındık",
+          "gram": 37,
+          "kgPrice": 1000
         },
         {
-          "name": "Taze Fesleğen",
-          "gram": 100,
-          "kgPrice": 300
+          "name": "Zeytinyağı",
+          "gram": 200,
+          "kgPrice": 310
         },
         {
           "name": "Sarımsak",
-          "gram": 20,
-          "kgPrice": 150
-        },
-        {
-          "name": "Tuz & Karabiber",
           "gram": 10,
-          "kgPrice": 30
+          "kgPrice": 200
         }
       ],
       "stroganoff": [
@@ -368,7 +363,7 @@ window.COST_DATA = {
       "id": "ing-antep-pesto",
       "name": "Antep Fıstıklı Pesto",
       "unit": "kg",
-      "price": 550,
+      "price": 675.58,
       "category": "Sos & Yağ"
     },
     {
