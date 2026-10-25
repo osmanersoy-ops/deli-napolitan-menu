@@ -21,7 +21,7 @@ window.COST_DATA = {
   "rawIngredients": [
     {
       "id": "ing-domates-sos",
-      "name": "San Marzano Domates Sos (Taban)",
+      "name": "Domates Sos",
       "unit": "kg",
       "price": 180,
       "category": "Taban"
@@ -41,24 +41,10 @@ window.COST_DATA = {
       "category": "Taban"
     },
     {
-      "id": "ing-domates-krema",
-      "name": "Domatesli Krema Taban",
-      "unit": "kg",
-      "price": 210,
-      "category": "Taban"
-    },
-    {
       "id": "ing-truflu-krema",
       "name": "Siyah Sarımsak & Trüf Krema Taban",
       "unit": "kg",
       "price": 340,
-      "category": "Taban"
-    },
-    {
-      "id": "ing-tabasco-krema",
-      "name": "Tabasco Krema Domates Taban",
-      "unit": "kg",
-      "price": 230,
       "category": "Taban"
     },
     {
@@ -98,14 +84,14 @@ window.COST_DATA = {
     },
     {
       "id": "ing-fior-di-latte",
-      "name": "Fior di latte Mozzarella",
+      "name": "Mozzarella",
       "unit": "kg",
       "price": 650,
       "category": "Peynir"
     },
     {
       "id": "ing-scamorza",
-      "name": "Scamorza (İsli Mozzarella)",
+      "name": "Scamorza",
       "unit": "kg",
       "price": 480,
       "category": "Peynir"
@@ -126,14 +112,14 @@ window.COST_DATA = {
     },
     {
       "id": "ing-rende-parmesan",
-      "name": "Rende Parmesan (Grana Padano)",
+      "name": "Rende Parmesan",
       "unit": "kg",
       "price": 800,
       "category": "Peynir"
     },
     {
       "id": "ing-gorgonzola",
-      "name": "Gorgonzola / Danish Blue",
+      "name": "Danish Blue",
       "unit": "kg",
       "price": 700,
       "category": "Peynir"
@@ -319,6 +305,13 @@ window.COST_DATA = {
       "unit": "kg",
       "price": 360,
       "category": "Sos & Yağ"
+    },
+    {
+      "id": "ing-1792943670910",
+      "name": "Domates Krema Taban",
+      "unit": "kg",
+      "price": 200,
+      "category": "Taban"
     }
   ],
   "recipes": {
@@ -437,6 +430,33 @@ window.COST_DATA = {
       {
         "ingredientId": "ing-zeytinyagi",
         "amount": 8,
+        "unit": "gr"
+      }
+    ],
+    "pizza-6": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-fior-di-latte",
+        "amount": 100,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-gorgonzola",
+        "amount": 50,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-rende-parmesan",
+        "amount": 25,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-domates-sos",
+        "amount": 100,
         "unit": "gr"
       }
     ]
