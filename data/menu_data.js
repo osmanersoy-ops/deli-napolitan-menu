@@ -15,7 +15,7 @@ window.MENU_DATA = {
     "primaryColor": "#31543e",
     "accentColor": "#f5f5dc",
     "defaultProductImage": "assets/product_placeholder.jpg",
-    "lastUpdated": "2026-10-22"
+    "lastUpdated": "2026-10-25"
   },
   "categories": [
     {
