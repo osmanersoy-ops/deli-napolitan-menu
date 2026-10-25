@@ -845,7 +845,7 @@ window.MENU_DATA = {
         "en": ""
       },
       "price": 820,
-      "spicy": 0,
+      "spicy": 2,
       "badge": null,
       "image": "assets/product_placeholder.jpg",
       "allergens": [
