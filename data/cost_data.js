@@ -434,6 +434,13 @@ window.COST_DATA = {
       "unit": "kg",
       "price": 1800,
       "category": "Et & Şarküteri"
+    },
+    {
+      "id": "ing-1792964782065",
+      "name": "Acı Biber Reçeli",
+      "unit": "kg",
+      "price": 250,
+      "category": "Diğer"
     }
   ],
   "recipes": {
@@ -957,6 +964,33 @@ window.COST_DATA = {
         "ingredientId": "ing-1792964579403",
         "amount": 1,
         "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-zeytinyagi",
+        "amount": 10,
+        "unit": "gr"
+      }
+    ],
+    "item-1792964667286": [
+      {
+        "ingredientId": "ing-hamur-beze",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-domates-sos",
+        "amount": 80,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-1792964711977",
+        "amount": 50,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-stracciatella",
+        "amount": 120,
+        "unit": "gr"
       },
       {
         "ingredientId": "ing-zeytinyagi",
