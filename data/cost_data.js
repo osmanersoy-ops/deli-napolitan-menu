@@ -441,6 +441,13 @@ window.COST_DATA = {
       "unit": "kg",
       "price": 250,
       "category": "Diğer"
+    },
+    {
+      "id": "ing-1792965048562",
+      "name": "Frenk Maydonozu",
+      "unit": "adet",
+      "price": 5,
+      "category": "Yeşillik & Baharat"
     }
   ],
   "recipes": {
