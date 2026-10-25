@@ -420,6 +420,20 @@ window.COST_DATA = {
       "unit": "kg",
       "price": 1700,
       "category": "Et & Şarküteri"
+    },
+    {
+      "id": "ing-1792964579403",
+      "name": "Frenk Soğanı",
+      "unit": "adet",
+      "price": 5,
+      "category": "Yeşillik & Baharat"
+    },
+    {
+      "id": "ing-1792964711977",
+      "name": "Dana Brisket Füme",
+      "unit": "kg",
+      "price": 1800,
+      "category": "Et & Şarküteri"
     }
   ],
   "recipes": {
@@ -938,6 +952,16 @@ window.COST_DATA = {
         "ingredientId": "ing-1792964246783",
         "amount": 1,
         "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-1792964579403",
+        "amount": 1,
+        "unit": "adet"
+      },
+      {
+        "ingredientId": "ing-zeytinyagi",
+        "amount": 10,
+        "unit": "gr"
       }
     ]
   }
