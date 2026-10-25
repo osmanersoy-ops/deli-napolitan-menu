@@ -3547,12 +3547,34 @@
 
     async function loadCostData() {
       let fileCostData = null;
+
+      // 1. Try live GitHub API first (0-second delay, bypasses CDN build lag)
       try {
-        const resp = await fetch('data/cost_data.json?t=' + Date.now());
-        if (resp.ok) {
-          fileCostData = await resp.json();
+        const token = getActiveGithubToken();
+        const ghHeaders = { 'Accept': 'application/vnd.github.v3+json' };
+        if (token) ghHeaders['Authorization'] = `Bearer ${token}`;
+        const ghResp = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/data/cost_data.json?ref=${GITHUB_BRANCH}&t=${Date.now()}`, {
+          headers: ghHeaders,
+          cache: 'no-store'
+        });
+        if (ghResp.ok) {
+          const ghJson = await ghResp.json();
+          if (ghJson && ghJson.content) {
+            const decoded = decodeURIComponent(escape(atob(ghJson.content.replace(/\s/g, ''))));
+            fileCostData = JSON.parse(decoded);
+          }
         }
       } catch (e) {}
+
+      // 2. Fallback to local/CDN data/cost_data.json
+      if (!fileCostData) {
+        try {
+          const resp = await fetch('data/cost_data.json?t=' + Date.now(), { cache: 'no-store' });
+          if (resp.ok) {
+            fileCostData = await resp.json();
+          }
+        } catch (e) {}
+      }
 
       if (!fileCostData && window.COST_DATA) {
         fileCostData = JSON.parse(JSON.stringify(window.COST_DATA));
@@ -3568,14 +3590,14 @@
 
       const fileRecipeCount = fileCostData && fileCostData.recipes ? Object.keys(fileCostData.recipes).length : 0;
       const localRecipeCount = localSavedData && localSavedData.recipes ? Object.keys(localSavedData.recipes).length : 0;
-      const recoveryDone = localStorage.getItem('deli_cost_recovery_v2') === 'done';
+      const recoveryDone = localStorage.getItem('deli_cost_recovery_v3') === 'done';
 
       if (fileCostData && (!recoveryDone || fileRecipeCount > localRecipeCount)) {
         // Restore the full recovered 14-recipe + 40-ingredient dataset from fileCostData
         costData = JSON.parse(JSON.stringify(fileCostData));
         try {
           localStorage.setItem('deli_cost_data', JSON.stringify(costData));
-          localStorage.setItem('deli_cost_recovery_v2', 'done');
+          localStorage.setItem('deli_cost_recovery_v3', 'done');
         } catch (e) {}
       } else {
         costData = mergeCostDataSources(fileCostData, localSavedData);
@@ -4955,6 +4977,12 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       if (btn) btn.innerHTML = '<span>⏳</span> Buluta Kaydediliyor...';
 
       try {
+        if (!costData.recipes || Object.keys(costData.recipes).length < 14) {
+          await loadCostData();
+          renderCostView();
+          if (btn) btn.innerHTML = '<span>✅</span> Otomatik Kaydedildi';
+          return;
+        }
         const snapshot = JSON.parse(JSON.stringify(costData));
         const jsonContent = JSON.stringify(snapshot, null, 2);
         const jsonBase64 = btoa(unescape(encodeURIComponent(jsonContent)));
