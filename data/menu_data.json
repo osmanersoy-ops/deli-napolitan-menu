@@ -864,6 +864,39 @@
       "badge": null,
       "image": "assets/products/icecek-6.jpg",
       "allergens": []
+    },
+    {
+      "id": "item-1792964119409",
+      "categoryId": "pizza",
+      "name": {
+        "tr": "Sote Karides",
+        "en": "Sote Karides"
+      },
+      "description": {
+        "tr": "domates & krema taban, fior di latte mozarella\ntereyağında tarhun otu ile sotelenmiş karides\nlimon zest, frenk maydanozu (lime ile servis edilir)",
+        "en": ""
+      },
+      "price": 840,
+      "spicy": 0,
+      "badge": null,
+      "image": "assets/product_placeholder.jpg",
+      "allergens": [
+        {
+          "code": "gluten",
+          "tr": "Gluten",
+          "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy / Lactose"
+        },
+        {
+          "code": "crustaceans",
+          "tr": "Kabuklu Deniz Ürünleri",
+          "en": "Crustaceans"
+        }
+      ]
     }
   ]
 }
