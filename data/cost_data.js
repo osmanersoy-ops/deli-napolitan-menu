@@ -57,8 +57,8 @@ window.COST_DATA = {
         },
         {
           "name": "Sarımsak",
-          "gram": 3,
-          "kgPrice": 1000
+          "gram": 10,
+          "kgPrice": 200
         }
       ],
       "fistikPesto": [
@@ -90,39 +90,24 @@ window.COST_DATA = {
       ],
       "stroganoff": [
         {
-          "name": "Krema (%35 Yağlı)",
-          "gram": 500,
-          "kgPrice": 200
+          "name": "Mayonez",
+          "gram": 350,
+          "kgPrice": 371
         },
         {
-          "name": "Kültür / Kestane Mantarı",
-          "gram": 250,
-          "kgPrice": 120
+          "name": "Ekşi Krema",
+          "gram": 130,
+          "kgPrice": 324
         },
         {
-          "name": "Tereyağı",
-          "gram": 100,
-          "kgPrice": 360
+          "name": "Hardal",
+          "gram": 13,
+          "kgPrice": 2400
         },
         {
-          "name": "Kuru Soğan",
-          "gram": 100,
-          "kgPrice": 30
-        },
-        {
-          "name": "Dijon Hardalı",
-          "gram": 40,
-          "kgPrice": 220
-        },
-        {
-          "name": "Et Bulyon & Çeşni",
-          "gram": 20,
-          "kgPrice": 80
-        },
-        {
-          "name": "Worcestershire / Baharat",
-          "gram": 15,
-          "kgPrice": 180
+          "name": "Baharatlar",
+          "gram": 6,
+          "kgPrice": 300
         }
       ]
     }
@@ -356,7 +341,7 @@ window.COST_DATA = {
       "id": "ing-roka-pesto",
       "name": "Roka Pesto",
       "unit": "kg",
-      "price": 658.93,
+      "price": 647.24,
       "category": "Sos & Yağ"
     },
     {
@@ -377,7 +362,7 @@ window.COST_DATA = {
       "id": "ing-stroganoff-sos",
       "name": "Stroganoff Sos",
       "unit": "kg",
-      "price": 280,
+      "price": 410.76,
       "category": "Sos & Yağ"
     },
     {
