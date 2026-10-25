@@ -1576,7 +1576,7 @@
             </div>
           </div>
 
-          <button class="btn btn-publish" onclick="saveCostDataToGithub()" style="padding: 7px 14px;">
+          <button class="btn btn-publish" id="btn-save-cost-github" onclick="saveCostDataToGithub()" style="padding: 7px 14px;">
             <span>💾</span> Maliyetleri Kaydet
           </button>
         </div>
@@ -4915,6 +4915,10 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
     }
 
     function scheduleAutoSyncCostToGithub() {
+      const btn = document.getElementById('btn-save-cost-github');
+      if (btn) {
+        btn.innerHTML = '<span>⏳</span> Otomatik Kaydediliyor...';
+      }
       if (costAutoSyncTimer) clearTimeout(costAutoSyncTimer);
       costAutoSyncTimer = setTimeout(() => {
         runAutoSyncCostToGithub();
@@ -4923,8 +4927,12 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
 
     async function runAutoSyncCostToGithub() {
       if (!costData) return;
+      const btn = document.getElementById('btn-save-cost-github');
       const token = getActiveGithubToken();
-      if (!token) return;
+      if (!token) {
+        if (btn) btn.innerHTML = '<span>✅</span> Cihaza Kaydedildi';
+        return;
+      }
 
       if (costAutoSyncInProgress) {
         costAutoSyncQueued = true;
@@ -4932,6 +4940,8 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       }
       costAutoSyncInProgress = true;
       costAutoSyncQueued = false;
+
+      if (btn) btn.innerHTML = '<span>⏳</span> Buluta Kaydediliyor...';
 
       try {
         const snapshot = JSON.parse(JSON.stringify(costData));
@@ -4942,8 +4952,13 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
         const jsContent = `// Deli Napolitan Cost Data\nwindow.COST_DATA = ${jsonContent};\n`;
         const jsBase64 = btoa(unescape(encodeURIComponent(jsContent)));
         await commitFileToGithub('data/cost_data.js', jsBase64, 'Maliyet JS yedeği otomatik güncellendi (Admin)', token, false);
+
+        if (btn && !costAutoSyncQueued) {
+          btn.innerHTML = '<span>✅</span> Otomatik Kaydedildi';
+        }
       } catch (err) {
         console.warn('Auto cost sync warning:', err);
+        if (btn) btn.innerHTML = '<span>✅</span> Cihaza Kaydedildi';
       } finally {
         costAutoSyncInProgress = false;
         if (costAutoSyncQueued) {
