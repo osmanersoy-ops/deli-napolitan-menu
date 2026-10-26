@@ -85,11 +85,11 @@ window.MENU_DATA = {
       "categoryId": "ortaya",
       "name": {
         "tr": "taze peynirli zeytin salatası",
-        "en": "fresh cheese & olive bowl"
+        "en": "fresh cheese & marinated olive salad"
       },
       "description": {
         "tr": "mihaliç taze kaymak peyniri, hatay kırma zeytin, pancar suyunda bekletilmiş kalamata zeytin, ızgara zeytin, zahter, balzamik sirke, zeytinyağı",
-        "en": "fresh mihaliç cream cheese, hatay cracked olives, beet-cured kalamata, charred olives, zahter, balsamic, extra virgin olive oil"
+        "en": "fresh mihaliç cream cheese, hatay crushed green olives, kalamata olives in beetroot reduction, grilled olives, wild zahter, balsamic vinegar, extra virgin olive oil"
       },
       "price": 390,
       "spicy": 0,
@@ -108,11 +108,11 @@ window.MENU_DATA = {
       "categoryId": "ortaya",
       "name": {
         "tr": "humus",
-        "en": "hummus"
+        "en": "traditional hummus"
       },
       "description": {
         "tr": "ankara çubuk turşu ile servis edilir",
-        "en": "silky chickpea purée, served with ankara pickled gherkins"
+        "en": "served with artisanal ankara çubuk pickles"
       },
       "price": 280,
       "spicy": 0,
@@ -131,11 +131,11 @@ window.MENU_DATA = {
       "categoryId": "ortaya",
       "name": {
         "tr": "tulum peynirli armutlu roka salatası",
-        "en": "arugula, pear & tulum cheese"
+        "en": "tulum cheese, pear & arugula salad"
       },
       "description": {
         "tr": "yaban mersinli erzincan tulum, armut, roka, balzemik sirke, zeytinyağı",
-        "en": "wild blueberry erzincan tulum cheese, ripe pear, arugula, balsamic, extra virgin olive oil"
+        "en": "erzincan tulum cheese with blueberries, sliced pear, fresh arugula, balsamic glaze, extra virgin olive oil"
       },
       "price": 320,
       "spicy": 0,
@@ -154,11 +154,11 @@ window.MENU_DATA = {
       "categoryId": "corba",
       "name": {
         "tr": "kemik suyuna mercimek",
-        "en": "bone broth lentil soup"
+        "en": "bone broth red lentil soup"
       },
       "description": {
         "tr": "kemik suyu ile ağır ateşte demlenmiş geleneksel kırmızı mercimek çorbası",
-        "en": "traditional red lentil soup cooked with beef bone broth (weekdays only)"
+        "en": "slow-simmered bone broth traditional red lentil soup"
       },
       "price": 180,
       "spicy": 0,
@@ -174,11 +174,11 @@ window.MENU_DATA = {
       "categoryId": "corba",
       "name": {
         "tr": "kremalı mantar",
-        "en": "creamy mushroom soup"
+        "en": "creamy wild mushroom soup"
       },
       "description": {
         "tr": "",
-        "en": "sautéed chestnut & button mushrooms, fresh cream, fresh herbs (weekend only)"
+        "en": ""
       },
       "price": 220,
       "spicy": 0,
@@ -204,7 +204,7 @@ window.MENU_DATA = {
       },
       "description": {
         "tr": "domates sos, fior di latte mozarella, fesleğen",
-        "en": "tomato sauce, fior di latte mozzarella, basil"
+        "en": "san marzano tomato sauce, fior di latte mozzarella, fresh basil, extra virgin olive oil"
       },
       "price": 540,
       "spicy": 0,
@@ -232,7 +232,7 @@ window.MENU_DATA = {
       },
       "description": {
         "tr": "domates sos, scarmorza isli italyan peyniri, fesleğen",
-        "en": "tomato sauce, smoked scamorza, basil"
+        "en": "san marzano tomato sauce, smoked italian scamorza cheese, fresh basil"
       },
       "price": 690,
       "spicy": 0,
@@ -260,7 +260,7 @@ window.MENU_DATA = {
       },
       "description": {
         "tr": "domates sos, traş sarımsak, yarı kurutulmuş çeri domates, fesleğen",
-        "en": "tomato sauce, shaved garlic, semi-dried cherry tomatoes, basil"
+        "en": "san marzano tomato sauce, shaved garlic, semi-dried cherry tomatoes, fresh basil, oregano"
       },
       "price": 510,
       "spicy": 0,
@@ -283,7 +283,7 @@ window.MENU_DATA = {
       },
       "description": {
         "tr": "domates sos, traş sarımsak, yarı kurutulmuş çeri domates, stracciatella italyan peyniri, fesleğen",
-        "en": "tomato sauce, shaved garlic, semi-dried cherry tomatoes, stracciatella, basil"
+        "en": "san marzano tomato sauce, shaved garlic, semi-dried cherry tomatoes, italian stracciatella cheese, fresh basil"
       },
       "price": 620,
       "spicy": 0,
@@ -311,7 +311,7 @@ window.MENU_DATA = {
       },
       "description": {
         "tr": "domates sos, fior di latte mozarella, acılı kasap sucuk, rende parmesan",
-        "en": "tomato sauce, mozzarella, spicy butcher's sucuk, grated parmesan"
+        "en": "san marzano tomato sauce, fior di latte mozzarella, spicy butcher's sucuk, grated parmesan"
       },
       "price": 760,
       "spicy": 1,
@@ -335,11 +335,11 @@ window.MENU_DATA = {
       "categoryId": "pizza",
       "name": {
         "tr": "üç peynirli",
-        "en": "three cheese"
+        "en": "three cheese (tre formaggi)"
       },
       "description": {
         "tr": "domates sos, fior di latte mozarella, danish blue küflü peynir, rende parmesan, yarı kurutulmuş çeri domates",
-        "en": "tomato sauce, mozzarella, danish blue, grated parmesan, semi-dried cherry tomatoes"
+        "en": "tomato sauce, fior di latte mozzarella, danish blue cheese, grated parmesan, semi-dried cherry tomatoes"
       },
       "price": 710,
       "spicy": 0,
@@ -363,11 +363,11 @@ window.MENU_DATA = {
       "categoryId": "pizza",
       "name": {
         "tr": "kremalı isli üç peynirli",
-        "en": "smoked three cheese"
+        "en": "creamy smoked three cheese"
       },
       "description": {
         "tr": "krema taban, scarmorza isli italyan peyniri, erzurum isli peynir, rende parmesan",
-        "en": "cream base, smoked scamorza, smoked erzurum cheese, grated parmesan"
+        "en": "cream base, smoked italian scamorza, smoked erzurum cheese, grated parmesan"
       },
       "price": 740,
       "spicy": 0,
@@ -423,7 +423,7 @@ window.MENU_DATA = {
       },
       "description": {
         "tr": "siyah sarımsak & trüf mantarlı krema sos, fior di latte mozarella, defne yaprağı ile tereyağında sotelenmiş kestane mantarı, kültür mantarı, roka, rende olgun mihaliç peyniri",
-        "en": "black garlic & truffle cream, fior di latte mozzarella, bay-leaf butter chestnut mushrooms, button mushrooms, arugula, grated mihaliç cheese"
+        "en": "black garlic & truffle cream sauce, fior di latte mozzarella, chestnut & button mushrooms sautéed in butter with bay leaves, fresh arugula, aged mihaliç cheese"
       },
       "price": 720,
       "spicy": 0,
@@ -447,11 +447,11 @@ window.MENU_DATA = {
       "categoryId": "pizza",
       "name": {
         "tr": "bolonez",
-        "en": "bolognese"
+        "en": "beef bolognese"
       },
       "description": {
         "tr": "muskat & karabiberli krema taban, fior di latte mozarella, dana kıymadan bolonez, yarı kurutulmuş çeri domates, fesleğen",
-        "en": "nutmeg & black pepper cream base, fior di latte mozzarella, beef bolognese, semi-dried cherry tomatoes, basil (daily limited production — please ask)"
+        "en": "nutmeg & black pepper cream base, fior di latte mozzarella, slow-cooked beef bolognese, semi-dried cherry tomatoes, fresh basil"
       },
       "price": 720,
       "spicy": 0,
@@ -478,11 +478,11 @@ window.MENU_DATA = {
       "categoryId": "pizza",
       "name": {
         "tr": "biftek stroganoff",
-        "en": "beef stroganoff"
+        "en": "beef ribeye stroganoff"
       },
       "description": {
         "tr": "domatesli krema sos, fior di latte mozarella, kültür mantarı, marine edilmiş jülyen kesim antrikot, stroganoff sos",
-        "en": "tomato cream sauce, mozzarella, button mushrooms, marinated julienne ribeye, stroganoff sauce"
+        "en": "tomato cream sauce, fior di latte mozzarella, button mushrooms, marinated julienne beef ribeye, stroganoff sauce"
       },
       "price": 790,
       "spicy": 0,
@@ -543,7 +543,7 @@ window.MENU_DATA = {
       },
       "description": {
         "tr": "domates sos, fior di latte mozarella, kasap sucuk, kırmızı soğan, yarı kurutulmuş çeri domates, rende mihaliç peynir",
-        "en": "tomato sauce, fior di latte mozzarella, butcher's sucuk, red onion, semi-dried cherry tomatoes, grated mihaliç cheese"
+        "en": "tomato sauce, fior di latte mozzarella, artisanal butcher's sucuk, red onion, semi-dried cherry tomatoes, grated mihaliç cheese"
       },
       "price": 760,
       "spicy": 0,
@@ -567,11 +567,11 @@ window.MENU_DATA = {
       "categoryId": "pizza",
       "name": {
         "tr": "dana füme kaburga roka pesto",
-        "en": "smoked beef rib & arugula"
+        "en": "smoked beef ribs & arugula pesto"
       },
       "description": {
         "tr": "domates sos, fior di latte mozarella, dana füme kaburga, roka pesto, rende olgun mihaliç peyniri",
-        "en": "tomato sauce, fior di latte mozzarella, smoked beef rib, arugula pesto, aged mihaliç cheese"
+        "en": "tomato sauce, fior di latte mozzarella, slow-smoked beef ribs, fresh arugula pesto, aged mihaliç cheese"
       },
       "price": 860,
       "spicy": 0,
@@ -599,7 +599,7 @@ window.MENU_DATA = {
       },
       "description": {
         "tr": "italyan muhallebisi, taze çilek püresi ve vanilya ile",
-        "en": "traditional italian panna cotta, fresh strawberry coulis, vanilla"
+        "en": "traditional italian panna cotta, fresh strawberry coulis, madagascar vanilla"
       },
       "price": 320,
       "spicy": 0,
@@ -712,7 +712,7 @@ window.MENU_DATA = {
       },
       "description": {
         "tr": "limonata",
-        "en": "freshly squeezed homemade lemonade with fresh mint"
+        "en": ""
       },
       "price": 94,
       "spicy": 0,
@@ -729,7 +729,7 @@ window.MENU_DATA = {
       },
       "description": {
         "tr": "özerhisar ayranı",
-        "en": "artisanal özerhisar ayran"
+        "en": "özerhisar ayran"
       },
       "price": 114,
       "spicy": 0,
@@ -748,11 +748,11 @@ window.MENU_DATA = {
       "categoryId": "icecek",
       "name": {
         "tr": "maden suyu",
-        "en": "sparkling mineral water"
+        "en": "mineral water"
       },
       "description": {
         "tr": "200ml cam şişe doğal maden suyu",
-        "en": "200ml glass bottle natural sparkling mineral water"
+        "en": "200ml glass bottle natural mineral water"
       },
       "price": 60,
       "spicy": 0,
@@ -765,11 +765,11 @@ window.MENU_DATA = {
       "categoryId": "icecek",
       "name": {
         "tr": "su",
-        "en": "still water"
+        "en": "natural spring water"
       },
       "description": {
         "tr": "500ml",
-        "en": "500ml still spring water"
+        "en": "500ml"
       },
       "price": 30,
       "spicy": 0,
@@ -782,11 +782,11 @@ window.MENU_DATA = {
       "categoryId": "pizza",
       "name": {
         "tr": "antep fıstıklı pesto dana mortadella",
-        "en": "pistachio pesto & beef mortadella"
+        "en": "beef mortadella & pistachio pesto"
       },
       "description": {
         "tr": "krema taban, fior di latte mozarella, dana mortadella salam, italyan ricotto peynir, antep fıstıklı pesto, file antep fıstık",
-        "en": "cream base, fior di latte mozzarella, beef mortadella, italian ricotta, pistachio pesto, crushed pistachios"
+        "en": "cream base, fior di latte mozzarella, beef mortadella, italian ricotta cheese, pistachio pesto, toasted sliced pistachios"
       },
       "price": 790,
       "spicy": 0,
@@ -815,11 +815,11 @@ window.MENU_DATA = {
       "categoryId": "pizza",
       "name": {
         "tr": "acı biber reçelli dana brisket füme",
-        "en": "acı biber reçelli dana brisket füme"
+        "en": "sweet chili smoked brisket"
       },
       "description": {
         "tr": "domates taban, dana döş brisket füme\nstraccitaella italyan peyniri, meksika biber reçeli, limon zest",
-        "en": ""
+        "en": "Tomato base, smoked beef brisket, creamy stracciatella, Mexican chili jam, lemon zest"
       },
       "price": 820,
       "spicy": 2,
@@ -830,6 +830,11 @@ window.MENU_DATA = {
           "code": "gluten",
           "tr": "Gluten",
           "en": "Gluten"
+        },
+        {
+          "code": "milk",
+          "tr": "Laktoz / Süt",
+          "en": "Dairy / Lactose"
         }
       ]
     },
