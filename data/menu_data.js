@@ -85,11 +85,11 @@ window.MENU_DATA = {
       "categoryId": "ortaya",
       "name": {
         "tr": "taze peynirli zeytin salatası",
-        "en": "fresh cheese & marinated olive salad"
+        "en": "fresh cheese & olive bowl"
       },
       "description": {
         "tr": "mihaliç taze kaymak peyniri, hatay kırma zeytin, pancar suyunda bekletilmiş kalamata zeytin, ızgara zeytin, zahter, balzamik sirke, zeytinyağı",
-        "en": "fresh mihaliç cream cheese, hatay crushed green olives, kalamata olives in beetroot reduction, grilled olives, wild zahter, balsamic vinegar, extra virgin olive oil"
+        "en": "fresh mihaliç cream cheese, hatay cracked olives, beet-cured kalamata, charred olives, zahter, balsamic, extra virgin olive oil"
       },
       "price": 390,
       "spicy": 0,
@@ -108,11 +108,11 @@ window.MENU_DATA = {
       "categoryId": "ortaya",
       "name": {
         "tr": "humus",
-        "en": "traditional hummus"
+        "en": "hummus"
       },
       "description": {
         "tr": "ankara çubuk turşu ile servis edilir",
-        "en": "served with artisanal ankara çubuk pickles"
+        "en": "silky chickpea purée, served with ankara pickled gherkins"
       },
       "price": 280,
       "spicy": 0,
@@ -135,7 +135,7 @@ window.MENU_DATA = {
       },
       "description": {
         "tr": "yaban mersinli erzincan tulum, armut, roka, balzemik sirke, zeytinyağı",
-        "en": "erzincan tulum cheese with blueberries, sliced pear, fresh arugula, balsamic glaze, extra virgin olive oil"
+        "en": "wild blueberry erzincan tulum cheese , ripe pear, arugula, balsamic, extra virgin olive oil"
       },
       "price": 320,
       "spicy": 0,
@@ -478,11 +478,11 @@ window.MENU_DATA = {
       "categoryId": "pizza",
       "name": {
         "tr": "biftek stroganoff",
-        "en": "beef ribeye stroganoff"
+        "en": "beef stroganoff"
       },
       "description": {
         "tr": "domatesli krema sos, fior di latte mozarella, kültür mantarı, marine edilmiş jülyen kesim antrikot, stroganoff sos",
-        "en": "tomato cream sauce, fior di latte mozzarella, button mushrooms, marinated julienne beef ribeye, stroganoff sauce"
+        "en": "tomato sauce, fior di latte mozzarella\nsmoked beef rib, arugula pesto, aged mihaliç cheese"
       },
       "price": 790,
       "spicy": 0,
