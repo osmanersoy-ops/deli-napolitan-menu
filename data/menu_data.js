@@ -598,8 +598,8 @@ window.MENU_DATA = {
         "en": "strawberry panna cotta"
       },
       "description": {
-        "tr": "italyan muhallebisi, taze çilek püresi ve vanilya ile",
-        "en": "traditional italian panna cotta, fresh strawberry coulis, madagascar vanilla"
+        "tr": "italyan muhallebisi, çilek marmelatı",
+        "en": "Traditional Italian panna cotta, house-made strawberry marmalade"
       },
       "price": 320,
       "spicy": 0,
@@ -621,8 +621,8 @@ window.MENU_DATA = {
         "en": "blueberry panna cotta"
       },
       "description": {
-        "tr": "italyan muhallebisi, orman yaban mersini sosu ile",
-        "en": "traditional italian panna cotta with wild blueberry compote"
+        "tr": "italyan muhallebisi, yaban mersini marmelatı",
+        "en": "Traditional Italian panna cotta, house-made wild blueberry marmalade"
       },
       "price": 320,
       "spicy": 0,
