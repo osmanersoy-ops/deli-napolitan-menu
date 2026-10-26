@@ -15,7 +15,7 @@ window.MENU_DATA = {
     "primaryColor": "#31543e",
     "accentColor": "#f5f5dc",
     "defaultProductImage": "assets/product_placeholder.jpg",
-    "lastUpdated": "2026-10-25"
+    "lastUpdated": "2026-10-26"
   },
   "categories": [
     {
@@ -237,7 +237,7 @@ window.MENU_DATA = {
       "price": 690,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-2.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -247,7 +247,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -316,7 +316,7 @@ window.MENU_DATA = {
       "price": 760,
       "spicy": 1,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-5.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -344,7 +344,7 @@ window.MENU_DATA = {
       "price": 710,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-6.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -354,7 +354,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -372,7 +372,7 @@ window.MENU_DATA = {
       "price": 740,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-7.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -382,7 +382,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -390,7 +390,7 @@ window.MENU_DATA = {
       "id": "pizza-8",
       "categoryId": "pizza",
       "name": {
-        "tr": "ıspanak kremalı kuşkonmaz",
+        "tr": "ıspanak kremalı Izgara kabak",
         "en": "spinach cream & asparagus"
       },
       "description": {
@@ -400,7 +400,7 @@ window.MENU_DATA = {
       "price": 720,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-8.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -410,7 +410,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -428,7 +428,7 @@ window.MENU_DATA = {
       "price": 720,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-9.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -438,7 +438,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -457,9 +457,9 @@ window.MENU_DATA = {
       "spicy": 0,
       "badge": {
         "tr": "günlük sınırlı üretim lütfen sorunuz",
-        "en": "limited daily production, please ask"
+        "en": "günlük sınırlı üretim lütfen sorunuz"
       },
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-11.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -469,7 +469,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -515,7 +515,7 @@ window.MENU_DATA = {
       "price": 840,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/item-1792964119409.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -548,7 +548,7 @@ window.MENU_DATA = {
       "price": 760,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-13.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -558,7 +558,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -576,7 +576,7 @@ window.MENU_DATA = {
       "price": 860,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/pizza-15.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -586,7 +586,7 @@ window.MENU_DATA = {
         {
           "code": "milk",
           "tr": "Laktoz / Süt",
-          "en": "Dairy"
+          "en": "Dairy / Lactose"
         }
       ]
     },
@@ -824,7 +824,7 @@ window.MENU_DATA = {
       "price": 820,
       "spicy": 2,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/item-1792964667286.jpg",
       "allergens": [
         {
           "code": "gluten",
@@ -847,7 +847,7 @@ window.MENU_DATA = {
       "price": 840,
       "spicy": 0,
       "badge": null,
-      "image": "assets/product_placeholder.jpg",
+      "image": "assets/products/item-1792964412375.jpg",
       "allergens": [
         {
           "code": "gluten",
