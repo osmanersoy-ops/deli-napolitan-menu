@@ -380,7 +380,17 @@
     }
 
     .card-spicy {
-      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #b91c1c;
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      padding: 1px 6px;
+      border-radius: 4px;
+      vertical-align: middle;
     }
 
     .card-desc {
@@ -2570,9 +2580,9 @@
 
         // Spicy indicator
         let spicyStr = '';
-        if (item.spicy === 1) spicyStr = '🌶️';
-        else if (item.spicy === 2) spicyStr = '🌶️🌶️';
-        else if (item.spicy >= 3) spicyStr = '🌶️🌶️🌶️';
+        if (item.spicy === 1) spicyStr = '🌶️ az acı';
+        else if (item.spicy === 2) spicyStr = '🌶️🌶️ orta acı';
+        else if (item.spicy >= 3) spicyStr = '🌶️🌶️🌶️ çok acı';
 
         // Allergens tags
         let allergensHtml = '';
