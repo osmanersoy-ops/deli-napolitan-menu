@@ -154,7 +154,7 @@ window.MENU_DATA = {
       "categoryId": "corba",
       "name": {
         "tr": "kemik suyuna mercimek",
-        "en": "bone broth red lentil soup"
+        "en": "bone broth lentil soup"
       },
       "description": {
         "tr": "kemik suyu ile ağır ateşte demlenmiş geleneksel kırmızı mercimek çorbası",
@@ -174,11 +174,11 @@ window.MENU_DATA = {
       "categoryId": "corba",
       "name": {
         "tr": "kremalı mantar",
-        "en": "creamy wild mushroom soup"
+        "en": "creamy mushroom soup"
       },
       "description": {
-        "tr": "",
-        "en": ""
+        "tr": "kremalı mantar çorbası",
+        "en": "creamy mushroom soup"
       },
       "price": 220,
       "spicy": 0,
@@ -203,8 +203,8 @@ window.MENU_DATA = {
         "en": "margherita"
       },
       "description": {
-        "tr": "domates sos, fior di latte mozarella, fesleğen",
-        "en": "san marzano tomato sauce, fior di latte mozzarella, fresh basil, extra virgin olive oil"
+        "tr": "domates sos, fior di latte mozarella, fesleğen, sızma zeytinyağı",
+        "en": "tomato sauce, fior di latte mozzarella, basil, evo"
       },
       "price": 540,
       "spicy": 0,
@@ -231,8 +231,8 @@ window.MENU_DATA = {
         "en": "margherita v2"
       },
       "description": {
-        "tr": "domates sos, scarmorza isli italyan peyniri, fesleğen",
-        "en": "san marzano tomato sauce, smoked italian scamorza cheese, fresh basil"
+        "tr": "domates sos, scarmorza isli italyan peyniri, fesleğen, sızma zeytinyağı",
+        "en": "tomato sauce, smoked scamorza, basil, evo"
       },
       "price": 690,
       "spicy": 0,
@@ -259,8 +259,8 @@ window.MENU_DATA = {
         "en": "marinara"
       },
       "description": {
-        "tr": "domates sos, traş sarımsak, yarı kurutulmuş çeri domates, fesleğen",
-        "en": "san marzano tomato sauce, shaved garlic, semi-dried cherry tomatoes, fresh basil, oregano"
+        "tr": "domates sos, trıaş sarımsak, yarı kurutulmuş çeri domates, fesleğen, sızma zeytinyağı",
+        "en": "tomato sauce, shaved garlic, semi-dried cherry tomatoes, basil, evo"
       },
       "price": 510,
       "spicy": 0,
@@ -282,8 +282,8 @@ window.MENU_DATA = {
         "en": "marinara v2"
       },
       "description": {
-        "tr": "domates sos, traş sarımsak, yarı kurutulmuş çeri domates, stracciatella italyan peyniri, fesleğen",
-        "en": "san marzano tomato sauce, shaved garlic, semi-dried cherry tomatoes, italian stracciatella cheese, fresh basil"
+        "tr": "domates sos, traş sarımsak, yarı kurutulmuş çeri domates, stracciatella italyan peyniri, fesleğen, sızma zeytinyağı",
+        "en": "tomato sauce, shaved garlic, semi-dried cherry tomatoes, stracciatella, basil, evo"
       },
       "price": 620,
       "spicy": 0,
@@ -310,8 +310,8 @@ window.MENU_DATA = {
         "en": "diavola"
       },
       "description": {
-        "tr": "domates sos, fior di latte mozarella, acılı kasap sucuk, rende parmesan",
-        "en": "san marzano tomato sauce, fior di latte mozzarella, spicy butcher's sucuk, grated parmesan"
+        "tr": "domates sos, fior di latte mozarella, acılı kasap sucuk, rende parmesan, sızma zeytinyağı",
+        "en": "tomato sauce, mozzarella, spicy butcher’s sucuk, grated parmesan, evo"
       },
       "price": 760,
       "spicy": 1,
@@ -338,8 +338,8 @@ window.MENU_DATA = {
         "en": "three cheese (tre formaggi)"
       },
       "description": {
-        "tr": "domates sos, fior di latte mozarella, danish blue küflü peynir, rende parmesan, yarı kurutulmuş çeri domates",
-        "en": "tomato sauce, fior di latte mozzarella, danish blue cheese, grated parmesan, semi-dried cherry tomatoes"
+        "tr": "domates sos, fior di latte mozarella, danish blue küflü peynir, rende parmesan, yarı kurutulmuş çeri domates, sızma zeytinyağı",
+        "en": "tomato sauce, mozzarella, danish blue, grated parmesan, semi-dried cherry tomatoes, evo"
       },
       "price": 710,
       "spicy": 0,
@@ -366,8 +366,8 @@ window.MENU_DATA = {
         "en": "creamy smoked three cheese"
       },
       "description": {
-        "tr": "krema taban, scarmorza isli italyan peyniri, erzurum isli peynir, rende parmesan",
-        "en": "cream base, smoked italian scamorza, smoked erzurum cheese, grated parmesan"
+        "tr": "krema taban, scarmorza isli italyan peyniri, erzurum isli peynir, rende parmesan, sızma zeytinyağı",
+        "en": "cream base, smoked scamorza, smoked erzurum cheese, grated parmesan, evo"
       },
       "price": 740,
       "spicy": 0,
@@ -394,8 +394,8 @@ window.MENU_DATA = {
         "en": "creamy spinach & grilled zucchini"
       },
       "description": {
-        "tr": "ıspanaklı krema taban, fior di latte mozarella, ızgara kabak, rende olgun mihaliç peyniri, balzemik glaze sos",
-        "en": "Spinach cream base, fior di latte mozzarella, chargrilled zucchini, aged Mihaliç cheese, balsamic glaze."
+        "tr": "ıspanaklı krema taban, fior di latte mozarella, ızgara kabak, rende olgun mihaliç peyniri, balzemik glaze sos, sızma zeytinyağı",
+        "en": "Spinach cream base, fior di latte mozzarella, chargrilled zucchini, aged Mihaliç cheese, balsamic glaze, evo"
       },
       "price": 720,
       "spicy": 0,
@@ -422,8 +422,8 @@ window.MENU_DATA = {
         "en": "truffle cream & mushroom"
       },
       "description": {
-        "tr": "siyah sarımsak & trüf mantarlı krema sos, fior di latte mozarella, defne yaprağı ile tereyağında sotelenmiş kestane mantarı, kültür mantarı, roka, rende olgun mihaliç peyniri",
-        "en": "black garlic & truffle cream sauce, fior di latte mozzarella, chestnut & button mushrooms sautéed in butter with bay leaves, fresh arugula, aged mihaliç cheese"
+        "tr": "siyah sarımsak & trüf mantarlı krema sos, fior di latte mozarella, defne yaprağı ile tereyağında sotelenmiş kestane mantarı, kültür mantarı, roka, rende olgun mihaliç peyniri, sızma zeytinyağı",
+        "en": "black garlic & truffle cream, fior di latte mozzarella\nbay-leaf butter chestnut mushrooms, button mushrooms, arugula, grated mihaliç cheese, evo"
       },
       "price": 720,
       "spicy": 0,
@@ -450,8 +450,8 @@ window.MENU_DATA = {
         "en": "beef bolognese"
       },
       "description": {
-        "tr": "muskat & karabiberli krema taban, fior di latte mozarella, dana kıymadan bolonez, yarı kurutulmuş çeri domates, fesleğen",
-        "en": "nutmeg & black pepper cream base, fior di latte mozzarella, slow-cooked beef bolognese, semi-dried cherry tomatoes, fresh basil"
+        "tr": "muskat & karabiberli krema taban, fior di latte mozarella, dana kıymadan bolonez, yarı kurutulmuş çeri domates, fesleğen, sızma zeytinyağı",
+        "en": "nutmeg & black pepper cream base, fior di latte mozzarella, beef bolognese, semi-dried cherry tomatoes, basil, evo"
       },
       "price": 720,
       "spicy": 0,
@@ -481,8 +481,8 @@ window.MENU_DATA = {
         "en": "beef stroganoff"
       },
       "description": {
-        "tr": "domatesli krema sos, fior di latte mozarella, kültür mantarı, marine edilmiş jülyen kesim antrikot, stroganoff sos",
-        "en": "tomato sauce, fior di latte mozzarella\nsmoked beef rib, arugula pesto, aged mihaliç cheese"
+        "tr": "domatesli krema sos, fior di latte mozarella, kültür mantarı, marine edilmiş jülyen kesim antrikot, stroganoff sos, sızma zeytinyağı",
+        "en": "tomato cream sauce, mozzarella, button mushrooms\nmarinated julienne ribeye, stroganoff sauce, evo"
       },
       "price": 790,
       "spicy": 0,
@@ -542,8 +542,8 @@ window.MENU_DATA = {
         "en": "butcher's sucuk"
       },
       "description": {
-        "tr": "domates sos, fior di latte mozarella, kasap sucuk, kırmızı soğan, yarı kurutulmuş çeri domates, rende mihaliç peynir",
-        "en": "tomato sauce, fior di latte mozzarella, artisanal butcher's sucuk, red onion, semi-dried cherry tomatoes, grated mihaliç cheese"
+        "tr": "domates sos, fior di latte mozarella, kasap sucuk, kırmızı soğan, yarı kurutulmuş çeri domates, rende mihaliç peynir, sızma zeytinyağı",
+        "en": "tomato sauce, fior di latte mozzarella, butcher’s sucuk, red onion, semi-dried cherry tomatoes, grated mihaliç cheese, evo"
       },
       "price": 760,
       "spicy": 0,
@@ -570,8 +570,8 @@ window.MENU_DATA = {
         "en": "smoked beef ribs & arugula pesto"
       },
       "description": {
-        "tr": "domates sos, fior di latte mozarella, dana füme kaburga, roka pesto, rende olgun mihaliç peyniri",
-        "en": "tomato sauce, fior di latte mozzarella, slow-smoked beef ribs, fresh arugula pesto, aged mihaliç cheese"
+        "tr": "domates sos, fior di latte mozarella, dana füme kaburga, roka pesto, rende olgun mihaliç peyniri, sızma zeytinyağı",
+        "en": "tomato sauce, fior di latte mozzarella\nsmoked beef rib, arugula pesto, aged mihaliç cheese, evo"
       },
       "price": 860,
       "spicy": 0,
@@ -785,8 +785,8 @@ window.MENU_DATA = {
         "en": "beef mortadella & pistachio pesto"
       },
       "description": {
-        "tr": "krema taban, fior di latte mozarella, dana mortadella salam, italyan ricotto peynir, antep fıstıklı pesto, file antep fıstık",
-        "en": "cream base, fior di latte mozzarella, beef mortadella, italian ricotta cheese, pistachio pesto, toasted sliced pistachios"
+        "tr": "krema taban, fior di latte mozarella, dana mortadella salam, italyan ricotto peynir, antep fıstıklı pesto, file antep fıstık, sızma zeytinyağı",
+        "en": "cream base, fior di latte mozzarella\nbeef mortadella, italian ricotta, pistachio pesto\ncrushed pistachios, evo"
       },
       "price": 790,
       "spicy": 0,
