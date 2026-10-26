@@ -706,11 +706,6 @@ window.COST_DATA = {
         "unit": "gr"
       },
       {
-        "ingredientId": "ing-kuskonmaz",
-        "amount": 100,
-        "unit": "gr"
-      },
-      {
         "ingredientId": "ing-mihalic-olgun",
         "amount": 20,
         "unit": "gr"
@@ -723,6 +718,11 @@ window.COST_DATA = {
       {
         "ingredientId": "ing-zeytinyagi",
         "amount": 10,
+        "unit": "gr"
+      },
+      {
+        "ingredientId": "ing-1793029776445",
+        "amount": 80,
         "unit": "gr"
       }
     ],
