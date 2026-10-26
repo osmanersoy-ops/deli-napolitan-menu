@@ -390,12 +390,12 @@ window.MENU_DATA = {
       "id": "pizza-8",
       "categoryId": "pizza",
       "name": {
-        "tr": "ıspanak kremalı Izgara kabak",
-        "en": "spinach cream & asparagus"
+        "tr": "ıspanak kremalı ızgara kabak",
+        "en": "creamy spinach & grilled zucchini"
       },
       "description": {
         "tr": "ıspanaklı krema taban, fior di latte mozarella, tereyağında sotelenmiş kuşkonmaz, rende olgun mihaliç peyniri, balzemik glaze sos",
-        "en": "spinach cream base, fior di latte mozzarella, butter-sautéed tender asparagus, aged mihaliç cheese, balsamic glaze"
+        "en": "Spinach cream base, fior di latte mozzarella, chargrilled zucchini, aged Mihaliç cheese, balsamic glaze."
       },
       "price": 720,
       "spicy": 0,
