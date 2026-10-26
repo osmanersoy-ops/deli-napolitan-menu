@@ -448,6 +448,13 @@ window.COST_DATA = {
       "unit": "adet",
       "price": 5,
       "category": "Yeşillik & Baharat"
+    },
+    {
+      "id": "ing-1793029776445",
+      "name": "Izgara Kabak",
+      "unit": "kg",
+      "price": 100,
+      "category": "Sebze"
     }
   ],
   "recipes": {
