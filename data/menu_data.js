@@ -394,7 +394,7 @@ window.MENU_DATA = {
         "en": "creamy spinach & grilled zucchini"
       },
       "description": {
-        "tr": "ıspanaklı krema taban, fior di latte mozarella, tereyağında sotelenmiş kuşkonmaz, rende olgun mihaliç peyniri, balzemik glaze sos",
+        "tr": "ıspanaklı krema taban, fior di latte mozarella, ızgara kabak, rende olgun mihaliç peyniri, balzemik glaze sos",
         "en": "Spinach cream base, fior di latte mozzarella, chargrilled zucchini, aged Mihaliç cheese, balsamic glaze."
       },
       "price": 720,
