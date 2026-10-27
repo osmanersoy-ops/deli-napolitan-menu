@@ -15,7 +15,7 @@ window.MENU_DATA = {
     "primaryColor": "#31543e",
     "accentColor": "#f5f5dc",
     "defaultProductImage": "assets/product_placeholder.jpg",
-    "lastUpdated": "2026-10-26"
+    "lastUpdated": "2026-10-27"
   },
   "categories": [
     {
@@ -843,11 +843,11 @@ window.MENU_DATA = {
       "categoryId": "pizza",
       "name": {
         "tr": "dana dil füme",
-        "en": "dana dil füme"
+        "en": "smoked beef tongue"
       },
       "description": {
         "tr": "domates taban, fior di latte mozarella\nkekik, karabiber ve portakal kabuğu ile marine edilmiş dana dil füme rende olgun mihaliç peyniri, limon zest, frenk soğanı",
-        "en": ""
+        "en": "tomato base, fior di latte mozzarella, smoked beef tongue marinated with thyme, black pepper and orange zest, aged mihaliç cheese, lemon zest, chives"
       },
       "price": 840,
       "spicy": 0,
