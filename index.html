@@ -1801,6 +1801,27 @@
           const lang = localStorage.getItem('deli_napolitan_lang') || 'tr';
           hitKey(`deli_lang_${lang}`);
         }
+
+        // 10. Live Active Menu Reading Duration Heartbeat
+        // Her 20 saniyelik aktif sayfa incelemesinde deli_dur_<tarih> sayacına +1 blok eklenir.
+        // Sekme arka plana atıldığında veya ekran kilitlendiğinde sayaç durur.
+        let activeSeconds = 0;
+        const maxActiveSeconds = 900; // 15 dakika üst sınır
+        const durIntervalSec = 20;
+
+        const durIntervalId = setInterval(() => {
+          if (document.visibilityState === 'visible') {
+            activeSeconds += durIntervalSec;
+            hitKey(`deli_dur_${todayStr}`);
+            if (activeSeconds >= maxActiveSeconds) {
+              clearInterval(durIntervalId);
+            }
+          }
+        }, durIntervalSec * 1000);
+
+        window.addEventListener('beforeunload', () => {
+          clearInterval(durIntervalId);
+        });
       } catch (err) {}
     }
 

@@ -2010,9 +2010,9 @@
           <!-- Card 4: Avg Duration -->
           <div style="background: #faf5ff; border: 1px solid #e9d5ff; border-radius: var(--radius-sm); padding: 12px;">
             <div style="font-size: 0.75rem; color: #6b21a8; font-weight: 700; text-transform: uppercase;">⏱️ Ort. Menüde Kalma</div>
-            <div style="font-size: 1.8rem; font-weight: 800; color: #581c87; line-height: 1.2; margin: 4px 0;" id="kpi-avg-duration">3 dk 25 sn</div>
-            <div style="font-size: 0.72rem; color: #7e22ce;">
-              Detaylı içerik inceleme
+            <div style="font-size: 1.8rem; font-weight: 800; color: #581c87; line-height: 1.2; margin: 4px 0;" id="kpi-avg-duration">Ölçülüyor...</div>
+            <div style="font-size: 0.72rem; color: #7e22ce;" id="kpi-duration-sub">
+              Canlı ölçülen oturum süresi
             </div>
           </div>
         </div>
@@ -5338,6 +5338,15 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       return Math.max(1, diffDays);
     }
 
+    // Helper: Format duration seconds into human-readable string (e.g. '2 dk 40 sn')
+    function formatDuration(sec) {
+      if (!sec || sec < 5) return 'Ölçülüyor...';
+      if (sec < 60) return `${sec} sn`;
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return s > 0 ? `${m} dk ${s} sn` : `${m} dk`;
+    }
+
     // Helper: Metadata for last N calendar days
     function getLastNDaysMeta(n) {
       const list = [];
@@ -5361,7 +5370,8 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
           isToday,
           isBeforeLaunch,
           count: 0,
-          views: 0
+          views: 0,
+          durBlocks: 0
         });
       }
       return list;
@@ -5383,14 +5393,21 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
         if (!d.isBeforeLaunch) {
           d.count = await fetchCounterValue(`deli_uniq_${d.key}`);
           d.views = await fetchCounterValue(`deli_day_${d.key}`);
+          d.durBlocks = await fetchCounterValue(`deli_dur_${d.key}`);
           if (d.views < d.count) d.views = d.count;
         }
       }));
 
       // Extract today's live data from past7
-      const todayData = past7.find(d => d.isToday) || { count: 0, views: 0 };
+      const todayData = past7.find(d => d.isToday) || { count: 0, views: 0, durBlocks: 0 };
       const liveTodayUniq = todayData.count;
       const liveTodayViews = todayData.views;
+      const liveTodayDurBlocks = todayData.durBlocks || 0;
+
+      // Calculate Today's Average Duration (seconds per session / page view)
+      // Her blok = 20 saniye aktif inceleme
+      const todayTotalDurSec = liveTodayDurBlocks * 20;
+      const todayAvgSec = liveTodayViews > 0 ? Math.round(todayTotalDurSec / liveTodayViews) : 0;
 
       // Update header badge with real unique visitor count
       const badge = document.getElementById('header-today-visits-badge');
@@ -5399,6 +5416,9 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       // Sum collected days for week and month
       const sumActiveUniq = past7.reduce((sum, d) => sum + d.count, 0);
       const sumActiveViews = past7.reduce((sum, d) => sum + d.views, 0);
+      const sumActiveDurSec = past7.reduce((sum, d) => sum + ((d.durBlocks || 0) * 20), 0);
+      const weekAvgSec = sumActiveViews > 0 ? Math.round(sumActiveDurSec / sumActiveViews) : 0;
+      const monthAvgSec = weekAvgSec;
 
       // Update badge and notice on 7-day card
       const statusBadge = document.getElementById('stats-data-status-badge');
@@ -5427,6 +5447,7 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       const kpiUniq = document.getElementById('kpi-unique-tables');
       const kpiRepeat = document.getElementById('kpi-repeat-ratio');
       const kpiDuration = document.getElementById('kpi-avg-duration');
+      const kpiDurationSub = document.getElementById('kpi-duration-sub');
       const kpiSubViews = document.getElementById('kpi-views-sub');
       const kpiSubTables = document.getElementById('kpi-tables-sub');
 
@@ -5435,7 +5456,12 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
         if (kpiUniq) kpiUniq.textContent = String(liveTodayUniq);
         if (kpiViews) kpiViews.textContent = String(liveTodayViews);
         if (kpiRepeat) kpiRepeat.textContent = ratio + 'x';
-        if (kpiDuration) kpiDuration.textContent = '3 dk 25 sn';
+        if (kpiDuration) {
+          kpiDuration.textContent = formatDuration(todayAvgSec);
+        }
+        if (kpiDurationSub) {
+          kpiDurationSub.textContent = todayAvgSec > 0 ? 'Canlı ölçülen aktif süre' : 'Müşteri oturumu bekleniyor';
+        }
         if (kpiSubTables) kpiSubTables.innerHTML = '<span>✓</span> Günde 1 kez sayılan cihazlar';
         if (kpiSubViews) kpiSubViews.innerHTML = '<span>▲</span> Yenilemeler & tekrarlar dahil';
       } else if (currentStatsPeriod === 'week') {
@@ -5443,7 +5469,12 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
         if (kpiUniq) kpiUniq.textContent = String(sumActiveUniq);
         if (kpiViews) kpiViews.textContent = String(sumActiveViews);
         if (kpiRepeat) kpiRepeat.textContent = ratio + 'x';
-        if (kpiDuration) kpiDuration.textContent = '3 dk 40 sn';
+        if (kpiDuration) {
+          kpiDuration.textContent = formatDuration(weekAvgSec);
+        }
+        if (kpiDurationSub) {
+          kpiDurationSub.textContent = weekAvgSec > 0 ? `Geçen ${elapsedDays} günün ortalaması` : 'Veri toplanıyor';
+        }
         if (kpiSubTables) {
           if (elapsedDays < 7) {
             kpiSubTables.innerHTML = `<span style="color:#d97706; font-weight:700;">⚠️ ${elapsedDays}/7 gün birikti</span> (Önceki günlerde veri yok)`;
@@ -5464,7 +5495,12 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
         if (kpiUniq) kpiUniq.textContent = String(sumActiveUniq);
         if (kpiViews) kpiViews.textContent = String(sumActiveViews);
         if (kpiRepeat) kpiRepeat.textContent = ratio + 'x';
-        if (kpiDuration) kpiDuration.textContent = '3 dk 32 sn';
+        if (kpiDuration) {
+          kpiDuration.textContent = formatDuration(monthAvgSec);
+        }
+        if (kpiDurationSub) {
+          kpiDurationSub.textContent = monthAvgSec > 0 ? `Geçen ${elapsedDays} günün ortalaması` : 'Veri toplanıyor';
+        }
         if (kpiSubTables) {
           if (elapsedDays < 30) {
             kpiSubTables.innerHTML = `<span style="color:#d97706; font-weight:700;">⚠️ ${elapsedDays}/30 gün birikti</span> (Önceki günlerde veri yok)`;
