@@ -2500,6 +2500,7 @@
     function checkAuth() {
       let isAuth = false;
       try {
+        localStorage.setItem('deli_is_admin_device', 'true');
         isAuth = sessionStorage.getItem('deli_admin_logged_in') === 'true' ||
                  localStorage.getItem('deli_admin_logged_in') === 'true';
       } catch (e) {}

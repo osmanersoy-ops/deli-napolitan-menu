@@ -1761,8 +1761,30 @@
     // 9. Privacy-Friendly Unique Visitor Analytics Tracking
     function recordMenuAnalytics() {
       try {
-        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        if (isLocal || window.location.pathname.includes('admin')) return;
+        // 1. Exclude Admin & Staff Devices:
+        // Admin paneline girmiş olan, giriş şifresi veya GitHub token'ı bulunan cihazlar menüyü açtığında ASLA sayılmaz!
+        const isAdminDevice = localStorage.getItem('deli_is_admin_device') === 'true' ||
+                              localStorage.getItem('deli_admin_logged_in') === 'true' ||
+                              localStorage.getItem('deli_github_token') ||
+                              sessionStorage.getItem('deli_admin_logged_in') === 'true' ||
+                              (document.referrer && document.referrer.includes('admin')) ||
+                              window.location.search.includes('admin') ||
+                              window.location.pathname.includes('admin');
+        if (isAdminDevice) {
+          console.log('[Analytics] Yönetici/Personel cihazı tespit edildi — Ziyaretçi sayacına işlenmedi.');
+          return;
+        }
+
+        // 2. Exclude Bots, Web Crawlers & Headless Browsers:
+        if (navigator.webdriver) return;
+        const botRegex = /bot|crawl|spider|slurp|facebookexternalhit|whatsapp|headless|lighthouse|preview|search/i;
+        if (botRegex.test(navigator.userAgent)) return;
+
+        // 3. Exclude Local Development:
+        const isLocal = window.location.hostname === 'localhost' || 
+                        window.location.hostname === '127.0.0.1' || 
+                        window.location.hostname.endsWith('.local');
+        if (isLocal) return;
 
         const now = new Date();
         const pad = n => String(n).padStart(2, '0');
