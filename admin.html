@@ -2040,10 +2040,18 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
           <!-- 7-DAY TREND -->
           <div style="background: var(--color-white); border: 1px solid var(--color-cream-border); border-radius: var(--radius-sm); padding: 14px;">
-            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-dark); margin-bottom: 2px;">📅 Son 7 Günlük Tekil Ziyaretçiler</div>
-            <div style="font-size: 0.75rem; color: var(--color-muted); margin-bottom: 12px;">Haftalık gün bazında tekil masa taranma eğilimi</div>
-            <div id="stats-weekly-bars" style="display: flex; align-items: flex-end; gap: 8px; height: 120px; border-bottom: 1px solid var(--color-cream-border); padding-bottom: 6px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
+              <div>
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-dark);">📅 Son 7 Günlük Tekil Ziyaretçiler</div>
+                <div style="font-size: 0.75rem; color: var(--color-muted);">Haftalık gün bazında gerçek tekil masa okutmaları</div>
+              </div>
+              <span id="stats-data-status-badge" style="font-size: 0.68rem; background: #fef3c7; color: #92400e; padding: 2px 7px; border-radius: 4px; font-weight: 700;">1/7 Gün</span>
+            </div>
+            <div id="stats-weekly-bars" style="display: flex; align-items: flex-end; gap: 8px; height: 120px; border-bottom: 1px solid var(--color-cream-border); padding-bottom: 6px; margin-top: 10px;">
               <!-- Populated via JS -->
+            </div>
+            <div id="stats-weekly-notice" style="font-size: 0.7rem; color: var(--color-muted); margin-top: 8px;">
+              ℹ️ Sistem 27 Ekim'de kuruldu. 7 gün dolana kadar yalnızca geçen günlerin verisi gösterilir.
             </div>
           </div>
 
@@ -5321,6 +5329,44 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       loadVisitorStatsData();
     }
 
+    // Helper: Days elapsed since launch date (2026-10-27)
+    function getDaysSinceLaunch() {
+      const now = new Date();
+      const todayZero = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const launchZero = new Date(2026, 9, 27); // 27 Ekim 2026
+      const diffDays = Math.floor((todayZero - launchZero) / (1000 * 60 * 60 * 24)) + 1;
+      return Math.max(1, diffDays);
+    }
+
+    // Helper: Metadata for last N calendar days
+    function getLastNDaysMeta(n) {
+      const list = [];
+      const pad = num => String(num).padStart(2, '0');
+      const now = new Date();
+      const dayNames = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
+      const launchZero = new Date(2026, 9, 27);
+
+      for (let i = n - 1; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+        const dZero = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        const key = `${d.getFullYear()}_${pad(d.getMonth() + 1)}_${pad(d.getDate())}`;
+        const dayName = dayNames[d.getDay()];
+        const isToday = (i === 0);
+        const isBeforeLaunch = (dZero < launchZero);
+
+        list.push({
+          date: d,
+          key,
+          dayName,
+          isToday,
+          isBeforeLaunch,
+          count: 0,
+          views: 0
+        });
+      }
+      return list;
+    }
+
     async function loadVisitorStatsData(isRefresh = false) {
       const pad = n => String(n).padStart(2, '0');
       const now = new Date();
@@ -5329,22 +5375,52 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       const updatedEl = document.getElementById('stats-last-updated-text');
       if (updatedEl) updatedEl.textContent = isRefresh ? 'Yenileniyor...' : 'Veriler çekiliyor...';
 
-      // 1. Fetch Today's Live Counters
-      let liveTodayViews = await fetchCounterValue(`deli_day_${todayStr}`);
-      let liveTodayUniq = await fetchCounterValue(`deli_uniq_${todayStr}`);
+      const elapsedDays = getDaysSinceLaunch();
 
-      // Ensure views is at least equal to unique visitors
-      if (liveTodayViews < liveTodayUniq) {
-        liveTodayViews = liveTodayUniq;
-      }
+      // 1. Fetch Past 7 Days Real Counters in parallel
+      const past7 = getLastNDaysMeta(7);
+      await Promise.all(past7.map(async d => {
+        if (!d.isBeforeLaunch) {
+          d.count = await fetchCounterValue(`deli_uniq_${d.key}`);
+          d.views = await fetchCounterValue(`deli_day_${d.key}`);
+          if (d.views < d.count) d.views = d.count;
+        }
+      }));
 
-      // Live unique count is primary
-      const displayUniq = liveTodayUniq;
-      const displayViews = liveTodayViews;
+      // Extract today's live data from past7
+      const todayData = past7.find(d => d.isToday) || { count: 0, views: 0 };
+      const liveTodayUniq = todayData.count;
+      const liveTodayViews = todayData.views;
 
       // Update header badge with real unique visitor count
       const badge = document.getElementById('header-today-visits-badge');
-      if (badge) badge.textContent = String(displayUniq);
+      if (badge) badge.textContent = String(liveTodayUniq);
+
+      // Sum collected days for week and month
+      const sumActiveUniq = past7.reduce((sum, d) => sum + d.count, 0);
+      const sumActiveViews = past7.reduce((sum, d) => sum + d.views, 0);
+
+      // Update badge and notice on 7-day card
+      const statusBadge = document.getElementById('stats-data-status-badge');
+      const noticeEl = document.getElementById('stats-weekly-notice');
+      if (statusBadge) {
+        if (elapsedDays < 7) {
+          statusBadge.textContent = `${elapsedDays}/7 Gün (Veri Birikiyor)`;
+          statusBadge.style.background = '#fef3c7';
+          statusBadge.style.color = '#92400e';
+        } else {
+          statusBadge.textContent = '7/7 Gün Tamamlandı';
+          statusBadge.style.background = '#dcfce7';
+          statusBadge.style.color = '#15803d';
+        }
+      }
+      if (noticeEl) {
+        if (elapsedDays < 7) {
+          noticeEl.innerHTML = `ℹ️ Sistem 27 Ekim'de kuruldu. 7 gün dolana kadar yalnızca geçen günlerin (${elapsedDays}/7 gün) gerçek verisi gösterilir; önceki günlerde henüz veri yoktur.`;
+        } else {
+          noticeEl.innerHTML = `✓ Son 7 günün tamamı %100 gerçek okutma verilerinden oluşmaktadır.`;
+        }
+      }
 
       // Update KPI cards based on active period
       const kpiViews = document.getElementById('kpi-today-views');
@@ -5354,40 +5430,62 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       const kpiSubViews = document.getElementById('kpi-views-sub');
       const kpiSubTables = document.getElementById('kpi-tables-sub');
 
-      const ratio = displayUniq > 0 ? (displayViews / displayUniq).toFixed(1) : '1.0';
-
       if (currentStatsPeriod === 'today') {
-        if (kpiUniq) kpiUniq.textContent = String(displayUniq);
-        if (kpiViews) kpiViews.textContent = String(displayViews);
+        const ratio = liveTodayUniq > 0 ? (liveTodayViews / liveTodayUniq).toFixed(1) : '1.0';
+        if (kpiUniq) kpiUniq.textContent = String(liveTodayUniq);
+        if (kpiViews) kpiViews.textContent = String(liveTodayViews);
         if (kpiRepeat) kpiRepeat.textContent = ratio + 'x';
         if (kpiDuration) kpiDuration.textContent = '3 dk 25 sn';
         if (kpiSubTables) kpiSubTables.innerHTML = '<span>✓</span> Günde 1 kez sayılan cihazlar';
         if (kpiSubViews) kpiSubViews.innerHTML = '<span>▲</span> Yenilemeler & tekrarlar dahil';
       } else if (currentStatsPeriod === 'week') {
-        const weekUniq = Math.round(Math.max(displayUniq, 12) * 6.6);
-        const weekViews = Math.round(weekUniq * 1.38);
-        if (kpiUniq) kpiUniq.textContent = String(weekUniq);
-        if (kpiViews) kpiViews.textContent = String(weekViews);
-        if (kpiRepeat) kpiRepeat.textContent = '1.4x';
+        const ratio = sumActiveUniq > 0 ? (sumActiveViews / sumActiveUniq).toFixed(1) : '1.0';
+        if (kpiUniq) kpiUniq.textContent = String(sumActiveUniq);
+        if (kpiViews) kpiViews.textContent = String(sumActiveViews);
+        if (kpiRepeat) kpiRepeat.textContent = ratio + 'x';
         if (kpiDuration) kpiDuration.textContent = '3 dk 40 sn';
-        if (kpiSubTables) kpiSubTables.textContent = 'Haftalık ~' + weekUniq + ' Farklı Masa';
-        if (kpiSubViews) kpiSubViews.innerHTML = '<span>▲</span> 7 Günlük Toplam Görüntüleme';
+        if (kpiSubTables) {
+          if (elapsedDays < 7) {
+            kpiSubTables.innerHTML = `<span style="color:#d97706; font-weight:700;">⚠️ ${elapsedDays}/7 gün birikti</span> (Önceki günlerde veri yok)`;
+          } else {
+            kpiSubTables.textContent = 'Son 7 günlük toplam tekil masa';
+          }
+        }
+        if (kpiSubViews) {
+          if (elapsedDays < 7) {
+            kpiSubViews.innerHTML = `<span>▲</span> İlk ${elapsedDays} günün toplam okutması`;
+          } else {
+            kpiSubViews.innerHTML = '<span>▲</span> 7 günlük toplam görüntüleme';
+          }
+        }
       } else {
-        const monthUniq = Math.round(Math.max(displayUniq, 12) * 28.5);
-        const monthViews = Math.round(monthUniq * 1.4);
-        if (kpiUniq) kpiUniq.textContent = String(monthUniq);
-        if (kpiViews) kpiViews.textContent = String(monthViews);
-        if (kpiRepeat) kpiRepeat.textContent = '1.4x';
+        // Month:
+        const ratio = sumActiveUniq > 0 ? (sumActiveViews / sumActiveUniq).toFixed(1) : '1.0';
+        if (kpiUniq) kpiUniq.textContent = String(sumActiveUniq);
+        if (kpiViews) kpiViews.textContent = String(sumActiveViews);
+        if (kpiRepeat) kpiRepeat.textContent = ratio + 'x';
         if (kpiDuration) kpiDuration.textContent = '3 dk 32 sn';
-        if (kpiSubTables) kpiSubTables.textContent = 'Aylık ~' + monthUniq + ' Farklı Masa';
-        if (kpiSubViews) kpiSubViews.innerHTML = '<span>▲</span> 30 Günlük Toplam Görüntüleme';
+        if (kpiSubTables) {
+          if (elapsedDays < 30) {
+            kpiSubTables.innerHTML = `<span style="color:#d97706; font-weight:700;">⚠️ ${elapsedDays}/30 gün birikti</span> (Önceki günlerde veri yok)`;
+          } else {
+            kpiSubTables.textContent = 'Son 30 günlük toplam tekil masa';
+          }
+        }
+        if (kpiSubViews) {
+          if (elapsedDays < 30) {
+            kpiSubViews.innerHTML = `<span>▲</span> İlk ${elapsedDays} günün toplam okutması`;
+          } else {
+            kpiSubViews.innerHTML = '<span>▲</span> 30 günlük toplam görüntüleme';
+          }
+        }
       }
 
       // Render Hourly Distribution (12:00 to 23:00) using unique visitors
-      renderHourlyRushChart(displayUniq);
+      renderHourlyRushChart(liveTodayUniq);
 
-      // Render Weekly Trend using unique visitors
-      renderWeeklyTrendChart(displayUniq);
+      // Render Weekly Trend with actual past7 days array
+      renderWeeklyTrendChart(past7);
 
       // Render Category Progress
       renderCategoryBreakdown();
@@ -5442,41 +5540,35 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       });
     }
 
-    function renderWeeklyTrendChart(todayCount) {
+    function renderWeeklyTrendChart(past7) {
       const container = document.getElementById('stats-weekly-bars');
       if (!container) return;
       container.innerHTML = '';
 
-      const days = [
-        { name: 'Pzt', factor: 0.72 },
-        { name: 'Sal', factor: 0.78 },
-        { name: 'Çar', factor: 0.85 },
-        { name: 'Per', factor: 0.90 },
-        { name: 'Cum', factor: 1.25, isWeekend: true },
-        { name: 'Cmt', factor: 1.45, isWeekend: true },
-        { name: 'Paz', factor: 1.30, isWeekend: true }
-      ];
+      if (!Array.isArray(past7)) return;
 
-      const now = new Date();
-      const dayIdx = (now.getDay() + 6) % 7;
-      const countBase = Math.max(todayCount, 1);
-      const maxVal = Math.max(5, Math.round(countBase * 1.55));
+      const maxVal = Math.max(5, ...past7.map(d => d.count || 0));
 
-      days.forEach((d, i) => {
-        const isToday = i === dayIdx;
-        const count = isToday ? todayCount : Math.round(todayCount * d.factor);
-        const heightPct = Math.min(100, Math.max(8, Math.round((count / maxVal) * 100)));
-        
-        let barColor = d.isWeekend ? '#f59e0b' : '#94a3b8';
-        if (isToday) barColor = 'var(--color-forest)';
-
+      past7.forEach(d => {
         const col = document.createElement('div');
         col.style.cssText = 'flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;';
-        col.innerHTML = `
-          <span style="font-size: 0.68rem; font-weight: 700; color: ${isToday ? 'var(--color-forest)' : 'var(--color-muted)'}; margin-bottom: 2px;">${count}</span>
-          <div style="width: 100%; max-width: 32px; background: ${barColor}; height: ${heightPct}%; border-radius: 4px 4px 0 0;" title="${d.name} - ${count} tekil ziyaretçi"></div>
-          <span style="font-size: 0.72rem; color: ${isToday ? 'var(--color-forest)' : 'var(--color-dark)'}; margin-top: 4px; font-weight: ${isToday ? '800' : '600'};">${d.name}</span>
-        `;
+
+        if (d.isBeforeLaunch) {
+          col.innerHTML = `
+            <span style="font-size: 0.65rem; color: #94a3b8; margin-bottom: 2px;" title="Bu tarihte sayaç henüz aktif değildi">-</span>
+            <div style="width: 100%; max-width: 32px; background: #e2e8f0; height: 4px; border-radius: 2px;" title="${d.dayName} (${d.key}) - Henüz veri yok (Sistem 27 Ekim'de başladı)"></div>
+            <span style="font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">${d.dayName}</span>
+          `;
+        } else {
+          const heightPct = Math.min(100, Math.max(8, Math.round(((d.count || 0) / maxVal) * 100)));
+          const barColor = d.isToday ? 'var(--color-forest)' : '#10b981';
+
+          col.innerHTML = `
+            <span style="font-size: 0.68rem; font-weight: 700; color: ${d.isToday ? 'var(--color-forest)' : 'var(--color-dark)'}; margin-bottom: 2px;">${d.count}</span>
+            <div style="width: 100%; max-width: 32px; background: ${barColor}; height: ${heightPct}%; border-radius: 4px 4px 0 0;" title="${d.dayName} (${d.key}) - ${d.count} tekil ziyaretçi${d.isToday ? ' (Bugün)' : ''}"></div>
+            <span style="font-size: 0.72rem; color: ${d.isToday ? 'var(--color-forest)' : 'var(--color-dark)'}; margin-top: 4px; font-weight: ${d.isToday ? '800' : '600'};">${d.dayName}</span>
+          `;
+        }
         container.appendChild(col);
       });
     }
