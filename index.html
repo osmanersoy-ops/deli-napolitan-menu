@@ -1758,7 +1758,7 @@
       sections.forEach(sec => observer.observe(sec));
     }
 
-    // 9. Privacy-Friendly Visitor Analytics Tracking
+    // 9. Privacy-Friendly Unique Visitor Analytics Tracking
     function recordMenuAnalytics() {
       try {
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -1777,24 +1777,27 @@
           } catch(e) {}
         };
 
-        // Always increment today's total page views & all-time total views
+        // Always increment today's total page views & all-time total views (reloads & return visits)
         hitKey(`deli_day_${todayStr}`);
         hitKey('deli_total_views');
 
-        // Check if unique session for today
-        const sessionKey = 'deli_sess_' + todayStr;
-        if (!sessionStorage.getItem(sessionKey)) {
-          sessionStorage.setItem(sessionKey, '1');
+        // Strict Daily Unique Visitor Tracking:
+        // localStorage persists even if customer locks phone, switches apps, or reopens Safari.
+        // A customer visiting 1, 2, or 10 times in a single day is counted strictly ONCE per day.
+        const lastVisitDay = localStorage.getItem('deli_last_unique_visit_day');
+        if (lastVisitDay !== todayStr) {
+          localStorage.setItem('deli_last_unique_visit_day', todayStr);
           hitKey(`deli_uniq_${todayStr}`);
+          hitKey('deli_total_unique_visitors');
 
-          // Track device type
+          // Track device type (strictly unique visitors)
           const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
           const isAndroid = /Android/.test(navigator.userAgent);
           if (isIOS) hitKey('deli_dev_ios');
           else if (isAndroid) hitKey('deli_dev_android');
           else hitKey('deli_dev_other');
 
-          // Track language preference
+          // Track language preference (strictly unique visitors)
           const lang = localStorage.getItem('deli_napolitan_lang') || 'tr';
           hitKey(`deli_lang_${lang}`);
         }

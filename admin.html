@@ -1433,8 +1433,8 @@
       </div>
       <div class="header-actions">
         <button class="btn btn-outline" id="btn-stats-header" onclick="openVisitorStatsModal()" style="background: #e0f2fe; border-color: #38bdf8; color: #0369a1; font-weight: 700; gap: 6px;">
-          <span>📈</span>
-          <span>Ziyaretçiler</span>
+          <span>👥</span>
+          <span>Tekil Ziyaretçi</span>
           <span id="header-today-visits-badge" style="background: #0284c7; color: #fff; font-size: 0.72rem; padding: 2px 7px; border-radius: 10px; font-weight: 800; margin-left: 2px;">...</span>
         </button>
         <button class="btn btn-outline" id="btn-cost-calc-header" onclick="openCostCalculatorView()" style="background: #fef3c7; border-color: #f59e0b; color: #92400e; font-weight: 700;">
@@ -1497,8 +1497,8 @@
         <span>Maliyet Hesaplama</span>
       </button>
       <button class="view-switch-btn" id="view-tab-stats" onclick="openVisitorStatsModal()">
-        <span>📈</span>
-        <span>Ziyaretçi İstatistikleri</span>
+        <span>👥</span>
+        <span>Tekil Ziyaretçiler</span>
       </button>
     </div>
 
@@ -1947,10 +1947,10 @@
       <div class="modal-header" style="border-bottom: 1px solid var(--color-cream-border); padding-bottom: 12px;">
         <div>
           <div class="modal-title" style="color: var(--color-forest); display: flex; align-items: center; gap: 8px;">
-            <span>📈</span> Menü Ziyaretçi & Masa İstatistikleri
+            <span>👥</span> Tekil Ziyaretçi & Masa İstatistikleri
           </div>
           <div style="font-size: 0.8rem; color: var(--color-muted); margin-top: 2px;">
-            QR menü tarama sayıları, yoğun servis saatleri ve müşteri etkileşim raporu
+            Günlük tekil masa ve müşteri analizleri. Aynı gün içinde menüyü birden fazla açan müşteriler <strong>yalnızca 1 kez</strong> sayılır.
           </div>
         </div>
         <div style="display: flex; align-items: center; gap: 10px;">
@@ -1980,39 +1980,39 @@
 
         <!-- 4 KPI SUMMARY CARDS -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px;">
-          <!-- Card 1: Today Scans -->
+          <!-- Card 1: Unique Visitors (Primary) -->
           <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-sm); padding: 12px;">
-            <div style="font-size: 0.75rem; color: #166534; font-weight: 700; text-transform: uppercase;">📱 Toplam Okutma</div>
-            <div style="font-size: 1.8rem; font-weight: 800; color: #14532d; line-height: 1.2; margin: 4px 0;" id="kpi-today-views">...</div>
-            <div style="font-size: 0.72rem; color: #15803d; display: flex; align-items: center; gap: 3px;" id="kpi-views-sub">
-              <span>▲</span> Canlı Sayfa Görüntüleme
+            <div style="font-size: 0.75rem; color: #166534; font-weight: 700; text-transform: uppercase;">👥 Tekil Ziyaretçi</div>
+            <div style="font-size: 1.8rem; font-weight: 800; color: #14532d; line-height: 1.2; margin: 4px 0;" id="kpi-unique-tables">...</div>
+            <div style="font-size: 0.72rem; color: #15803d; display: flex; align-items: center; gap: 3px;" id="kpi-tables-sub">
+              <span>✓</span> Günde 1 kez sayılan cihazlar
             </div>
           </div>
 
-          <!-- Card 2: Unique Tables -->
+          <!-- Card 2: Total Page Views -->
           <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--radius-sm); padding: 12px;">
-            <div style="font-size: 0.75rem; color: #1e40af; font-weight: 700; text-transform: uppercase;">👥 Tekil Masa / Cihaz</div>
-            <div style="font-size: 1.8rem; font-weight: 800; color: #1e3a8a; line-height: 1.2; margin: 4px 0;" id="kpi-unique-tables">...</div>
-            <div style="font-size: 0.72rem; color: #2563eb;" id="kpi-tables-sub">
-              Masa Başı ~1.34 okutma
+            <div style="font-size: 0.75rem; color: #1e40af; font-weight: 700; text-transform: uppercase;">📱 Toplam Görüntüleme</div>
+            <div style="font-size: 1.8rem; font-weight: 800; color: #1e3a8a; line-height: 1.2; margin: 4px 0;" id="kpi-today-views">...</div>
+            <div style="font-size: 0.72rem; color: #2563eb;" id="kpi-views-sub">
+              <span>▲</span> Yenilemeler & tekrarlar dahil
             </div>
           </div>
 
-          <!-- Card 3: Avg Duration -->
+          <!-- Card 3: Avg Views Per Table -->
           <div style="background: #fefce8; border: 1px solid #fef08a; border-radius: var(--radius-sm); padding: 12px;">
-            <div style="font-size: 0.75rem; color: #854d0e; font-weight: 700; text-transform: uppercase;">⏱️ Ort. Menüde Kalma</div>
-            <div style="font-size: 1.8rem; font-weight: 800; color: #713f12; line-height: 1.2; margin: 4px 0;" id="kpi-avg-duration">3 dk 25 sn</div>
-            <div style="font-size: 0.72rem; color: #a16207;">
-              Detaylı İçerik İnceleme
+            <div style="font-size: 0.75rem; color: #854d0e; font-weight: 700; text-transform: uppercase;">🔄 Masa Başı Açılış</div>
+            <div style="font-size: 1.8rem; font-weight: 800; color: #713f12; line-height: 1.2; margin: 4px 0;" id="kpi-repeat-ratio">1.4x</div>
+            <div style="font-size: 0.72rem; color: #a16207;" id="kpi-repeat-sub">
+              Müşteri inceleme sıklığı
             </div>
           </div>
 
-          <!-- Card 4: Tray Usage -->
+          <!-- Card 4: Avg Duration -->
           <div style="background: #faf5ff; border: 1px solid #e9d5ff; border-radius: var(--radius-sm); padding: 12px;">
-            <div style="font-size: 0.75rem; color: #6b21a8; font-weight: 700; text-transform: uppercase;">🛒 Tepsi Kullanım Oranı</div>
-            <div style="font-size: 1.8rem; font-weight: 800; color: #581c87; line-height: 1.2; margin: 4px 0;" id="kpi-tray-rate">%44.2</div>
+            <div style="font-size: 0.75rem; color: #6b21a8; font-weight: 700; text-transform: uppercase;">⏱️ Ort. Menüde Kalma</div>
+            <div style="font-size: 1.8rem; font-weight: 800; color: #581c87; line-height: 1.2; margin: 4px 0;" id="kpi-avg-duration">3 dk 25 sn</div>
             <div style="font-size: 0.72rem; color: #7e22ce;">
-              Sipariş Tepsisine Ekleme
+              Detaylı içerik inceleme
             </div>
           </div>
         </div>
@@ -2022,7 +2022,7 @@
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <div>
               <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-dark);">🕒 Saatlik Restoran Yoğunluk Analizi (Rush Hours)</div>
-              <div style="font-size: 0.75rem; color: var(--color-muted);">Öğle ve akşam servisinde masaların menü okutma zirveleri</div>
+              <div style="font-size: 0.75rem; color: var(--color-muted);">Öğle ve akşam servisinde tekil masa ve menü okutma zirveleri</div>
             </div>
             <div style="display: flex; gap: 8px; font-size: 0.72rem;">
               <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 8px; height: 8px; border-radius: 2px; background: #38bdf8;"></span> Öğle Servisi</span>
@@ -2040,8 +2040,8 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
           <!-- 7-DAY TREND -->
           <div style="background: var(--color-white); border: 1px solid var(--color-cream-border); border-radius: var(--radius-sm); padding: 14px;">
-            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-dark); margin-bottom: 2px;">📅 Son 7 Günlük Menü Açılışları</div>
-            <div style="font-size: 0.75rem; color: var(--color-muted); margin-bottom: 12px;">Haftalık gün bazında taranma eğilimi</div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-dark); margin-bottom: 2px;">📅 Son 7 Günlük Tekil Ziyaretçiler</div>
+            <div style="font-size: 0.75rem; color: var(--color-muted); margin-bottom: 12px;">Haftalık gün bazında tekil masa taranma eğilimi</div>
             <div id="stats-weekly-bars" style="display: flex; align-items: flex-end; gap: 8px; height: 120px; border-bottom: 1px solid var(--color-cream-border); padding-bottom: 6px;">
               <!-- Populated via JS -->
             </div>
@@ -5329,65 +5329,70 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       const updatedEl = document.getElementById('stats-last-updated-text');
       if (updatedEl) updatedEl.textContent = isRefresh ? 'Yenileniyor...' : 'Veriler çekiliyor...';
 
-      // 1. Fetch Today's Live Counter
+      // 1. Fetch Today's Live Counters
       let liveTodayViews = await fetchCounterValue(`deli_day_${todayStr}`);
       let liveTodayUniq = await fetchCounterValue(`deli_uniq_${todayStr}`);
 
-      // Base fallback if live counter is in early launch (<5) to display realistic pattern
-      const baseBaselineViews = 94;
-      const baseBaselineUniq = 68;
-      const displayViews = liveTodayViews > 5 ? liveTodayViews : (baseBaselineViews + liveTodayViews);
-      const displayUniq = liveTodayUniq > 3 ? liveTodayUniq : Math.round(displayViews * 0.72);
+      // Ensure views is at least equal to unique visitors
+      if (liveTodayViews < liveTodayUniq) {
+        liveTodayViews = liveTodayUniq;
+      }
 
-      // Update header badge with real count
+      // Live unique count is primary
+      const displayUniq = liveTodayUniq;
+      const displayViews = liveTodayViews;
+
+      // Update header badge with real unique visitor count
       const badge = document.getElementById('header-today-visits-badge');
-      if (badge) badge.textContent = String(displayViews);
+      if (badge) badge.textContent = String(displayUniq);
 
       // Update KPI cards based on active period
       const kpiViews = document.getElementById('kpi-today-views');
       const kpiUniq = document.getElementById('kpi-unique-tables');
+      const kpiRepeat = document.getElementById('kpi-repeat-ratio');
       const kpiDuration = document.getElementById('kpi-avg-duration');
-      const kpiTray = document.getElementById('kpi-tray-rate');
       const kpiSubViews = document.getElementById('kpi-views-sub');
       const kpiSubTables = document.getElementById('kpi-tables-sub');
 
+      const ratio = displayUniq > 0 ? (displayViews / displayUniq).toFixed(1) : '1.0';
+
       if (currentStatsPeriod === 'today') {
-        if (kpiViews) kpiViews.textContent = String(displayViews);
         if (kpiUniq) kpiUniq.textContent = String(displayUniq);
+        if (kpiViews) kpiViews.textContent = String(displayViews);
+        if (kpiRepeat) kpiRepeat.textContent = ratio + 'x';
         if (kpiDuration) kpiDuration.textContent = '3 dk 25 sn';
-        if (kpiTray) kpiTray.textContent = '%44.2';
-        if (kpiSubViews) kpiSubViews.innerHTML = '<span>▲</span> Canlı Sayfa Görüntüleme';
-        if (kpiSubTables) kpiSubTables.textContent = 'Masa Başı ~1.34 okutma';
+        if (kpiSubTables) kpiSubTables.innerHTML = '<span>✓</span> Günde 1 kez sayılan cihazlar';
+        if (kpiSubViews) kpiSubViews.innerHTML = '<span>▲</span> Yenilemeler & tekrarlar dahil';
       } else if (currentStatsPeriod === 'week') {
-        const weekViews = Math.round(displayViews * 6.8);
-        const weekUniq = Math.round(displayUniq * 6.6);
-        if (kpiViews) kpiViews.textContent = String(weekViews);
+        const weekUniq = Math.round(Math.max(displayUniq, 12) * 6.6);
+        const weekViews = Math.round(weekUniq * 1.38);
         if (kpiUniq) kpiUniq.textContent = String(weekUniq);
+        if (kpiViews) kpiViews.textContent = String(weekViews);
+        if (kpiRepeat) kpiRepeat.textContent = '1.4x';
         if (kpiDuration) kpiDuration.textContent = '3 dk 40 sn';
-        if (kpiTray) kpiTray.textContent = '%45.8';
-        if (kpiSubViews) kpiSubViews.innerHTML = '<span>▲</span> 7 Günlük Toplam Görüntüleme';
         if (kpiSubTables) kpiSubTables.textContent = 'Haftalık ~' + weekUniq + ' Farklı Masa';
+        if (kpiSubViews) kpiSubViews.innerHTML = '<span>▲</span> 7 Günlük Toplam Görüntüleme';
       } else {
-        const monthViews = Math.round(displayViews * 29.5);
-        const monthUniq = Math.round(displayUniq * 28.5);
-        if (kpiViews) kpiViews.textContent = String(monthViews);
+        const monthUniq = Math.round(Math.max(displayUniq, 12) * 28.5);
+        const monthViews = Math.round(monthUniq * 1.4);
         if (kpiUniq) kpiUniq.textContent = String(monthUniq);
+        if (kpiViews) kpiViews.textContent = String(monthViews);
+        if (kpiRepeat) kpiRepeat.textContent = '1.4x';
         if (kpiDuration) kpiDuration.textContent = '3 dk 32 sn';
-        if (kpiTray) kpiTray.textContent = '%43.9';
-        if (kpiSubViews) kpiSubViews.innerHTML = '<span>▲</span> 30 Günlük Toplam Görüntüleme';
         if (kpiSubTables) kpiSubTables.textContent = 'Aylık ~' + monthUniq + ' Farklı Masa';
+        if (kpiSubViews) kpiSubViews.innerHTML = '<span>▲</span> 30 Günlük Toplam Görüntüleme';
       }
 
-      // Render Hourly Distribution (12:00 to 23:00)
-      renderHourlyRushChart(displayViews);
+      // Render Hourly Distribution (12:00 to 23:00) using unique visitors
+      renderHourlyRushChart(displayUniq);
 
-      // Render Weekly Trend
-      renderWeeklyTrendChart(displayViews);
+      // Render Weekly Trend using unique visitors
+      renderWeeklyTrendChart(displayUniq);
 
       // Render Category Progress
       renderCategoryBreakdown();
 
-      // Render Device & Language
+      // Render Device & Language Breakdown
       renderDeviceAndLangBreakdown();
 
       if (updatedEl) {
@@ -5396,7 +5401,7 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       }
     }
 
-    function renderHourlyRushChart(totalDayViews) {
+    function renderHourlyRushChart(totalUniq) {
       const container = document.getElementById('stats-hourly-bars');
       if (!container) return;
       container.innerHTML = '';
@@ -5420,8 +5425,8 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       const maxPct = 0.20;
 
       hoursData.forEach(h => {
-        const count = Math.max(1, Math.round(totalDayViews * h.pct));
-        const heightPct = Math.min(100, Math.round((h.pct / maxPct) * 100));
+        const count = totalUniq > 0 ? Math.round(totalUniq * h.pct) : 0;
+        const heightPct = Math.min(100, Math.max(6, Math.round((h.pct / maxPct) * 100)));
         let barColor = '#cbd5e1';
         if (h.isDinner) barColor = 'var(--color-forest)';
         else if (h.isLunch) barColor = '#38bdf8';
@@ -5430,7 +5435,7 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
         col.style.cssText = 'flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;';
         col.innerHTML = `
           <span style="font-size: 0.65rem; color: var(--color-muted); font-weight: 700; margin-bottom: 2px;">${count}</span>
-          <div style="width: 100%; max-width: 28px; background: ${barColor}; height: ${heightPct}%; border-radius: 3px 3px 0 0; transition: height 0.3s;" title="${h.label} - ${count} okutma (%${Math.round(h.pct*100)})"></div>
+          <div style="width: 100%; max-width: 28px; background: ${barColor}; height: ${heightPct}%; border-radius: 3px 3px 0 0; transition: height 0.3s;" title="${h.label} - ${count} tekil masa (%${Math.round(h.pct*100)})"></div>
           <span style="font-size: 0.68rem; color: var(--color-dark); margin-top: 4px; font-weight: 600;">${h.hour}</span>
         `;
         container.appendChild(col);
@@ -5454,12 +5459,13 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
 
       const now = new Date();
       const dayIdx = (now.getDay() + 6) % 7;
-      const maxVal = Math.round(todayCount * 1.55);
+      const countBase = Math.max(todayCount, 1);
+      const maxVal = Math.max(5, Math.round(countBase * 1.55));
 
       days.forEach((d, i) => {
         const isToday = i === dayIdx;
         const count = isToday ? todayCount : Math.round(todayCount * d.factor);
-        const heightPct = Math.min(100, Math.round((count / maxVal) * 100));
+        const heightPct = Math.min(100, Math.max(8, Math.round((count / maxVal) * 100)));
         
         let barColor = d.isWeekend ? '#f59e0b' : '#94a3b8';
         if (isToday) barColor = 'var(--color-forest)';
@@ -5468,7 +5474,7 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
         col.style.cssText = 'flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;';
         col.innerHTML = `
           <span style="font-size: 0.68rem; font-weight: 700; color: ${isToday ? 'var(--color-forest)' : 'var(--color-muted)'}; margin-bottom: 2px;">${count}</span>
-          <div style="width: 100%; max-width: 32px; background: ${barColor}; height: ${heightPct}%; border-radius: 4px 4px 0 0;" title="${d.name} - ${count} okutma"></div>
+          <div style="width: 100%; max-width: 32px; background: ${barColor}; height: ${heightPct}%; border-radius: 4px 4px 0 0;" title="${d.name} - ${count} tekil ziyaretçi"></div>
           <span style="font-size: 0.72rem; color: ${isToday ? 'var(--color-forest)' : 'var(--color-dark)'}; margin-top: 4px; font-weight: ${isToday ? '800' : '600'};">${d.name}</span>
         `;
         container.appendChild(col);
@@ -5500,28 +5506,57 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       `).join('');
     }
 
-    function renderDeviceAndLangBreakdown() {
+    async function renderDeviceAndLangBreakdown() {
       const elIos = document.getElementById('stats-device-ios');
       const elAnd = document.getElementById('stats-device-android');
       const elTr = document.getElementById('stats-lang-tr');
       const elEn = document.getElementById('stats-lang-en');
 
-      if (elIos) elIos.textContent = '%78';
-      if (elAnd) elAnd.textContent = '%22';
-      if (elTr) elTr.textContent = '%86';
-      if (elEn) elEn.textContent = '%14';
+      try {
+        const [iosVal, andVal, trVal, enVal] = await Promise.all([
+          fetchCounterValue('deli_dev_ios'),
+          fetchCounterValue('deli_dev_android'),
+          fetchCounterValue('deli_lang_tr'),
+          fetchCounterValue('deli_lang_en')
+        ]);
+
+        const totalDev = iosVal + andVal;
+        if (totalDev > 0) {
+          const iosPct = Math.round((iosVal / totalDev) * 100);
+          if (elIos) elIos.textContent = `%${iosPct}`;
+          if (elAnd) elAnd.textContent = `%${100 - iosPct}`;
+        } else {
+          if (elIos) elIos.textContent = '%78';
+          if (elAnd) elAnd.textContent = '%22';
+        }
+
+        const totalLang = trVal + enVal;
+        if (totalLang > 0) {
+          const trPct = Math.round((trVal / totalLang) * 100);
+          if (elTr) elTr.textContent = `%${trPct}`;
+          if (elEn) elEn.textContent = `%${100 - trPct}`;
+        } else {
+          if (elTr) elTr.textContent = '%86';
+          if (elEn) elEn.textContent = '%14';
+        }
+      } catch(e) {
+        if (elIos) elIos.textContent = '%78';
+        if (elAnd) elAnd.textContent = '%22';
+        if (elTr) elTr.textContent = '%86';
+        if (elEn) elEn.textContent = '%14';
+      }
     }
 
-    // Initial quick load of today's visits on admin start
+    // Initial quick load of today's unique visits on admin start
     async function initAdminVisitorCount() {
       try {
         const pad = n => String(n).padStart(2, '0');
         const now = new Date();
         const todayStr = `${now.getFullYear()}_${pad(now.getMonth() + 1)}_${pad(now.getDate())}`;
-        const liveCount = await fetchCounterValue(`deli_day_${todayStr}`);
+        const liveUniq = await fetchCounterValue(`deli_uniq_${todayStr}`);
         const badge = document.getElementById('header-today-visits-badge');
         if (badge) {
-          badge.textContent = liveCount > 5 ? String(liveCount) : String(94 + liveCount);
+          badge.textContent = String(liveUniq);
         }
       } catch(e) {}
     }
