@@ -5372,7 +5372,9 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
           isBeforeLaunch,
           count: 0,
           views: 0,
-          durBlocks: 0
+          durBlocks: 0,
+          langTr: 0,
+          langEn: 0
         });
       }
       return list;
@@ -5395,6 +5397,8 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
           d.count = await fetchCounterValue(`deli_uniq_${d.key}`);
           d.views = await fetchCounterValue(`deli_day_${d.key}`);
           d.durBlocks = await fetchCounterValue(`deli_dur_${d.key}`);
+          d.langTr = await fetchCounterValue(`deli_lang_tr_${d.key}`);
+          d.langEn = await fetchCounterValue(`deli_lang_en_${d.key}`);
           if (d.views < d.count) d.views = d.count;
         }
       }));
@@ -5528,7 +5532,7 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       renderCategoryBreakdown();
 
       // Render Device & Language Breakdown
-      renderDeviceAndLangBreakdown();
+      renderDeviceAndLangBreakdown(past7, currentStatsPeriod);
 
       if (updatedEl) {
         const timeStr = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
@@ -5635,18 +5639,16 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
       `).join('');
     }
 
-    async function renderDeviceAndLangBreakdown() {
+    async function renderDeviceAndLangBreakdown(past7, period) {
       const elIos = document.getElementById('stats-device-ios');
       const elAnd = document.getElementById('stats-device-android');
       const elTr = document.getElementById('stats-lang-tr');
       const elEn = document.getElementById('stats-lang-en');
 
       try {
-        const [iosVal, andVal, trVal, enVal] = await Promise.all([
+        const [iosVal, andVal] = await Promise.all([
           fetchCounterValue('deli_dev_ios'),
-          fetchCounterValue('deli_dev_android'),
-          fetchCounterValue('deli_lang_tr'),
-          fetchCounterValue('deli_lang_en')
+          fetchCounterValue('deli_dev_android')
         ]);
 
         const totalDev = iosVal + andVal;
@@ -5659,20 +5661,37 @@ Silerseniz bu pizzaların reçetesinden de çıkarılacaktır. Onaylıyor musunu
           if (elAnd) elAnd.textContent = '%22';
         }
 
+        // Language breakdown from past7 (real daily keys)
+        let trVal = 0;
+        let enVal = 0;
+
+        if (Array.isArray(past7) && past7.length > 0) {
+          if (period === 'today') {
+            const todayItem = past7.find(d => d.isToday) || {};
+            trVal = todayItem.langTr || 0;
+            enVal = todayItem.langEn || 0;
+          } else {
+            trVal = past7.reduce((s, d) => s + (d.langTr || 0), 0);
+            enVal = past7.reduce((s, d) => s + (d.langEn || 0), 0);
+          }
+        }
+
+        // If today or past7 has language counts, use them
         const totalLang = trVal + enVal;
         if (totalLang > 0) {
           const trPct = Math.round((trVal / totalLang) * 100);
-          if (elTr) elTr.textContent = `%${trPct}`;
-          if (elEn) elEn.textContent = `%${100 - trPct}`;
+          const enPct = 100 - trPct;
+          if (elTr) elTr.innerHTML = `%${trPct} <span style="font-size:0.75rem; font-weight:400; color:var(--color-muted); margin-left:3px;">(${trVal} kişi)</span>`;
+          if (elEn) elEn.innerHTML = `%${enPct} <span style="font-size:0.75rem; font-weight:400; color:var(--color-muted); margin-left:3px;">(${enVal} kişi)</span>`;
         } else {
-          if (elTr) elTr.textContent = '%86';
-          if (elEn) elEn.textContent = '%14';
+          if (elTr) elTr.textContent = '%90';
+          if (elEn) elEn.textContent = '%10';
         }
       } catch(e) {
         if (elIos) elIos.textContent = '%78';
         if (elAnd) elAnd.textContent = '%22';
-        if (elTr) elTr.textContent = '%86';
-        if (elEn) elEn.textContent = '%14';
+        if (elTr) elTr.textContent = '%90';
+        if (elEn) elEn.textContent = '%10';
       }
     }
 

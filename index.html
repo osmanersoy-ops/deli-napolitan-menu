@@ -1268,7 +1268,51 @@
       default: "⚠️"
     };
 
-    // 1. Language Initialization
+    // 1. Language Initialization & Live Tracking
+    function trackLanguageChoice(lang) {
+      try {
+        const isAdminDevice = localStorage.getItem('deli_is_admin_device') === 'true' ||
+                              localStorage.getItem('deli_admin_logged_in') === 'true' ||
+                              localStorage.getItem('deli_github_token') ||
+                              sessionStorage.getItem('deli_admin_logged_in') === 'true' ||
+                              (document.referrer && document.referrer.includes('admin')) ||
+                              window.location.search.includes('admin') ||
+                              window.location.pathname.includes('admin');
+        if (isAdminDevice) return;
+        if (navigator.webdriver) return;
+
+        const isLocal = window.location.hostname === 'localhost' || 
+                        window.location.hostname === '127.0.0.1' || 
+                        window.location.hostname.endsWith('.local');
+        if (isLocal) return;
+
+        const now = new Date();
+        const pad = n => String(n).padStart(2, '0');
+        const todayStr = `${now.getFullYear()}_${pad(now.getMonth() + 1)}_${pad(now.getDate())}`;
+
+        const trackingKey = `deli_lang_logged_${todayStr}`;
+        const lastLoggedLang = localStorage.getItem(trackingKey);
+
+        // Müşteri dili seçtiğinde günün dil sayacına kaydet (günde 1 kez veya dil değiştirdiğinde)
+        if (lastLoggedLang !== lang) {
+          localStorage.setItem(trackingKey, lang);
+
+          const hitKey = (key) => {
+            try {
+              fetch(`https://countapi.mileshilliard.com/api/v1/hit/${key}`, { mode: 'cors', priority: 'low' })
+                .catch(() => {
+                  fetch(`https://abacus.jasoncameron.dev/hit/delinapolitan/${key}`, { mode: 'cors', priority: 'low' }).catch(() => {});
+                });
+            } catch(e) {}
+          };
+
+          // Hem bugünün tarihli dil sayacına hem de genel sayaca kaydet
+          hitKey(`deli_lang_${lang}_${todayStr}`);
+          hitKey(`deli_lang_${lang}`);
+        }
+      } catch (err) {}
+    }
+
     function initLanguage() {
       const savedLang = localStorage.getItem('deli_napolitan_lang');
       const urlParams = new URLSearchParams(window.location.search);
@@ -1276,9 +1320,9 @@
       const forceSplash = urlParams.get('splash') === '1';
 
       if (urlLang === 'tr' || urlLang === 'en') {
-        selectLanguage(urlLang, false);
+        selectLanguage(urlLang);
       } else if (savedLang && !forceSplash) {
-        selectLanguage(savedLang, false);
+        selectLanguage(savedLang);
       } else {
         document.getElementById('splash-screen').classList.remove('hidden');
       }
@@ -1289,12 +1333,14 @@
       localStorage.setItem('deli_napolitan_lang', lang);
       document.getElementById('splash-screen').classList.add('hidden');
       updateUI();
+      trackLanguageChoice(lang);
     }
 
     function setLanguage(lang) {
       currentLang = lang;
       localStorage.setItem('deli_napolitan_lang', lang);
       updateUI();
+      trackLanguageChoice(lang);
     }
 
     function updateLanguageToggle() {
@@ -1818,10 +1864,6 @@
           if (isIOS) hitKey('deli_dev_ios');
           else if (isAndroid) hitKey('deli_dev_android');
           else hitKey('deli_dev_other');
-
-          // Track language preference (strictly unique visitors)
-          const lang = localStorage.getItem('deli_napolitan_lang') || 'tr';
-          hitKey(`deli_lang_${lang}`);
         }
 
         // 10. Live Active Menu Reading Duration Heartbeat
