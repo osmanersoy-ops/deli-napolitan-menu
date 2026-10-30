@@ -1552,10 +1552,55 @@
     }
 
     // 6. Modal Bottom Sheet for Product Details & Allergens
+    function recordProductClick(itemId) {
+      try {
+        const isAdminDevice = localStorage.getItem('deli_is_admin_device') === 'true' ||
+                              localStorage.getItem('deli_admin_logged_in') === 'true' ||
+                              localStorage.getItem('deli_github_token') ||
+                              sessionStorage.getItem('deli_admin_logged_in') === 'true' ||
+                              (document.referrer && document.referrer.includes('admin')) ||
+                              window.location.search.includes('admin') ||
+                              window.location.pathname.includes('admin');
+        if (isAdminDevice) return;
+        if (navigator.webdriver) return;
+
+        const isLocal = window.location.hostname === 'localhost' || 
+                        window.location.hostname === '127.0.0.1' || 
+                        window.location.hostname.endsWith('.local');
+        if (isLocal) return;
+
+        // Debounce repeated clicks on same item (10 seconds)
+        const sessKey = 'deli_clk_' + itemId;
+        const nowMs = Date.now();
+        const lastClk = parseInt(sessionStorage.getItem(sessKey) || '0', 10);
+        if (nowMs - lastClk < 10000) return;
+        sessionStorage.setItem(sessKey, String(nowMs));
+
+        const now = new Date();
+        const pad = n => String(n).padStart(2, '0');
+        const todayStr = `${now.getFullYear()}_${pad(now.getMonth() + 1)}_${pad(now.getDate())}`;
+
+        const hitKey = (key) => {
+          try {
+            fetch(`https://countapi.mileshilliard.com/api/v1/hit/${key}`, { mode: 'cors', priority: 'low' })
+              .catch(() => {
+                fetch(`https://abacus.jasoncameron.dev/hit/delinapolitan/${key}`, { mode: 'cors', priority: 'low' }).catch(() => {});
+              });
+          } catch(e) {}
+        };
+
+        hitKey(`deli_click_${itemId}`);
+        hitKey(`deli_click_${itemId}_${todayStr}`);
+      } catch (e) {}
+    }
+
     function openProductModalById(itemId) {
       const item = menuData.items.find(i => i.id === itemId);
       if (!item) return;
       activeModalItem = item;
+
+      // Live product / pizza click tracking
+      recordProductClick(itemId);
 
       const modal = document.getElementById('product-modal');
       const t = uiTexts[currentLang];
@@ -1857,6 +1902,11 @@
           localStorage.setItem('deli_last_unique_visit_day', todayStr);
           hitKey(`deli_uniq_${todayStr}`);
           hitKey('deli_total_unique_visitors');
+
+          // Hourly Unique Rush Hour Tracking (Restoran saatlik yoğunluk analizi)
+          const currentHour = pad(now.getHours());
+          hitKey(`deli_hour_${todayStr}_${currentHour}`);
+          hitKey(`deli_tot_hour_${currentHour}`);
 
           // Track device type (strictly unique visitors)
           const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
