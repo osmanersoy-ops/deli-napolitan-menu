@@ -15,7 +15,7 @@ window.MENU_DATA = {
     "primaryColor": "#31543e",
     "accentColor": "#f5f5dc",
     "defaultProductImage": "assets/product_placeholder.jpg",
-    "lastUpdated": "2026-10-27"
+    "lastUpdated": "2026-10-30"
   },
   "categories": [
     {
@@ -509,7 +509,7 @@ window.MENU_DATA = {
         "en": "butter & tarragon shrimpes"
       },
       "description": {
-        "tr": "domates & krema taban, fior di latte mozarella\ntereyağında tarhun otu ile sotelenmiş karides\nlimon zest, frenk maydanozu (lime ile servis edilir)",
+        "tr": "domates & krema taban, fior di latte mozarella\ntereyağında tarhun otu ile sotelenmiş karides\nlimon zest, frenk maydanozu  (lime ile servis edilir)",
         "en": "Creamy tomato base, fior di latte mozzarella, tender shrimp sautéed in butter with fresh tarragon, lemon zest, and chervil. Served with a lime wedge"
       },
       "price": 840,
