@@ -1,6 +1,6 @@
 // Deli Napolitan Cost Data
 window.COST_DATA = {
-  "lastUpdated": "2026-10-30",
+  "lastUpdated": "2026-10-31",
   "settings": {
     "fireEnabled": true,
     "fireRate": 5,
