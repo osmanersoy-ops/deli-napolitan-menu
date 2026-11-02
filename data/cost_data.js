@@ -471,7 +471,7 @@ window.COST_DATA = {
       },
       {
         "ingredientId": "ing-fior-di-latte",
-        "amount": 100,
+        "amount": 125,
         "unit": "gr"
       },
       {
