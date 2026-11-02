@@ -497,7 +497,7 @@ window.COST_DATA = {
         "unit": "gr"
       },
       {
-        "ingredientId": "ing-fior-di-latte",
+        "ingredientId": "ing-scamorza",
         "amount": 100,
         "unit": "gr"
       },
