@@ -1,6 +1,6 @@
 // Deli Napolitan Cost Data
 window.COST_DATA = {
-  "lastUpdated": "2026-10-31",
+  "lastUpdated": "2026-11-02",
   "settings": {
     "fireEnabled": true,
     "fireRate": 5,
@@ -180,7 +180,7 @@ window.COST_DATA = {
       "id": "ing-fior-di-latte",
       "name": "Mozzarella",
       "unit": "kg",
-      "price": 650,
+      "price": 485,
       "category": "Peynir"
     },
     {
